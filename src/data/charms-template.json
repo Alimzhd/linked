@@ -1,0 +1,145 @@
+[
+  {
+    "id": "charm-basic-plain",
+    "name": "Plain Steel Link",
+    "category": "basic",
+    "addPrice": 0,
+    "inStock": true,
+    "symbol": "plain",
+    "description": "Link dasar baja 316L untuk struktur gelang modular.",
+    "imageUrl": "/images/charms/placeholder-plain.jpg"
+  },
+  {
+    "id": "charm-colorful-coffee",
+    "name": "Cappuccino Cup",
+    "category": "cute",
+    "addPrice": 15000,
+    "inStock": true,
+    "symbol": "coffee",
+    "description": "Charm enamel berwarna dengan desain cangkir cappuccino.",
+    "imageUrl": "/images/charms/placeholder-coffee.jpg"
+  },
+  {
+    "id": "charm-colorful-strawberry",
+    "name": "Strawberry",
+    "category": "cute",
+    "addPrice": 15000,
+    "inStock": true,
+    "symbol": "strawberry",
+    "description": "Charm enamel merah dengan desain buah strawberry segar.",
+    "imageUrl": "/images/charms/placeholder-strawberry.jpg"
+  },
+  {
+    "id": "charm-colorful-sailboat",
+    "name": "Sailboat",
+    "category": "cute",
+    "addPrice": 15000,
+    "inStock": true,
+    "symbol": "sailboat",
+    "description": "Charm enamel biru dengan desain perahu layar nautical.",
+    "imageUrl": "/images/charms/placeholder-sailboat.jpg"
+  },
+  {
+    "id": "charm-colorful-camera",
+    "name": "Retro Camera",
+    "category": "cute",
+    "addPrice": 15000,
+    "inStock": true,
+    "symbol": "camera",
+    "description": "Charm enamel dengan desain kamera retro vintage.",
+    "imageUrl": "/images/charms/placeholder-camera.jpg"
+  },
+  {
+    "id": "charm-colorful-butterfly",
+    "name": "Butterfly",
+    "category": "cute",
+    "addPrice": 15000,
+    "inStock": true,
+    "symbol": "butterfly",
+    "description": "Charm enamel multicolor dengan motif kupu-kupu.",
+    "imageUrl": "/images/charms/placeholder-butterfly.jpg"
+  },
+  {
+    "id": "charm-silver-spiral",
+    "name": "Spiral Engraving",
+    "category": "basic",
+    "addPrice": 12000,
+    "inStock": true,
+    "symbol": "spiral",
+    "description": "Charm stainless steel minimalis dengan ukiran spiral geometris.",
+    "imageUrl": "/images/charms/placeholder-spiral.jpg"
+  },
+  {
+    "id": "charm-silver-star",
+    "name": "Star Engraving",
+    "category": "cute",
+    "addPrice": 12000,
+    "inStock": true,
+    "symbol": "star",
+    "description": "Charm stainless steel dengan ukiran bintang lima sudut.",
+    "imageUrl": "/images/charms/placeholder-star.jpg"
+  },
+  {
+    "id": "charm-silver-777",
+    "name": "Lucky 777",
+    "category": "funny",
+    "addPrice": 12000,
+    "inStock": true,
+    "symbol": "777",
+    "description": "Charm stainless steel dengan angka keberuntungan 777.",
+    "imageUrl": "/images/charms/placeholder-777.jpg"
+  },
+  {
+    "id": "charm-silver-stargirl",
+    "name": "STARGIRL Text",
+    "category": "letter",
+    "addPrice": 12000,
+    "inStock": true,
+    "symbol": "STRGIRL",
+    "description": "Charm stainless steel dengan teks STARGIRL terukir.",
+    "imageUrl": "/images/charms/placeholder-stargirl.jpg"
+  },
+  {
+    "id": "charm-spiderman-mask",
+    "name": "Spider-Man Mask",
+    "category": "funny",
+    "addPrice": 25000,
+    "inStock": true,
+    "symbol": "spiderman-mask",
+    "description": "Charm licensed Spider-Man dengan desain topeng merah.",
+    "imageUrl": "/images/charms/placeholder-spiderman-mask.jpg",
+    "tags": ["licensed", "marvel", "character"]
+  },
+  {
+    "id": "charm-spiderman-black",
+    "name": "Spider-Man Black Suit",
+    "category": "funny",
+    "addPrice": 25000,
+    "inStock": true,
+    "symbol": "spiderman-black",
+    "description": "Charm licensed Spider-Man dengan desain kostum hitam.",
+    "imageUrl": "/images/charms/placeholder-spiderman-black.jpg",
+    "tags": ["licensed", "marvel", "character"]
+  },
+  {
+    "id": "charm-spiderman-logo",
+    "name": "Spider-Man Logo",
+    "category": "funny",
+    "addPrice": 25000,
+    "inStock": true,
+    "symbol": "spiderman-logo",
+    "description": "Charm licensed Spider-Man dengan logo laba-laba ikonik.",
+    "imageUrl": "/images/charms/placeholder-spiderman-logo.jpg",
+    "tags": ["licensed", "marvel", "character"]
+  },
+  {
+    "id": "charm-colorful-heart",
+    "name": "Pink Heart",
+    "category": "cute",
+    "addPrice": 15000,
+    "inStock": true,
+    "symbol": "heart",
+    "description": "Charm enamel merah muda dengan desain hati romantis.",
+    "imageUrl": "/images/charms/placeholder-heart.jpg"
+  }
+]

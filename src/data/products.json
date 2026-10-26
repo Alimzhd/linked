@@ -1,0 +1,131 @@
+[
+  {
+    "id": "prod-colorful-stack-5",
+    "name": "Colorful Stack Collection (5 Bracelets)",
+    "category": "Cute",
+    "price": 450000,
+    "material": "Stainless Steel 316L + Enamel",
+    "dimensions": "5 gelang @ 18 links each",
+    "description": "Set 5 gelang Italian charm warna-warni dengan kombinasi enamel. Setiap gelang punya tema unik: food, travel, hobbies, nature, dan celebration.",
+    "features": [
+      "5 gelang lengkap dengan charm enamel terpasang",
+      "Baja tahan karat 316L hipoalergenik",
+      "Charm bisa dilepas dan ditukar antar gelang",
+      "Gratis tin box penyimpanan eksklusif"
+    ],
+    "inStock": true,
+    "isFeatured": true,
+    "tag": "Best Value",
+    "imageUrl": "/images/products/placeholder-colorful-stack.jpg"
+  },
+  {
+    "id": "prod-spiderman-tin-set",
+    "name": "Spider-Man Collector Tin Set",
+    "category": "Funny",
+    "price": 180000,
+    "material": "Licensed Marvel + Stainless Steel 316L",
+    "dimensions": "2 bracelets @ 18 links + collector tin",
+    "description": "Set koleksi Spider-Man official dengan 2 gelang tema berbeda dalam tin eksklusif bergambar Spider-Man.",
+    "features": [
+      "2 gelang dengan charm Spider-Man licensed",
+      "Tin box koleksi bergambar Spider-Man",
+      "Desain: Classic Red & Black Suit themes",
+      "Sertifikat keaslian Marvel merchandise"
+    ],
+    "inStock": true,
+    "isFeatured": true,
+    "tag": "Licensed",
+    "imageUrl": "/images/products/placeholder-spiderman-tin.jpg"
+  },
+  {
+    "id": "prod-minimalist-silver-5",
+    "name": "Minimalist Silver Set (5 Links)",
+    "category": "Basic Links",
+    "price": 85000,
+    "material": "Stainless Steel 316L",
+    "dimensions": "5 individual charms",
+    "description": "Set 5 charm minimalis stainless steel dengan ukiran geometris. Cocok untuk tampilan elegan dan profesional.",
+    "features": [
+      "5 charm individual silver tone",
+      "Desain: Spiral, Star, 777, STARGIRL, Plus 1 surprise",
+      "Finish satin anti fingerprint",
+      "Compatible dengan bracelet 9mm standard"
+    ],
+    "inStock": true,
+    "isFeatured": false,
+    "imageUrl": "/images/products/placeholder-silver-set.jpg"
+  },
+  {
+    "id": "prod-starter-plain-18",
+    "name": "Starter Bracelet Kit (18 Links Plain)",
+    "category": "Basic Links",
+    "price": 99000,
+    "material": "Stainless Steel 316L",
+    "dimensions": "18 link @ 9mm width (~17cm)",
+    "description": "Gelang dasar 18 link polos tanpa charm. Foundation sempurna untuk mulai koleksi custom Anda sendiri.",
+    "features": [
+      "18 link plain stainless steel 316L",
+      "Mekanisme snap internal kuat tanpa solder",
+      "Dapat ditambah atau dikurangi link sesuai ukuran",
+      "Instruksi pemasangan charm included"
+    ],
+    "inStock": true,
+    "isFeatured": false,
+    "imageUrl": "/images/products/placeholder-plain-18.jpg"
+  },
+  {
+    "id": "prod-charm-individual-coffee",
+    "name": "Individual Charm — Cappuccino",
+    "category": "Individual Charms",
+    "price": 15000,
+    "material": "Stainless Steel 316L + Enamel",
+    "dimensions": "9mm x 9mm single charm",
+    "description": "Charm tunggal dengan desain cangkir cappuccino enamel. Beli satuan untuk custom bracelet Anda.",
+    "features": [
+      "Enamel detail multicolor",
+      "Compatible 9mm Italian charm standard",
+      "Mudah dipasang tanpa alat"
+    ],
+    "inStock": true,
+    "isFeatured": false,
+    "imageUrl": "/images/charms/placeholder-coffee.jpg"
+  },
+  {
+    "id": "prod-charm-individual-spiderman",
+    "name": "Individual Charm — Spider-Man Mask",
+    "category": "Individual Charms",
+    "price": 25000,
+    "material": "Licensed Marvel + Stainless Steel 316L",
+    "dimensions": "9mm x 9mm single charm",
+    "description": "Charm licensed Spider-Man dengan desain topeng ikonik. Premium quality official merchandise.",
+    "features": [
+      "Official Marvel licensed product",
+      "Detail laser etching presisi tinggi",
+      "Certificate of authenticity included"
+    ],
+    "inStock": true,
+    "isFeatured": true,
+    "tag": "Licensed",
+    "imageUrl": "/images/charms/placeholder-spiderman-mask.jpg"
+  },
+  {
+    "id": "prod-custom-bracelet",
+    "name": "Design Your Own Custom Bracelet",
+    "category": "Custom",
+    "price": 99000,
+    "material": "Your Choice",
+    "dimensions": "18 links (customizable)",
+    "description": "Rakit gelang sendiri melalui Customizer. Pilih 14 charm dari koleksi kami, lihat harga real-time, lalu pesan via WhatsApp.",
+    "features": [
+      "Pilih dari 14 charm designs",
+      "Real-time price calculator",
+      "Preview sebelum order",
+      "Gratis packaging standard"
+    ],
+    "inStock": true,
+    "isFeatured": true,
+    "tag": "Customize",
+    "imageUrl": "/images/products/placeholder-custom.jpg",
+    "isCustomProduct": true
+  }
+]

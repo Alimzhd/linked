@@ -1,0 +1,147 @@
+[
+  {
+    "id": "prod-starter-18",
+    "name": "Classic Starter Bracelet (18 Links)",
+    "category": "Basic Links",
+    "price": 99000,
+    "material": "Stainless Steel 316L",
+    "dimensions": "Lebar 9mm, Panjang 18 link (~16.5 cm)",
+    "description": "Gelang dasar modular Italian charm 18 slot polos. Fondasi sempurna untuk memulai koleksi kustomisasi charm pribadimu.",
+    "features": [
+      "Bahan baja bedah 316L tahan karat dan hipoalergenik",
+      "Mekanisme pegas internal mulus tanpa pengait rapuh",
+      "Termasuk 18 modul link stainless steel satin finish",
+      "Dapat diperpanjang atau diperpendek kapan saja"
+    ],
+    "inStock": true,
+    "isFeatured": true,
+    "tag": "Best Starter"
+  },
+  {
+    "id": "prod-florence-trio",
+    "name": "Florence Minimalist Edition",
+    "category": "Cute",
+    "price": 144000,
+    "material": "Stainless Steel 316L + Laser Etched",
+    "dimensions": "Lebar 9mm, Panjang 18 link (~16.5 cm)",
+    "description": "Edisi kurasi gelang rakitan siap pakai dengan 15 modul polos dan 3 aksen charm: Embossed Heart, North Star, dan Daisy Bloom.",
+    "features": [
+      "15 link baja polos + 3 charm estetika Italia",
+      "Permukaan pantulan satin tahan goresan harian",
+      "Dapat dibongkar pasang dengan charm koleksi baru"
+    ],
+    "inStock": true,
+    "isFeatured": true,
+    "tag": "Curated Pick"
+  },
+  {
+    "id": "prod-pop-retro",
+    "name": "Pop Nostalgia Edition",
+    "category": "Funny",
+    "price": 153000,
+    "material": "Stainless Steel 316L",
+    "dimensions": "Lebar 9mm, Panjang 18 link (~16.5 cm)",
+    "description": "Gelang rakitan bergaya playful 90s dengan perpaduan modul polos dan 3 charm jenaka: Retro Alien, Tiny Dino, dan Boo Ghost.",
+    "features": [
+      "15 link baja polos + 3 charm pop nostalgia",
+      "Polesan satin halus ramah kulit pergelangan tangan",
+      "Modular dan dapat ditukar posisinya sesuka hati"
+    ],
+    "inStock": true,
+    "isFeatured": true,
+    "tag": "Playful"
+  },
+  {
+    "id": "prod-charm-heart",
+    "name": "Individual Charm — Embossed Heart",
+    "category": "Cute",
+    "price": 15000,
+    "material": "Stainless Steel 316L",
+    "dimensions": "9mm x 9mm standard Italian charm",
+    "description": "Modul tunggal siluet hati timbul presisi tinggi. Pasang sendiri ke gelang LINKED! yang sudah kamu miliki.",
+    "features": [
+      "Kompatibel 100% dengan gelang 9mm standar Italia",
+      "Mekanisme kait geser internal kokoh",
+      "Anti luntur dan tahan air"
+    ],
+    "inStock": true,
+    "isFeatured": false
+  },
+  {
+    "id": "prod-charm-star",
+    "name": "Individual Charm — North Star",
+    "category": "Cute",
+    "price": 15000,
+    "material": "Stainless Steel 316L",
+    "dimensions": "9mm x 9mm standard Italian charm",
+    "description": "Modul tunggal bintang utara empat sudut dengan aksen titik pusat berkilau saat terkena bias cahaya.",
+    "features": [
+      "Desain geometris minimalis modern",
+      "Baja tahan karat tanpa pelapis kimia beracun",
+      "Mudah diselipkan dengan tangan kosong"
+    ],
+    "inStock": true,
+    "isFeatured": false
+  },
+  {
+    "id": "prod-charm-alien",
+    "name": "Individual Charm — Retro Alien",
+    "category": "Funny",
+    "price": 18000,
+    "material": "Stainless Steel 316L",
+    "dimensions": "9mm x 9mm standard Italian charm",
+    "description": "Modul tunggal kepala alien retro bertema sci-fi klasik. Aksen unik yang mencuri perhatian di pergelangan tanganmu.",
+    "features": [
+      "Detail etsa laser presisi kontras tinggi",
+      "Tahan karat untuk penggunaan olahraga dan harian"
+    ],
+    "inStock": true,
+    "isFeatured": true,
+    "tag": "Trending"
+  },
+  {
+    "id": "prod-charm-dino",
+    "name": "Individual Charm — Tiny Dino",
+    "category": "Funny",
+    "price": 18000,
+    "material": "Stainless Steel 316L",
+    "dimensions": "9mm x 9mm standard Italian charm",
+    "description": "Modul tunggal dinosaurus kecil t-rex jenaka dengan sudut-sudut membulat yang nyaman di kulit.",
+    "features": [
+      "Baja solid grade bedah anti-pudar",
+      "Snap pas dengan modul lainnya"
+    ],
+    "inStock": true,
+    "isFeatured": false
+  },
+  {
+    "id": "prod-charm-letter",
+    "name": "Individual Charm — Monogram Letter",
+    "category": "Individual Charms",
+    "price": 12000,
+    "material": "Stainless Steel 316L",
+    "dimensions": "9mm x 9mm standard Italian charm",
+    "description": "Modul inisial huruf pilihan (A, L, M, S) bergaya tipografi monospaced bersih dan tegas.",
+    "features": [
+      "Pilihan huruf personalisasi nama atau pasangan",
+      "Pahatan bersih tanpa tinta yang bisa luntur"
+    ],
+    "inStock": true,
+    "isFeatured": false
+  },
+  {
+    "id": "prod-pack-extension",
+    "name": "3-Link Extension Pack",
+    "category": "Basic Links",
+    "price": 25000,
+    "material": "Stainless Steel 316L",
+    "dimensions": "Paket 3 link polos modular",
+    "description": "Paket isi 3 modul link polos untuk memperbesar ukuran lingkar pergelangan tangan dari S (17) ke L (20).",
+    "features": [
+      "3 link polos modular 9mm",
+      "Solusi mudah memperpanjang ukuran gelang"
+    ],
+    "inStock": true,
+    "isFeatured": false
+  }
+]

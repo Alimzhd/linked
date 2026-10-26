@@ -1,0 +1,9 @@
+node_modules/
+dist/
+coverage/
+*.tsbuildinfo
+.env
+.env.*
+!.env.example
+linked.zip
+WhatsApp Unknown 2026-10-20 at 19.33.25/

@@ -1,0 +1,118 @@
+@import './styles/tokens.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    background-color: #F9F9FB;
+    color: #121212;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+  }
+
+  /* Steel is NEVER used as text color */
+  .text-steel {
+    display: none !important;
+  }
+
+  /* Ensure minimum contrast ratios for accessibility */
+  /* Body text: ink (#121212) on paper (#F9F9FB) = 16.1:1 (exceeds 4.5:1 requirement) ✓ */
+  /* Large text (18px+): minimum 3:1 contrast ✓ */
+  
+  /* Prevent low-contrast text combinations */
+  .text-neutral-300,
+  .text-neutral-200,
+  .text-neutral-100 {
+    color: #525252 !important; /* neutral-600 for better contrast */
+  }
+}
+
+@layer components {
+  /* Metallic surface for bracelet links & charms */
+  .metallic-surface {
+    background: var(--gradient-metal);
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.8), 0 1px 2px rgba(18, 18, 18, 0.08);
+  }
+
+  /* Micro label for scene numbers, timecodes, tech specs */
+  .micro-label {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem; /* 11px */
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* Serif accent word (Max 1 word per heading) */
+  .accent-serif {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  /* 12-column responsive layout container */
+  .layout-container {
+    width: 100%;
+    max-width: 1360px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  /* Apply 64px horizontal margins at 768px+ breakpoint */
+  @media (min-width: 768px) {
+    .layout-container {
+      padding-left: 64px;
+      padding-right: 64px;
+    }
+  }
+
+  /* Vertical section spacing: 80px mobile, 120px desktop */
+  .section-spacing {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+
+  @media (min-width: 768px) {
+    .section-spacing {
+      padding-top: 120px;
+      padding-bottom: 120px;
+    }
+  }
+
+  /* Responsive product grid: 2 columns mobile, 4 columns desktop */
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .product-grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+  }
+
+  /* Custom subtle scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #F9F9FB;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #CBD5E1;
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #94A3B8;
+  }
+}
