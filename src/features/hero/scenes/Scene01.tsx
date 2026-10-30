@@ -4,8 +4,14 @@ import { motion } from 'framer-motion';
 export const Scene01: React.FC = () => {
   return (
     <div className="flex flex-col items-center justify-center text-center space-y-6">
-      {/* Steel link SVG with drawing animation */}
-      <div className="relative w-32 h-32 md:w-44 md:h-44">
+      {/* 3D-styled Steel link chassis with isometric tilt and depth */}
+      <motion.div
+        initial={{ rotateX: 20, rotateY: -15, scale: 0.9 }}
+        animate={{ rotateX: 8, rotateY: -6, scale: 1 }}
+        transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+        style={{ perspective: 800, transformStyle: 'preserve-3d' }}
+        className="relative w-36 h-36 md:w-48 md:h-48 shadow-2xl"
+      >
         <svg
           viewBox="0 0 128 128"
           xmlns="http://www.w3.org/2000/svg"
@@ -35,7 +41,7 @@ export const Scene01: React.FC = () => {
             initial={{ pathLength: 0, opacity: 0.3 }}
             animate={{ pathLength: 1, opacity: 1 }}
             transition={{
-              pathLength: { duration: 0.8, ease: [0.16, 0.1, 0.3, 1] }, // ease-out-expo approximation
+              pathLength: { duration: 0.8, ease: [0.16, 0.1, 0.3, 1] },
               opacity: { duration: 0.6, ease: 'easeOut' }
             }}
           />
@@ -101,7 +107,7 @@ export const Scene01: React.FC = () => {
         <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 whitespace-nowrap micro-label text-neutral-400">
           SURGICAL GRADE 316L
         </div>
-      </div>
+      </motion.div>
 
       {/* Scene Message */}
       <motion.div

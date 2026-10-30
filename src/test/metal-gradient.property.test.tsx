@@ -36,7 +36,7 @@ function normalizeGradient(gradient: string): string {
   // Convert rgb/rgba to hex for comparison
   normalized = normalized.replace(
     /rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*[\d.]+)?\)/gi,
-    (match, r, g, b) => {
+    (_, r, g, b) => {
       const toHex = (n: string) => {
         const hex = parseInt(n).toString(16).toUpperCase();
         return hex.length === 1 ? '0' + hex : hex;
@@ -57,7 +57,6 @@ function normalizeGradient(gradient: string): string {
  */
 function matchesExpectedGradient(actualGradient: string): boolean {
   const normalized = normalizeGradient(actualGradient);
-  const expectedNormalized = normalizeGradient(EXPECTED_GRADIENT);
   
   // Check if it contains all the expected color stops
   const expectedColors = ['#ffffff', '#cbd5e1', '#f1f5f9', '#94a3b8'];

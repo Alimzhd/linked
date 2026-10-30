@@ -97,7 +97,7 @@ export const useHeroTimeline = (containerRef?: React.RefObject<HTMLElement>) => 
   const [prefersReducedMotion, setPrefersReducedMotion] = useState<boolean>(false);
   
   const controls = useAnimation();
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const startTimeRef = useRef<number>(Date.now());
 
   // Check prefers-reduced-motion setting

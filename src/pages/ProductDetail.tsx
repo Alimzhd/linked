@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import productsData from '../data/products.json';
 import { formatRupiah } from '../lib/format-rupiah';
 import { useCart } from '../features/cart/cartContext';
 import { CharmSvg } from '../components/CharmSvg';
 import { Button } from '../components/Button';
 import { ArrowLeft, Plus, Minus, Check, ShieldCheck, Sparkles, RefreshCw } from 'lucide-react';
+import { soundEngine } from '../lib/sound';
+import { EASE_MODERN } from '../lib/motion';
 
 export const ProductDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -13,6 +16,7 @@ export const ProductDetail: React.FC = () => {
   const { addProductToCart } = useCart();
   const [qty, setQty] = useState<number>(1);
   const [isAdded, setIsAdded] = useState<boolean>(false);
+  const [imgError, setImgError] = useState<boolean>(false);
 
   const product = productsData.find((p) => p.id === id);
 
@@ -29,6 +33,7 @@ export const ProductDetail: React.FC = () => {
   }
 
   const handleAddToCart = () => {
+    soundEngine.playSnap();
     addProductToCart(product.id, qty);
     setIsAdded(true);
     setTimeout(() => setIsAdded(false), 2000);
@@ -46,47 +51,72 @@ export const ProductDetail: React.FC = () => {
   };
 
   const isBracelet = product.id.startsWith('prod-starter') || product.id.startsWith('prod-florence') || product.id.startsWith('prod-pop');
+  const hasValidImage = Boolean(product.imageUrl && !imgError);
 
   return (
     <div className="layout-container py-10 md:py-16">
       {/* Breadcrumbs */}
-      <nav aria-label="Breadcrumb" className="mb-8">
+      <motion.nav
+        aria-label="Breadcrumb"
+        className="mb-8"
+        initial={{ opacity: 0, x: -12 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.35, ease: EASE_MODERN }}
+      >
         <Link
           to="/shop"
+          onMouseEnter={() => soundEngine.playTick()}
           className="inline-flex items-center gap-1.5 text-xs font-semibold text-neutral-500 hover:text-ink transition-colors"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
           <span>Kembali ke Shop</span>
         </Link>
-      </nav>
+      </motion.nav>
 
       {/* Main Grid */}
       <div className="grid grid-cols-1 md:grid-cols-12 gap-10 lg:gap-16">
         {/* Visual Preview Left Column */}
-        <div className="md:col-span-6">
-          <div className="w-full aspect-square rounded-DEFAULT border border-steel bg-white p-8 md:p-12 flex items-center justify-center relative shadow-sm">
-            {isBracelet ? (
-              <div className="w-full flex items-center justify-center gap-2 max-w-xs">
+        <motion.div
+          className="md:col-span-6"
+          initial={{ opacity: 0, scale: 0.96, y: 16 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: EASE_MODERN }}
+        >
+          <div className="w-full aspect-square rounded-DEFAULT border border-steel bg-white relative overflow-hidden flex items-center justify-center shadow-sm group">
+            {hasValidImage ? (
+              <img
+                src={product.imageUrl}
+                alt={product.name}
+                onError={() => setImgError(true)}
+                className="w-full h-full object-cover object-center transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-105"
+              />
+            ) : isBracelet ? (
+              <div className="w-full flex items-center justify-center gap-2 max-w-xs p-8 md:p-12">
                 <div className="w-16 h-16 shrink-0"><CharmSvg symbol="plain" /></div>
                 <div className="w-16 h-16 shrink-0"><CharmSvg symbol={getProductSymbol(product.id)} /></div>
                 <div className="w-16 h-16 shrink-0"><CharmSvg symbol="plain" /></div>
               </div>
             ) : (
-              <div className="w-36 h-36 md:w-48 md:h-48">
+              <div className="w-36 h-36 md:w-48 md:h-48 p-8 md:p-12">
                 <CharmSvg symbol={getProductSymbol(product.id)} name={product.name} />
               </div>
             )}
-            <div className="absolute bottom-4 left-4 micro-label text-neutral-400 font-mono">
-              PREVIEW · 128x128 METALLIC SVG
+            <div className="absolute bottom-4 left-4 micro-label text-neutral-500 font-mono bg-white px-2.5 py-1 rounded-DEFAULT border border-steel shadow-xs">
+              {hasValidImage ? 'STUDIO PHOTOGRAPHY · 316L STEEL' : 'PREVIEW · 128x128 METALLIC SVG'}
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Info Right Column */}
-        <div className="md:col-span-6 flex flex-col justify-between space-y-6">
+        <motion.div
+          className="md:col-span-6 flex flex-col justify-between space-y-6"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.08, ease: EASE_MODERN }}
+        >
           <div className="space-y-4">
             <div className="flex items-center gap-2">
-              <span className="micro-label bg-blush text-ink px-2 py-0.5 rounded font-bold border border-steel">
+              <span className="micro-label bg-blush text-ink px-2.5 py-0.5 rounded-full font-bold border border-steel">
                 {product.category}
               </span>
               <span className="micro-label text-neutral-500">
@@ -144,7 +174,10 @@ export const ProductDetail: React.FC = () => {
               <div className="flex items-center border border-steel rounded-DEFAULT bg-white">
                 <button
                   type="button"
-                  onClick={() => setQty(Math.max(1, qty - 1))}
+                  onClick={() => {
+                    soundEngine.playTick();
+                    setQty(Math.max(1, qty - 1));
+                  }}
                   className="p-3 text-neutral-600 hover:bg-neutral-100 transition-colors"
                   aria-label="Kurangi kuantitas"
                 >
@@ -153,7 +186,10 @@ export const ProductDetail: React.FC = () => {
                 <span className="w-12 text-center font-mono font-bold text-sm">{qty}</span>
                 <button
                   type="button"
-                  onClick={() => setQty(qty + 1)}
+                  onClick={() => {
+                    soundEngine.playTick();
+                    setQty(qty + 1);
+                  }}
                   className="p-3 text-neutral-600 hover:bg-neutral-100 transition-colors"
                   aria-label="Tambah kuantitas"
                 >
@@ -164,7 +200,7 @@ export const ProductDetail: React.FC = () => {
               <Button
                 variant="primary"
                 size="lg"
-                className="flex-1"
+                className="flex-1 shadow-md hover:shadow-lg transition-shadow"
                 onClick={handleAddToCart}
                 disabled={!product.inStock}
               >
@@ -190,7 +226,8 @@ export const ProductDetail: React.FC = () => {
                 </div>
                 <Link
                   to="/customize"
-                  className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-2 bg-ink text-paper rounded-DEFAULT hover:bg-neutral-800 transition-colors shrink-0"
+                  onMouseEnter={() => soundEngine.playTick()}
+                  className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-2 bg-ink text-paper rounded-DEFAULT hover:bg-neutral-800 transition-colors shrink-0 shadow-xs"
                 >
                   <Sparkles className="w-3.5 h-3.5" />
                   <span>Customizer</span>
@@ -210,7 +247,7 @@ export const ProductDetail: React.FC = () => {
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   );

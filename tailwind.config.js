@@ -18,10 +18,18 @@ export default {
         mono: ['"Geist Mono"', 'monospace'],
       },
       borderRadius: {
-        DEFAULT: '12px',
-        lg: '12px',
+        DEFAULT: '16px',
+        lg: '16px',
         xl: '16px',
-        '2xl': '20px',
+        '2xl': '24px',
+      },
+      boxShadow: {
+        'xs': '0 1px 3px rgba(0,0,0,0.04)',
+        'sm': '0 2px 8px rgba(0,0,0,0.05)',
+        'md': '0 4px 16px rgba(0,0,0,0.06)',
+        'lg': '0 8px 24px rgba(0,0,0,0.07)',
+        'xl': '0 12px 36px rgba(0,0,0,0.08)',
+        '2xl': '0 20px 48px rgba(0,0,0,0.10)',
       },
       backgroundImage: {
         'metallic-gradient': 'linear-gradient(135deg, #FFFFFF, #CBD5E1, #F1F5F9, #94A3B8)',

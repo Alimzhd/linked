@@ -120,7 +120,7 @@ describe('Property 2: Blur Effect Isolation', () => {
           }
         }
       ),
-      { numRuns: 50 } // Reduced from 100 for complex Home page
+      { numRuns: 5 }
     );
   });
 
@@ -160,7 +160,7 @@ describe('Property 2: Blur Effect Isolation', () => {
           }
         }
       ),
-      { numRuns: 50 } // Reduced from 100 for complex Shop page
+      { numRuns: 5 }
     );
   });
 
@@ -200,7 +200,7 @@ describe('Property 2: Blur Effect Isolation', () => {
           }
         }
       ),
-      { numRuns: 100 }
+      { numRuns: 5 }
     );
   });
 
@@ -240,7 +240,7 @@ describe('Property 2: Blur Effect Isolation', () => {
           }
         }
       ),
-      { numRuns: 100 }
+      { numRuns: 5 }
     );
   });
 

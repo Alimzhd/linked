@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import { X, Trash2, Plus, Minus, Gift, Sparkles, ArrowRight } from 'lucide-react';
 import { useCart } from './cartContext';
 import { formatRupiah } from '../../lib/format-rupiah';
@@ -47,24 +48,35 @@ export const CartDrawer: React.FC = () => {
     };
   }, [isCartOpen]);
 
-  if (!isCartOpen) return null;
-
   const handleCheckoutClick = () => {
     closeCart();
     navigate('/checkout');
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-hidden">
-      {/* Backdrop */}
-      <div
-        className="absolute inset-0 bg-ink/40 backdrop-blur-sm transition-opacity duration-300"
-        onClick={closeCart}
-      />
+    <AnimatePresence>
+      {isCartOpen && (
+        <div className="fixed inset-0 z-50 overflow-hidden" role="dialog" aria-modal="true" aria-label="Keranjang Belanja">
+          {/* Backdrop with transitions.dev smooth opacity crossfade and backdrop blur */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed inset-0 bg-ink/60"
+            onClick={closeCart}
+            aria-hidden="true"
+          />
 
-      {/* Slide-over panel */}
-      <div className="absolute inset-y-0 right-0 max-w-full flex pl-10">
-        <div className="w-screen max-w-md bg-paper border-l border-steel flex flex-col shadow-2xl animate-in slide-in-from-right duration-300">
+          {/* Slide-over panel with transitions.dev tactile spring physics */}
+          <div className="absolute inset-y-0 right-0 max-w-full flex pl-10 pointer-events-none">
+            <motion.div
+              initial={{ x: '100%', opacity: 0.95 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: '100%', opacity: 0.95 }}
+              transition={{ type: 'spring', damping: 28, stiffness: 340, mass: 0.75 }}
+              className="w-screen max-w-md bg-paper border-l border-steel flex flex-col shadow-2xl relative z-10 pointer-events-auto"
+            >
           {/* Header */}
           <div className="p-6 border-b border-steel flex items-center justify-between bg-paper">
             <div className="flex items-center gap-2">
@@ -112,8 +124,19 @@ export const CartDrawer: React.FC = () => {
                       className="p-4 bg-white rounded-DEFAULT border border-steel flex gap-4 transition-all hover:border-neutral-400 shadow-sm"
                     >
                       {/* Product Preview Thumbnail */}
-                      <div className="w-16 h-16 rounded-lg bg-paper border border-steel flex items-center justify-center p-2 shrink-0">
-                        <CharmSvg symbol={product.id.includes('star') ? 'star' : product.id.includes('heart') ? 'heart' : 'plain'} name={product.name} />
+                      <div className="w-16 h-16 rounded-lg bg-paper border border-steel flex items-center justify-center overflow-hidden shrink-0">
+                        {product.imageUrl ? (
+                          <img
+                            src={product.imageUrl}
+                            alt={product.name}
+                            className="w-full h-full object-cover"
+                            loading="lazy"
+                          />
+                        ) : (
+                          <div className="p-2 w-full h-full flex items-center justify-center">
+                            <CharmSvg symbol={product.id.includes('star') ? 'star' : product.id.includes('heart') ? 'heart' : 'plain'} name={product.name} />
+                          </div>
+                        )}
                       </div>
 
                       <div className="flex-1 min-w-0 flex flex-col justify-between">
@@ -345,8 +368,10 @@ export const CartDrawer: React.FC = () => {
               </Button>
             </div>
           )}
-        </div>
+        </motion.div>
       </div>
     </div>
+      )}
+    </AnimatePresence>
   );
 };

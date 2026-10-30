@@ -1,26 +1,72 @@
 :root {
-  /* Colors */
-  --color-ink: #121212;
-  --color-paper: #F9F9FB;
-  --color-steel: #E2E8F0;
-  --color-blush: #F4E8E1;
+  /* Primitive palette — OKLCH equivalents of the LINKED! product colors. */
+  --primitive-ink: oklch(0.16 0.004 286); /* #111113 */
+  --primitive-paper: oklch(0.978 0.002 286); /* #F8F8FA */
+  --primitive-surface: oklch(0.992 0.001 286); /* near-white, never pure white */
+  --primitive-blush: oklch(0.934 0.018 55); /* #F3E8E1 */
+  --primitive-steel: oklch(0.922 0.012 255); /* #E2E8F0 */
+  --primitive-steel-dark: oklch(0.71 0.025 255); /* #94A3B8 */
+  --primitive-muted: oklch(0.47 0.035 255); /* #475569 */
 
-  /* Metallic Gradients */
+  /* Semantic palette. */
+  --color-ink: var(--primitive-ink);
+  --color-paper: var(--primitive-paper);
+  --color-surface: var(--primitive-surface);
+  --color-blush: var(--primitive-blush);
+  --color-steel: var(--primitive-steel);
+  --color-steel-dark: var(--primitive-steel-dark);
+  --color-muted: var(--primitive-muted);
+  --color-line: color-mix(in oklch, var(--color-steel) 78%, transparent);
+  --color-line-strong: color-mix(in oklch, var(--color-steel-dark) 56%, transparent);
+
+  /* Material is reserved for the jewelry, never page decoration. */
+  --grad-metal: linear-gradient(135deg, #fdfdfe 0%, #CBD5E1 33%, #F1F5F9 66%, #94A3B8 100%);
+  --grad-metal-dark: linear-gradient(145deg, #F1F5F9 0%, #94A3B8 52%, #CBD5E1 100%);
+  /* Legacy gradient alias for existing components */
   --gradient-metal: linear-gradient(135deg, #FFFFFF, #CBD5E1, #F1F5F9, #94A3B8);
   --gradient-metal-soft: linear-gradient(135deg, #FFFFFF 0%, #E2E8F0 50%, #CBD5E1 100%);
 
-  /* Typography */
   --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-serif: 'Instrument Serif', Georgia, serif;
   --font-mono: 'Geist Mono', monospace;
 
-  /* Easings */
-  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-  --spring-stiffness: 500;
-  --spring-damping: 30;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-24: 6rem;
+  --space-32: 8rem;
 
-  /* Dimensions & Spacing */
-  --radius-default: 12px;
+  --container: 90rem;
+  --gutter: clamp(1.25rem, 4vw, 4.5rem);
+  --header-height: 4.75rem;
+  --radius-small: 0.5rem;
+  --radius-control: 0.75rem;
+  --radius-default: 16px;
+  --radius-card: 16px;
+
+  /* Modern easing curves (Lusion standard) */
+  --ease-out: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-inout: cubic-bezier(0.76, 0, 0.24, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-snappy: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-editorial: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-standard: cubic-bezier(0.25, 1, 0.5, 1);
+  --duration-fast: 160ms;
+  --duration-ui: 240ms;
+  --duration-page: 320ms;
+
+  --z-background: 0;
+  --z-content: 10;
+  --z-header: 40;
+  --z-overlay: 60;
+  --z-toast: 70;
+
+  /* Legacy dimension aliases */
   --border-steel: 1px solid var(--color-steel);
   --margin-mobile: 24px;
   --margin-desktop: 64px;
@@ -33,8 +79,6 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0ms !important;
   }
-
-  /* Allow fade transitions at 150ms as specified */
   .fade-transition,
   .fade-allowed {
     transition-duration: 150ms !important;

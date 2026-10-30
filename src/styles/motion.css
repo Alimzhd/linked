@@ -1,0 +1,35 @@
+.metal-shimmer { position: relative; overflow: hidden; }
+.metal-shimmer::after {
+  content: ''; position: absolute; inset: -45%; pointer-events: none;
+  background: linear-gradient(110deg, transparent 38%, rgba(255,255,255,0.38) 50%, transparent 62%);
+  transform: translate3d(-72%, 0, 0);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-reel .metal-shimmer::after { animation: metal-sheen 7s var(--ease-standard) infinite; }
+  .hero-orbit { animation: orbit-breathe 10s ease-in-out infinite; }
+}
+
+@keyframes metal-sheen {
+  0%, 18% { transform: translate3d(-72%, 0, 0); }
+  62%, 100% { transform: translate3d(72%, 0, 0); }
+}
+
+@keyframes orbit-breathe {
+  0%, 100% { transform: rotate(-2deg) scale(0.99); }
+  50% { transform: rotate(2deg) scale(1.01); }
+}
+
+.route-progress {
+  transform-origin: left center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

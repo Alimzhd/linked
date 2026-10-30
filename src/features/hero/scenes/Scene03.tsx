@@ -18,20 +18,18 @@ export const Scene03: React.FC = () => {
   // Animate price counter from 0 to final value over 300ms
   useEffect(() => {
     const duration = 300; // ms
-    const steps = 60;
-    const increment = finalPrice / steps;
-    const stepDuration = duration / steps;
+    const startTime = Date.now();
 
-    let currentStep = 0;
     const timer = setInterval(() => {
-      currentStep++;
-      if (currentStep >= steps) {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      if (progress >= 1) {
         setDisplayPrice(finalPrice);
         clearInterval(timer);
       } else {
-        setDisplayPrice(Math.round(increment * currentStep));
+        setDisplayPrice(Math.round(finalPrice * progress));
       }
-    }, stepDuration);
+    }, 16);
 
     return () => clearInterval(timer);
   }, []);

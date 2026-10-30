@@ -7,3 +7,14 @@ coverage/
 !.env.example
 linked.zip
 WhatsApp Unknown 2026-10-20 at 19.33.25/
+
+# Local task, planning, and source-material files are not part of the website.
+/Exclusive task/
+/Image source/
+/LINKED-Design-Motion-Project/
+/.kiro/
+/LINKED!*Master Spec*
+/master_spec_extracted.md
+/Strategi Optimasi AI Coding Agent dan Arsitektur Motion-Driven Web UI untuk Proyek LINKED!.md
+/your_system_instructions.md
+/src/data/*-old-backup.json

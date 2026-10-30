@@ -21,7 +21,7 @@ describe('useHeroTimeline', () => {
     });
 
     // Mock IntersectionObserver
-    global.IntersectionObserver = vi.fn().mockImplementation(() => ({
+    window.IntersectionObserver = vi.fn().mockImplementation(() => ({
       observe: vi.fn(),
       disconnect: vi.fn(),
       unobserve: vi.fn(),

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { useCart } from '../features/cart/cartContext';
 import { formatRupiah } from '../lib/format-rupiah';
 import { GIFT_BOX_PRICE } from '../types';
@@ -7,6 +8,8 @@ import productsData from '../data/products.json';
 import charmsData from '../data/charms.json';
 import { Button } from '../components/Button';
 import { ArrowLeft, MessageSquare, ShieldCheck } from 'lucide-react';
+import { soundEngine } from '../lib/sound';
+import { EASE_MODERN } from '../lib/motion';
 
 export const Checkout: React.FC = () => {
   const navigate = useNavigate();
@@ -123,17 +126,27 @@ export const Checkout: React.FC = () => {
   return (
     <div className="layout-container py-10 md:py-16 space-y-10">
       {/* Breadcrumb Navigation */}
-      <div>
+      <motion.div
+        initial={{ opacity: 0, x: -10 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.35, ease: EASE_MODERN }}
+      >
         <Link
           to="/shop"
+          onMouseEnter={() => soundEngine.playTick()}
           className="inline-flex items-center gap-1.5 text-xs font-semibold text-neutral-500 hover:text-ink transition-colors"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
           <span>Kembali Berbelanja</span>
         </Link>
-      </div>
+      </motion.div>
 
-      <div className="max-w-2xl space-y-2">
+      <motion.div
+        className="max-w-2xl space-y-2"
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.45, ease: EASE_MODERN }}
+      >
         <span className="micro-label text-neutral-500 font-mono">05 · FINALISASI PESANAN</span>
         <h1 className="text-3xl md:text-5xl font-extrabold text-ink tracking-tight">
           Ringkasan & <span className="accent-serif font-normal">Pemesanan</span> WhatsApp
@@ -141,10 +154,15 @@ export const Checkout: React.FC = () => {
         <p className="text-sm text-neutral-600 leading-relaxed">
           Isi detail pengirimanmu di bawah. Pesanan akan otomatis diformat dan diteruskan langsung ke WhatsApp resmi LINKED! untuk konfirmasi pembayaran dan pengiriman.
         </p>
-      </div>
+      </motion.div>
 
       {/* Main Form & Summary Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+      <motion.div
+        className="grid grid-cols-1 lg:grid-cols-12 gap-10"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.08, ease: EASE_MODERN }}
+      >
         {/* Left Col: Customer Info Form */}
         <div className="lg:col-span-7 bg-white p-6 md:p-8 rounded-DEFAULT border border-steel shadow-sm space-y-6">
           <div className="flex items-center justify-between pb-4 border-b border-steel">
@@ -303,7 +321,7 @@ export const Checkout: React.FC = () => {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };

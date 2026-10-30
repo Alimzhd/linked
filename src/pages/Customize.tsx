@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import {
   DndContext,
   DragOverlay,
@@ -18,6 +19,7 @@ import { CharmSvg } from '../components/CharmSvg';
 import { Button } from '../components/Button';
 import { RotateCcw, Undo2, Redo2, Check, ShoppingBag } from 'lucide-react';
 import { Charm } from '../types';
+import { soundEngine } from '../lib/sound';
 
 export const Customize: React.FC = () => {
   const {
@@ -139,16 +141,21 @@ export const Customize: React.FC = () => {
       onDragEnd={handleDragEnd}
     >
       <div className="layout-container py-10 md:py-16 space-y-8">
-        {/* Header & Value Line */}
-        <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-6 pb-6 border-b border-steel">
+        {/* Header & Value Line with Living Motion Entrance */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-col md:flex-row items-start md:items-end justify-between gap-6 pb-6 border-b border-steel"
+        >
           <div className="space-y-2 max-w-xl">
             <div className="flex items-center gap-2">
-              <span className="micro-label text-neutral-500">03 · INTERACTIVE STUDIO</span>
+              <span className="micro-label text-neutral-500 font-mono">03 · INTERACTIVE STUDIO</span>
               <span className="w-8 h-px bg-steel" />
-              <span className="micro-label text-neutral-500">18-SLOT MODULAR BUILDER</span>
+              <span className="micro-label text-neutral-500 font-mono">18-SLOT MODULAR BUILDER</span>
             </div>
             <h1 className="text-3xl md:text-5xl font-extrabold text-ink tracking-tight">
-              Pilih Ukuran, <span className="accent-serif font-normal">Tempel</span> Charm, Lihat Hasilnya.
+              Pilih Ukuran, <span className="accent-serif font-normal italic">Tempel</span> Charm, Lihat Hasilnya.
             </h1>
             <p className="text-sm text-neutral-600 leading-relaxed">
               Klik charm untuk langsung mengisi slot pertama yang tersedia, atau seret langsung ke slot pilihanmu.
@@ -156,54 +163,72 @@ export const Customize: React.FC = () => {
           </div>
 
           {/* Real-time Pricing Summary Widget */}
-          <div className="bg-white p-5 rounded-DEFAULT border border-steel shadow-sm min-w-[240px] flex flex-col justify-between">
-            <span className="micro-label text-neutral-500">TOTAL HARGA GELANG</span>
+          <motion.div
+            whileHover={{ scale: 1.02 }}
+            className="bg-white p-5 rounded-DEFAULT border border-steel shadow-sm min-w-[240px] flex flex-col justify-between"
+          >
+            <span className="micro-label text-neutral-500 font-mono">TOTAL HARGA GELANG</span>
             <div className="text-2xl md:text-3xl font-extrabold font-mono text-ink mt-1">
               {formatRupiah(displayPrice)}
             </div>
             <div className="text-[11px] text-neutral-500 font-mono mt-1">
               Gelang Dasar ({formatRupiah(priceCalculation.basePrice)}) + Charm ({formatRupiah(priceCalculation.charmsExtra)})
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* Toolbar: Undo, Redo, Reset, Keyboard Tips */}
         <div className="flex flex-wrap items-center justify-between gap-3 text-xs">
           <div className="flex items-center gap-2">
-            <button
+            <motion.button
               type="button"
-              onClick={undo}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => {
+                soundEngine.playClick();
+                undo();
+              }}
               disabled={!canUndo}
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-steel bg-white text-ink hover:bg-neutral-50 disabled:opacity-30 disabled:pointer-events-none transition-all shadow-xs"
               title="Urungkan perubahan (Ctrl/Cmd+Z)"
             >
               <Undo2 className="w-3.5 h-3.5" />
               <span>Urung</span>
-            </button>
+            </motion.button>
 
-            <button
+            <motion.button
               type="button"
-              onClick={redo}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => {
+                soundEngine.playClick();
+                redo();
+              }}
               disabled={!canRedo}
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-steel bg-white text-ink hover:bg-neutral-50 disabled:opacity-30 disabled:pointer-events-none transition-all shadow-xs"
               title="Ulangi perubahan (Ctrl/Cmd+Shift+Z)"
             >
               <Redo2 className="w-3.5 h-3.5" />
               <span>Ulangi</span>
-            </button>
+            </motion.button>
 
-            <button
+            <motion.button
               type="button"
-              onClick={resetBuild}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => {
+                soundEngine.playClick();
+                resetBuild();
+              }}
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-steel bg-white text-neutral-600 hover:text-red-600 hover:bg-red-50 transition-all shadow-xs"
               title="Kembalikan semua ke link polos"
             >
               <RotateCcw className="w-3.5 h-3.5" />
               <span>Reset Polos</span>
-            </button>
+            </motion.button>
           </div>
 
-          <div className="hidden sm:flex items-center gap-4 text-neutral-500 micro-label">
+          <div className="hidden sm:flex items-center gap-4 text-neutral-500 micro-label font-mono">
             <span>TIP: KLIK CHARM UNTUK PASANG CEPAT</span>
             <span>TAB / PANAH UNTUK NAVIGASI KEYBOARD</span>
           </div>
@@ -222,11 +247,16 @@ export const Customize: React.FC = () => {
         {/* Charm Library Section */}
         <CharmLibrary onSelectCharm={(charmId) => placeCharm(charmId)} />
 
-        {/* Bottom Sticky Action Bar for Easy Checkout */}
-        <div className="sticky bottom-4 z-30 p-4 bg-ink/95 text-paper backdrop-blur-md rounded-DEFAULT border border-neutral-700 shadow-2xl flex flex-col sm:flex-row items-center justify-between gap-4">
+        {/* Bottom Sticky Action Bar for Easy Checkout (Isolated: No blur filter) */}
+        <motion.div
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="sticky bottom-4 z-30 p-4 bg-ink text-paper rounded-DEFAULT border border-neutral-700 shadow-2xl flex flex-col sm:flex-row items-center justify-between gap-4"
+        >
           <div className="flex items-center gap-4 text-center sm:text-left">
             <div>
-              <span className="micro-label text-neutral-400">RANGKAIAN GELANG KAMU</span>
+              <span className="micro-label text-neutral-400 font-mono">RANGKAIAN GELANG KAMU</span>
               <div className="flex items-center gap-2 mt-0.5">
                 <span className="text-sm font-bold">
                   Size {build.size} ({build.slots.length} Slots)
@@ -242,7 +272,7 @@ export const Customize: React.FC = () => {
           <Button
             variant="accent"
             size="lg"
-            className="w-full sm:w-auto font-bold"
+            className="w-full sm:w-auto font-bold shadow-md"
             onClick={handleAddToCart}
           >
             {isAddedSuccess ? (
@@ -257,7 +287,7 @@ export const Customize: React.FC = () => {
               </span>
             )}
           </Button>
-        </div>
+        </motion.div>
       </div>
 
       {/* Floating Drag Overlay */}

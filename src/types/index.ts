@@ -38,6 +38,8 @@ export interface Product {
   inStock: boolean;
   isFeatured?: boolean;
   tag?: string;
+  imageUrl?: string;
+  isCustomProduct?: boolean;
 }
 
 export type CartItem =

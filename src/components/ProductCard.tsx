@@ -5,6 +5,7 @@ import { Product } from '../types';
 import { formatRupiah } from '../lib/format-rupiah';
 import { useCart } from '../features/cart/cartContext';
 import { CharmSvg } from './CharmSvg';
+import { soundEngine } from '../lib/sound';
 
 interface ProductCardProps {
   product: Product;
@@ -12,10 +13,12 @@ interface ProductCardProps {
 
 export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const { addProductToCart } = useCart();
+  const [imgError, setImgError] = React.useState(false);
 
   const handleQuickAdd = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
+    soundEngine.playSnap();
     addProductToCart(product.id, 1);
   };
 
@@ -33,12 +36,16 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   };
 
   const isBracelet = product.id.startsWith('prod-starter') || product.id.startsWith('prod-florence') || product.id.startsWith('prod-pop');
+  const hasValidImage = Boolean(product.imageUrl && !imgError);
 
   return (
-    <div className="group bg-white rounded-DEFAULT border border-steel p-4 flex flex-col justify-between transition-all duration-300 hover:border-neutral-400 hover:shadow-md relative overflow-hidden">
+    <div
+      onMouseEnter={() => soundEngine.playTick()}
+      className="group bg-white rounded-DEFAULT border border-steel p-3 sm:p-4 flex flex-col justify-between transition-all duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-neutral-400 hover:shadow-lg hover:-translate-y-1 relative overflow-hidden"
+    >
       {/* Optional Tag badge */}
       {product.tag && (
-        <span className="absolute top-3 left-3 z-10 micro-label bg-blush text-ink px-2 py-0.5 rounded font-bold border border-steel">
+        <span className="absolute top-5 left-5 z-20 micro-label bg-white text-ink px-2.5 py-0.5 rounded-full font-bold border border-steel shadow-xs">
           {product.tag}
         </span>
       )}
@@ -46,17 +53,26 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       {/* Visual Area */}
       <Link
         to={`/shop/${product.id}`}
-        className="block w-full aspect-square rounded-lg bg-paper border border-steel/60 p-6 relative overflow-hidden flex items-center justify-center transition-transform duration-500 group-hover:bg-steel/30"
+        data-cursor="View"
+        className="block w-full aspect-square rounded-DEFAULT bg-paper border border-steel/60 relative overflow-hidden flex items-center justify-center transition-colors duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:border-neutral-400"
       >
-        {isBracelet ? (
+        {hasValidImage ? (
+          <img
+            src={product.imageUrl}
+            alt={product.name}
+            onError={() => setImgError(true)}
+            loading="lazy"
+            className="w-full h-full object-cover object-center transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-105"
+          />
+        ) : isBracelet ? (
           /* Multi-link bracelet preview representation */
-          <div className="w-full flex items-center justify-center gap-1.5 py-4">
+          <div className="w-full flex items-center justify-center gap-1.5 py-4 p-6">
             <div className="w-10 h-10 shrink-0"><CharmSvg symbol="plain" /></div>
             <div className="w-10 h-10 shrink-0"><CharmSvg symbol={getProductSymbol(product.id)} /></div>
             <div className="w-10 h-10 shrink-0"><CharmSvg symbol="plain" /></div>
           </div>
         ) : (
-          <div className="w-20 h-20 transition-transform duration-300 group-hover:scale-105">
+          <div className="w-20 h-20 p-6 transition-transform duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-105">
             <CharmSvg symbol={getProductSymbol(product.id)} name={product.name} />
           </div>
         )}
@@ -65,7 +81,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         <button
           type="button"
           onClick={handleQuickAdd}
-          className="absolute bottom-3 right-3 bg-ink text-paper p-2.5 rounded-DEFAULT shadow-md opacity-90 sm:opacity-0 sm:group-hover:opacity-100 transition-all duration-200 hover:bg-neutral-800 hover:scale-105 active:scale-95 flex items-center gap-1 text-xs font-medium"
+          className="absolute bottom-3 right-3 z-20 bg-ink text-paper p-2.5 rounded-DEFAULT shadow-md opacity-90 sm:opacity-0 sm:group-hover:opacity-100 transition-all duration-200 ease-[cubic-bezier(0.25,1,0.5,1)] hover:bg-neutral-800 hover:scale-105 active:scale-95 flex items-center gap-1 text-xs font-medium"
           aria-label={`Tambah ${product.name} ke keranjang`}
         >
           <Plus className="w-4 h-4" />

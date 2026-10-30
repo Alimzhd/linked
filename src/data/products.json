@@ -4,38 +4,114 @@
     "name": "Colorful Stack Collection (5 Bracelets)",
     "category": "Cute",
     "price": 450000,
-    "material": "Stainless Steel 316L + Enamel",
+    "material": "Stainless Steel 316L + Enamel Pigment",
     "dimensions": "5 gelang @ 18 links each",
-    "description": "Set 5 gelang Italian charm warna-warni dengan kombinasi enamel. Setiap gelang punya tema unik: food, travel, hobbies, nature, dan celebration.",
+    "description": "Koleksi 5 gelang Italian charm penuh warna dalam kotak display perhiasan eksklusif. Menghadirkan kombinasi harmonis tema pastel, flora, santai, dan ceria yang siap dipadukan untuk daily stacking.",
     "features": [
-      "5 gelang lengkap dengan charm enamel terpasang",
-      "Baja tahan karat 316L hipoalergenik",
-      "Charm bisa dilepas dan ditukar antar gelang",
-      "Gratis tin box penyimpanan eksklusif"
+      "Set 5 gelang lengkap dengan charm enamel terpasang",
+      "Baja tahan karat 316L anti karat & hipoalergenik",
+      "Charm modular bisa dilepas dan ditukar antar gelang",
+      "Bonus box display velvet eksklusif"
     ],
     "inStock": true,
     "isFeatured": true,
     "tag": "Best Value",
-    "imageUrl": "/images/products/placeholder-colorful-stack.jpg"
+    "imageUrl": "/images/bracelets/colorful-stack-box.jpg"
   },
   {
-    "id": "prod-spiderman-tin-set",
-    "name": "Spider-Man Collector Tin Set",
-    "category": "Funny",
-    "price": 180000,
-    "material": "Licensed Marvel + Stainless Steel 316L",
-    "dimensions": "2 bracelets @ 18 links + collector tin",
-    "description": "Set koleksi Spider-Man official dengan 2 gelang tema berbeda dalam tin eksklusif bergambar Spider-Man.",
+    "id": "prod-ceramic-display-stack",
+    "name": "Florence Quad Ceramic Stack (4 Bracelets)",
+    "category": "Cute",
+    "price": 380000,
+    "material": "Stainless Steel 316L + Pastel Enamel",
+    "dimensions": "4 gelang @ 18 links each",
+    "description": "Set 4 gelang Italian charm bernuansa aesthetic pastel yang ditata bertingkat. Menggabungkan aksen floral lembut, kupu-kupu, dan permata enamel yang memantulkan kilau elegan.",
     "features": [
-      "2 gelang dengan charm Spider-Man licensed",
-      "Tin box koleksi bergambar Spider-Man",
-      "Desain: Classic Red & Black Suit themes",
-      "Sertifikat keaslian Marvel merchandise"
+      "4 gelang modular lengkap dengan finishing satin",
+      "Desain kurasi aesthetic: Pink Sakura, Mint Sky, Pure Pearl",
+      "Aman dipakai mandi, olahraga, dan tahan air keringat",
+      "Sistem pegas baja 9mm standar Florence"
     ],
     "inStock": true,
     "isFeatured": true,
-    "tag": "Licensed",
-    "imageUrl": "/images/products/placeholder-spiderman-tin.jpg"
+    "tag": "Trending",
+    "imageUrl": "/images/bracelets/ceramic-display-stack.jpg"
+  },
+  {
+    "id": "prod-spiderman-tin-set",
+    "name": "Spider-Man Collector Tin Set (Duo Edition)",
+    "category": "Special Edition",
+    "price": 180000,
+    "material": "Licensed Marvel + Stainless Steel 316L",
+    "dimensions": "2 bracelets @ 18 links + collector tin",
+    "description": "Set koleksi Spider-Man official dengan 2 gelang modular tema Miles Morales & Gwen Stacy dalam tin box metalik bermotif komik ikonik.",
+    "features": [
+      "2 gelang modular dengan charm Spider-Man licensed",
+      "Collector tin box eksklusif Spider-Man web-slinger",
+      "Desain kontras: Miles Morales Red/Black & Gwen Pink/Cyan",
+      "Laser etching detail presisi tinggi"
+    ],
+    "inStock": true,
+    "isFeatured": true,
+    "tag": "Collector Edition",
+    "imageUrl": "/images/bracelets/spiderman-tin-set.jpg"
+  },
+  {
+    "id": "prod-motorsport-tin-set",
+    "name": "Motorsport Heritage Tin Set (Porsche & BMW)",
+    "category": "Special Edition",
+    "price": 210000,
+    "material": "Stainless Steel 316L + Racing Etch",
+    "dimensions": "2 bracelets @ 18 links + racing tin",
+    "description": "Set tribute otomotif untuk pencinta kecepatan. Menggabungkan gelang bertema Porsche 911 GT3 dan BMW Motorsport M-Power dalam kotak timah bergrafis racing lintasan sirkuit.",
+    "features": [
+      "2 gelang baja 316L tema Porsche & BMW M-Sport",
+      "Tin box pelindung bermotif checkered flag & speedometer",
+      "Satin brushed finish tahan goresan harian",
+      "Modular 9mm standar internasional"
+    ],
+    "inStock": true,
+    "isFeatured": true,
+    "tag": "Limited Run",
+    "imageUrl": "/images/bracelets/motorsport-tin-set.jpg"
+  },
+  {
+    "id": "prod-swag-tin-set",
+    "name": "Street Swag & Speed Tin Set",
+    "category": "Special Edition",
+    "price": 195000,
+    "material": "Stainless Steel 316L + Urban Enamel",
+    "dimensions": "2 bracelets @ 18 links + swag tin box",
+    "description": "Kombinasi estetika streetwear dan motorsport modern. Berisi 2 gelang berkarakter tegas dengan tipografi urban racing dan aksen hitam pekat dalam box timah bertekstur industrial.",
+    "features": [
+      "2 gelang siap pakai dengan charm urban racing",
+      "Industrial tin box packaging tahan benturan",
+      "Baja 316L surgical-grade anti iritasi kulit",
+      "Kombinasi link matte and polish steel"
+    ],
+    "inStock": true,
+    "isFeatured": false,
+    "tag": "Urban Series",
+    "imageUrl": "/images/bracelets/swag-tin-set.jpg"
+  },
+  {
+    "id": "prod-duo-bracelets-satin",
+    "name": "Duo Satin Charm Bracelet Pair",
+    "category": "Cute",
+    "price": 175000,
+    "material": "Stainless Steel 316L + Hanging Pendants",
+    "dimensions": "2 gelang @ 18 links + dangling accents",
+    "description": "Sepasang gelang modular Italian charm dengan perpaduan link enamel dan pendant menggantung yang anggun di atas kain satin. Sangat ideal untuk matching couple atau hadiah sahabat.",
+    "features": [
+      "2 gelang lengkap dengan hanging heart & star charms",
+      "Permukaan baja 316L kilau cermin tahan pudar",
+      "Konektor modular fleksibel nyaman di pergelangan",
+      "Bonus pouch satin packaging"
+    ],
+    "inStock": true,
+    "isFeatured": false,
+    "tag": "Best Seller",
+    "imageUrl": "/images/bracelets/duo-bracelets-satin.jpg"
   },
   {
     "id": "prod-minimalist-silver-5",
@@ -43,17 +119,18 @@
     "category": "Basic Links",
     "price": 85000,
     "material": "Stainless Steel 316L",
-    "dimensions": "5 individual charms",
-    "description": "Set 5 charm minimalis stainless steel dengan ukiran geometris. Cocok untuk tampilan elegan dan profesional.",
+    "dimensions": "5 individual modular links",
+    "description": "Set 5 charm grafis minimalis stainless steel: Spiral Hypnotic, STARGIRL, Celestial Star, Lucky 777, dan Leopard Pattern. Tampilan monokromatik modern yang bersih.",
     "features": [
-      "5 charm individual silver tone",
-      "Desain: Spiral, Star, 777, STARGIRL, Plus 1 surprise",
-      "Finish satin anti fingerprint",
-      "Compatible dengan bracelet 9mm standard"
+      "5 charm individual silver tone presisi tinggi",
+      "Grafis ukir tahan abrasi tanpa cat pudar",
+      "Finish satin anti sidik jari",
+      "Kompatibel dengan semua gelang modular 9mm"
     ],
     "inStock": true,
     "isFeatured": false,
-    "imageUrl": "/images/products/placeholder-silver-set.jpg"
+    "tag": "Curated Pack",
+    "imageUrl": "/images/bracelets/minimalist-silver-5.jpg"
   },
   {
     "id": "prod-starter-plain-18",
@@ -62,70 +139,89 @@
     "price": 99000,
     "material": "Stainless Steel 316L",
     "dimensions": "18 link @ 9mm width (~17cm)",
-    "description": "Gelang dasar 18 link polos tanpa charm. Foundation sempurna untuk mulai koleksi custom Anda sendiri.",
+    "description": "Gelang dasar 18 link polos tanpa charm. Fondasi kokoh baja stainless 316L surgical-grade untuk mulai mengoleksi dan merakit gelang custom impianmu.",
     "features": [
       "18 link plain stainless steel 316L",
-      "Mekanisme snap internal kuat tanpa solder",
-      "Dapat ditambah atau dikurangi link sesuai ukuran",
-      "Instruksi pemasangan charm included"
+      "Mekanisme pegas internal kuat tanpa solder",
+      "Bisa ditambah atau dikurangi link sesuai lingkar lengan",
+      "Instruksi pemasangan modul disertakan"
     ],
     "inStock": true,
     "isFeatured": false,
-    "imageUrl": "/images/products/placeholder-plain-18.jpg"
+    "imageUrl": "/images/bracelets/minimalist-silver-5.jpg"
   },
   {
-    "id": "prod-charm-individual-coffee",
-    "name": "Individual Charm — Cappuccino",
+    "id": "prod-vintage-charms-sheet",
+    "name": "Retro Nostalgia Charms Collection Sheet",
     "category": "Individual Charms",
-    "price": 15000,
-    "material": "Stainless Steel 316L + Enamel",
-    "dimensions": "9mm x 9mm single charm",
-    "description": "Charm tunggal dengan desain cangkir cappuccino enamel. Beli satuan untuk custom bracelet Anda.",
+    "price": 120000,
+    "material": "Stainless Steel 316L + Vintage Enamel",
+    "dimensions": "Lembar 8 pilihan retro charms",
+    "description": "Pilihan charm bertema pop vintage klasik: Magic 8-Ball, Coca-Cola retro botol, Snoopy, Lucky Dice, dan ikon 90-an yang timeless.",
     "features": [
-      "Enamel detail multicolor",
-      "Compatible 9mm Italian charm standard",
-      "Mudah dipasang tanpa alat"
+      "8 pilihan charm retro bernilai nostalgia tinggi",
+      "Enamel pigmen awet anti gores",
+      "Mudah dipasang ke gelang modular tanpa alat"
     ],
     "inStock": true,
     "isFeatured": false,
-    "imageUrl": "/images/charms/placeholder-coffee.jpg"
+    "tag": "Retro",
+    "imageUrl": "/images/bracelets/vintage-charms-sheet.jpg"
   },
   {
-    "id": "prod-charm-individual-spiderman",
-    "name": "Individual Charm — Spider-Man Mask",
+    "id": "prod-aesthetic-charms-sheet",
+    "name": "Pastel Blossom & Gem Charms Sheet",
     "category": "Individual Charms",
-    "price": 25000,
-    "material": "Licensed Marvel + Stainless Steel 316L",
-    "dimensions": "9mm x 9mm single charm",
-    "description": "Charm licensed Spider-Man dengan desain topeng ikonik. Premium quality official merchandise.",
+    "price": 135000,
+    "material": "Stainless Steel 316L + Crystal Resin + Pastel Enamel",
+    "dimensions": "Lembar 8 pilihan pastel charms",
+    "description": "Koleksi charm aesthetic dengan motif bunga sakura, permata kristal shimmer, pita lembut, dan kupu-kupu pastel untuk sentuhan manis dan feminin.",
     "features": [
-      "Official Marvel licensed product",
-      "Detail laser etching presisi tinggi",
-      "Certificate of authenticity included"
+      "8 charm nuansa pastel dan kristal kilau halus",
+      "Bebas noda dan aman kena air setiap hari",
+      "Modular 9mm standar pas sempurna"
     ],
     "inStock": true,
-    "isFeatured": true,
-    "tag": "Licensed",
-    "imageUrl": "/images/charms/placeholder-spiderman-mask.jpg"
+    "isFeatured": false,
+    "tag": "Aesthetic",
+    "imageUrl": "/images/bracelets/aesthetic-charms-sheet.jpg"
+  },
+  {
+    "id": "prod-pop-culture-charms-sheet",
+    "name": "Pop Icon & Cartoon Mania Sheet",
+    "category": "Funny",
+    "price": 130000,
+    "material": "Stainless Steel 316L + Enamel Vivid",
+    "dimensions": "Lembar 8 pilihan cartoon charms",
+    "description": "Rangkaian charm kartun dan karakter pop culture penuh warna untuk kamu yang suka mengekspresikan sisi ceria, jenaka, dan playful.",
+    "features": [
+      "8 karakter kartun ekspresif dan fun",
+      "Warna vivid enamel anti pudar",
+      "Kombinasi serasi dengan starter plain"
+    ],
+    "inStock": true,
+    "isFeatured": false,
+    "tag": "Pop Culture",
+    "imageUrl": "/images/bracelets/pop-culture-charms-sheet.jpg"
   },
   {
     "id": "prod-custom-bracelet",
     "name": "Design Your Own Custom Bracelet",
     "category": "Custom",
     "price": 99000,
-    "material": "Your Choice",
-    "dimensions": "18 links (customizable)",
-    "description": "Rakit gelang sendiri melalui Customizer. Pilih 14 charm dari koleksi kami, lihat harga real-time, lalu pesan via WhatsApp.",
+    "material": "Stainless Steel 316L + Pilihan Charm",
+    "dimensions": "18 links (customizable S/M/L)",
+    "description": "Rakit gelang sendiri melalui Customizer interaktif kami. Pilih 14 charm dari koleksi kami, lihat kalkulasi harga real-time, lalu pesan via WhatsApp.",
     "features": [
-      "Pilih dari 14 charm designs",
-      "Real-time price calculator",
-      "Preview sebelum order",
-      "Gratis packaging standard"
+      "Pilih dari 14 charm designs eksklusif",
+      "Kalkulator harga real-time tanpa biaya tersembunyi",
+      "Interactive 18-slot drag-and-drop preview",
+      "Gratis packaging standard atau opsi tin box kado"
     ],
     "inStock": true,
     "isFeatured": true,
-    "tag": "Customize",
-    "imageUrl": "/images/products/placeholder-custom.jpg",
+    "tag": "Custom Builder",
+    "imageUrl": "/images/bracelets/duo-bracelets-satin.jpg",
     "isCustomProduct": true
   }
 ]
