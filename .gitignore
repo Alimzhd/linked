@@ -2,10 +2,14 @@ node_modules/
 dist/
 coverage/
 *.tsbuildinfo
+.vite/
+.eslintcache
+.DS_Store
+*.log
+*.zip
 .env
 .env.*
 !.env.example
-linked.zip
 WhatsApp Unknown 2026-10-20 at 19.33.25/
 
 # Local task, planning, and source-material files are not part of the website.
