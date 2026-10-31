@@ -758,3 +758,30 @@ h1 em, h2 em { margin-left: 0.055em; }
   fill: #ffffff;
   color: #ffffff;
 }
+
+
+/* ══════════════════ FORCE BORDER RADIUS ON ALL BOXES ══════════════════ */
+/* This ensures all containers, cards, and boxes have rounded corners */
+
+[class*="card"],
+[class*="box"],
+[class*="container"]:not(.layout-container):not(.site-canvas),
+[class*="panel"],
+[class*="drawer"],
+[class*="modal"],
+[class*="dialog"] {
+  border-radius: 20px !important;
+}
+
+/* Specific overrides for known elements */
+.bg-white,
+.bg-paper,
+.bg-surface,
+.bg-blush {
+  border-radius: 20px;
+}
+
+/* Force all bordered elements to have rounded corners */
+[class*="border"]:not([class*="border-0"]):not([class*="border-none"]) {
+  border-radius: 16px;
+}

@@ -44,10 +44,10 @@
   --container: 90rem;
   --gutter: clamp(1.25rem, 4vw, 4.5rem);
   --header-height: 4.75rem;
-  --radius-small: 0.5rem;
-  --radius-control: 0.75rem;
-  --radius-default: 16px;
-  --radius-card: 16px;
+  --radius-small: 0.75rem;
+  --radius-control: 1rem;
+  --radius-default: 20px;
+  --radius-card: 20px;
 
   /* Modern easing curves (Lusion standard) */
   --ease-out: cubic-bezier(0.25, 1, 0.5, 1);

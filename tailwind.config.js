@@ -18,12 +18,12 @@ export default {
         mono: ['"Geist Mono"', 'monospace'],
       },
       borderRadius: {
-        DEFAULT: '12px',
-        sm: '8px',
-        md: '12px',
-        lg: '16px',
-        xl: '20px',
-        '2xl': '24px',
+        DEFAULT: '20px',
+        sm: '12px',
+        md: '16px',
+        lg: '20px',
+        xl: '24px',
+        '2xl': '32px',
       },
       boxShadow: {
         'xs': '0 1px 3px rgba(0,0,0,0.04)',
