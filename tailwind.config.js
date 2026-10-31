@@ -18,9 +18,11 @@ export default {
         mono: ['"Geist Mono"', 'monospace'],
       },
       borderRadius: {
-        DEFAULT: '16px',
+        DEFAULT: '12px',
+        sm: '8px',
+        md: '12px',
         lg: '16px',
-        xl: '16px',
+        xl: '20px',
         '2xl': '24px',
       },
       boxShadow: {
