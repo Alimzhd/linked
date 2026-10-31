@@ -174,7 +174,7 @@ h1 em, h2 em { margin-left: 0.055em; }
 /* ─── Hero Reel ─── */
 .hero-reel {
   height: 100%; min-height: 590px; display: grid; grid-template-rows: auto 1fr auto auto;
-  border: 1px solid var(--color-line); background: color-mix(in oklch, var(--color-surface) 48%, transparent);
+  border: 1px solid var(--color-line); border-radius: var(--radius-card); background: color-mix(in oklch, var(--color-surface) 48%, transparent);
   overflow: hidden; perspective: 1000px;
 }
 .hero-reel__top, .hero-reel__meta {
