@@ -5,6 +5,7 @@ import charmsData from '../../data/charms.json';
 import { CharmSvg } from '../../components/CharmSvg';
 import { formatRupiah } from '../../lib/format-rupiah';
 import { Plus } from 'lucide-react';
+import { useMotionEngine } from '../../engine/MotionEngine';
 
 interface DraggableCharmCardProps {
   charm: Charm;
@@ -93,6 +94,7 @@ interface CharmLibraryProps {
 
 export const CharmLibrary: React.FC<CharmLibraryProps> = ({ onSelectCharm }) => {
   const [activeTab, setActiveTab] = useState<string>('all');
+  const { triggerHalftone } = useMotionEngine();
 
   const tabs: { id: string; label: string }[] = [
     { id: 'all', label: 'Semua Charm' },
@@ -127,7 +129,10 @@ export const CharmLibrary: React.FC<CharmLibraryProps> = ({ onSelectCharm }) => 
                 type="button"
                 role="tab"
                 aria-selected={isSelected}
-                onClick={() => setActiveTab(tab.id)}
+                onClick={() => {
+                  setActiveTab(tab.id);
+                  triggerHalftone('category');
+                }}
                 className={`text-xs font-semibold px-3 py-1.5 rounded-full border transition-all ${
                   isSelected
                     ? 'bg-ink text-paper border-ink shadow-sm'

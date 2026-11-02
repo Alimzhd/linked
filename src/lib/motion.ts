@@ -18,6 +18,14 @@ export const springSoft: Transition = {
   mass: 0.9,
 };
 
+/** Editorial route / overlay physics used by the ASCII motion engine. */
+export const springEditorial: Transition = {
+  type: 'spring',
+  mass: 1,
+  stiffness: 90,
+  damping: 15,
+};
+
 export const revealVariants: Variants = {
   hidden: { opacity: 0, y: 24, scale: 0.99 },
   visible: (index: number = 0) => ({

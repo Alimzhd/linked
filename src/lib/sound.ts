@@ -77,6 +77,10 @@ class SoundEngine {
     this.playHover();
   }
 
+  public playSwitchTick() {
+    this.playHover();
+  }
+
   public playSnap() {
     if (this.isMuted) return;
     this.init();
@@ -111,3 +115,4 @@ class SoundEngine {
 }
 
 export const soundEngine = new SoundEngine();
+export const sound = soundEngine;

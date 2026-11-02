@@ -10,6 +10,7 @@ import { Button } from '../components/Button';
 import { ArrowLeft, MessageSquare, ShieldCheck } from 'lucide-react';
 import { soundEngine } from '../lib/sound';
 import { EASE_MODERN } from '../lib/motion';
+import { buildWhatsAppCartPayload } from '../services/whatsapp';
 
 export const Checkout: React.FC = () => {
   const navigate = useNavigate();
@@ -75,47 +76,18 @@ export const Checkout: React.FC = () => {
 
     setIsSubmitting(true);
 
-    const storeWhatsAppNumber = '6281234567890'; // LINKED! Official Store WhatsApp number
+    const { url } = buildWhatsAppCartPayload(
+      state,
+      {
+        name: name.trim(),
+        phone: phone.trim(),
+        address: address.trim(),
+        notes: notes.trim() || undefined,
+      },
+      totalPrice
+    );
 
-    const lines: string[] = [
-      'Halo LINKED!, saya mau pesan:',
-      '',
-    ];
-
-    state.items.forEach((item, index) => {
-      if (item.kind === 'product') {
-        const product = productsData.find((p) => p.id === item.productId);
-        const prodName = product ? product.name : 'Produk LINKED!';
-        const prodPrice = product ? product.price * item.qty : 0;
-        lines.push(`${index + 1}. ${prodName}`);
-        lines.push(`   Jumlah ${item.qty}, ${formatRupiah(prodPrice)}`);
-      } else {
-        const summary = getCustomBuildSummary(item.build.slots);
-        lines.push(`${index + 1}. Gelang Custom, ukuran ${item.build.size} (${item.build.slots.length} slot)`);
-        lines.push(`   ${summary}`);
-        lines.push(`   Jumlah ${item.qty}, ${formatRupiah(item.unitPrice * item.qty)}`);
-      }
-      lines.push('');
-    });
-
-    lines.push(`Kemasan: ${state.packaging === 'gift' ? 'Signature Gift Box Set (+Rp 25.000)' : 'Standard Canvas Pouch (Gratis)'}`);
-    if (state.packaging === 'gift' && state.giftNote) {
-      lines.push(`Pesan Kartu Ucapan: "${state.giftNote}"`);
-    }
-    lines.push(`Total: ${formatRupiah(totalPrice)}`);
-    lines.push('');
-    lines.push(`Nama: ${name.trim()}`);
-    lines.push(`Nomor WA: ${phone.trim()}`);
-    lines.push(`Alamat Pengiriman: ${address.trim()}`);
-    if (notes.trim()) {
-      lines.push(`Catatan Tambahan: ${notes.trim()}`);
-    }
-
-    const messageText = lines.join('\n');
-    const waUrl = `https://wa.me/${storeWhatsAppNumber}?text=${encodeURIComponent(messageText)}`;
-
-    // Open WhatsApp link in new tab
-    window.open(waUrl, '_blank');
+    window.open(url, '_blank');
 
     // Optional clear or keep in state
     setTimeout(() => {
@@ -147,7 +119,6 @@ export const Checkout: React.FC = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.45, ease: EASE_MODERN }}
       >
-        <span className="micro-label text-neutral-500 font-mono">05 · FINALISASI PESANAN</span>
         <h1 className="text-3xl md:text-5xl font-extrabold text-ink tracking-tight">
           Ringkasan & <span className="accent-serif font-normal">Pemesanan</span> WhatsApp
         </h1>

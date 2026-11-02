@@ -12,10 +12,9 @@ export const Footer: React.FC = () => {
   return (
     <footer className="site-footer">
       <div className="footer-lead">
-        <p className="mono-label">ONE LINK AT A TIME</p>
         <Link to="/customize" className="footer-cta" data-cursor="Build">
-          <span className="footer-cta__text">
-            Start with your <em>story.</em>
+          <span className="footer-cta__text whitespace-nowrap">
+            Start with your <em className="italic font-serif font-normal ml-2 sm:ml-3">story.</em>
           </span>
           <ArrowUpRight strokeWidth={1} />
         </Link>

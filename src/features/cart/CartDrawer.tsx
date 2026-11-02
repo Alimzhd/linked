@@ -9,6 +9,7 @@ import productsData from '../../data/products.json';
 import charmsData from '../../data/charms.json';
 import { CharmSvg } from '../../components/CharmSvg';
 import { Button } from '../../components/Button';
+import { useMotionEngine } from '../../engine/MotionEngine';
 
 export const CartDrawer: React.FC = () => {
   const {
@@ -24,6 +25,11 @@ export const CartDrawer: React.FC = () => {
   } = useCart();
 
   const navigate = useNavigate();
+  const { triggerHalftone } = useMotionEngine();
+
+  useEffect(() => {
+    if (isCartOpen) triggerHalftone('modal');
+  }, [isCartOpen, triggerHalftone]);
 
   // Close on Escape key
   useEffect(() => {

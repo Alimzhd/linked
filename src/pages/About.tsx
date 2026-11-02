@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import faqData from '../data/faq.json';
 import { FAQItem } from '../types';
 import { CharmSvg } from '../components/CharmSvg';
-import { ChevronDown, Sparkles, Gift, ShieldCheck, HelpCircle } from 'lucide-react';
+import { ChevronDown, Sparkles, ShieldCheck } from 'lucide-react';
 import { soundEngine } from '../lib/sound';
 
 export const About: React.FC = () => {
@@ -39,27 +39,35 @@ export const About: React.FC = () => {
   return (
     <div className="layout-container py-12 md:py-20 space-y-20 md:space-y-28 overflow-hidden">
       {/* 1. Brand Narrative Hero with Living Staggered Editorial Entrance */}
-      <motion.section
-        initial={{ opacity: 0, y: 28 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: [0.25, 1, 0.5, 1] }}
-        className="space-y-6 max-w-3xl"
-      >
-        <div className="flex items-center gap-2">
-          <span className="micro-label text-neutral-500 font-mono">04 · TENTANG LINKED!</span>
-          <span className="w-8 h-px bg-steel" />
-          <span className="micro-label text-neutral-400 font-mono">FLORENCE HERITAGE</span>
+      <div className="space-y-6 max-w-3xl">
+        <div className="overflow-hidden">
+          <motion.h1
+            initial={{ y: '100%', opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.7, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+            className="text-3xl md:text-6xl font-extrabold text-ink tracking-tight"
+          >
+            Small Charms, <span className="accent-serif font-normal italic">Big Personality.</span>
+          </motion.h1>
         </div>
 
-        <h1 className="text-3xl md:text-6xl font-extrabold text-ink tracking-tight">
-          Small Charms, <span className="accent-serif font-normal italic">Big Personality.</span>
-        </h1>
+        <div className="overflow-hidden mt-1">
+          <motion.p
+            initial={{ y: '100%', opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.65, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
+            className="text-base md:text-lg text-neutral-700 leading-relaxed"
+          >
+            LINKED! lahir dari apresiasi terhadap desain perhiasan modular Italia era akhir 80-an di Florence. Gelang ini bukan sekadar aksesoris, melainkan kanvas modular yang dapat terus berkembang mengikuti setiap fase hidup dan memorimu.
+          </motion.p>
+        </div>
 
-        <p className="text-base md:text-lg text-neutral-700 leading-relaxed">
-          LINKED! lahir dari apresiasi terhadap desain perhiasan modular Italia era akhir 80-an di Florence. Gelang ini bukan sekadar aksesoris, melainkan kanvas modular yang dapat terus berkembang mengikuti setiap fase hidup dan memorimu.
-        </p>
-
-        <div className="pt-2 flex flex-wrap items-center gap-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.24, ease: [0.16, 1, 0.3, 1] }}
+          className="pt-2 flex flex-wrap items-center gap-4"
+        >
           <Link
             to="/customize"
             data-cursor="Build"
@@ -76,19 +84,18 @@ export const About: React.FC = () => {
           >
             Jelajahi Koleksi Charm
           </Link>
-        </div>
-      </motion.section>
+        </motion.div>
+      </div>
 
       {/* 2. Why Italian Bracelet (Concrete comparison) with Staggered Viewport Entrance */}
       <section className="space-y-8">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.55, ease: [0.25, 1, 0.5, 1] }}
+          viewport={{ once: false, amount: 0.2 }}
+          transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
           className="max-w-xl space-y-2"
         >
-          <span className="micro-label text-neutral-500 font-mono">KONSTRUKSI & KEUNGGULAN</span>
           <h2 className="text-2xl md:text-4xl font-extrabold text-ink tracking-tight">
             Kenapa Gelang Modular <span className="accent-serif font-normal italic">Italia?</span>
           </h2>
@@ -96,13 +103,12 @@ export const About: React.FC = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.55, delay: 0.05, ease: [0.25, 1, 0.5, 1] }}
-            whileHover={{ y: -5 }}
+            initial={{ opacity: 0, y: 35, scale: 0.96 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: false, amount: 0.15 }}
+            transition={{ duration: 0.55, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
             onMouseEnter={() => soundEngine.playHover()}
-            className="p-8 rounded-DEFAULT bg-white border border-steel space-y-4 shadow-xs hover:shadow-xl hover:border-neutral-400 transition-all duration-300"
+            className="p-8 rounded-DEFAULT bg-white border border-steel space-y-4 shadow-xs hover:shadow-lg hover:border-neutral-400 transition-all duration-300"
           >
             <div className="flex items-center gap-3">
               <span className="w-8 h-8 rounded-full bg-blush flex items-center justify-center text-ink font-bold font-mono text-xs shadow-xs">
@@ -116,13 +122,12 @@ export const About: React.FC = () => {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.55, delay: 0.12, ease: [0.25, 1, 0.5, 1] }}
-            whileHover={{ y: -5 }}
+            initial={{ opacity: 0, y: 35, scale: 0.96 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: false, amount: 0.15 }}
+            transition={{ duration: 0.55, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
             onMouseEnter={() => soundEngine.playHover()}
-            className="p-8 rounded-DEFAULT bg-white border border-steel space-y-4 shadow-xs hover:shadow-xl hover:border-neutral-400 transition-all duration-300"
+            className="p-8 rounded-DEFAULT bg-white border border-steel space-y-4 shadow-xs hover:shadow-lg hover:border-neutral-400 transition-all duration-300"
           >
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-full bg-paper border border-steel flex items-center justify-center text-ink shadow-xs">
@@ -140,13 +145,12 @@ export const About: React.FC = () => {
       {/* 3. 3-Step Assembly Guide with Interactive Progression Cards */}
       <section className="space-y-10">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.55, ease: [0.25, 1, 0.5, 1] }}
+          viewport={{ once: false, amount: 0.2 }}
+          transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
           className="max-w-xl space-y-2"
         >
-          <span className="micro-label text-neutral-500 font-mono">PANDUAN PERAKITAN MANDIRI</span>
           <h2 className="text-2xl md:text-4xl font-extrabold text-ink tracking-tight">
             Cara Pasang & Tukar <span className="accent-serif font-normal italic">Charm.</span>
           </h2>
@@ -159,13 +163,12 @@ export const About: React.FC = () => {
           {assemblySteps.map((step, idx) => (
             <motion.div
               key={step.step}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.55, delay: idx * 0.1, ease: [0.25, 1, 0.5, 1] }}
-              whileHover={{ y: -6 }}
+              initial={{ opacity: 0, y: 35, scale: 0.95 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: false, amount: 0.15 }}
+              transition={{ duration: 0.55, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
               onMouseEnter={() => soundEngine.playHover()}
-              className="group p-6 md:p-8 rounded-DEFAULT bg-white border border-steel space-y-5 flex flex-col justify-between shadow-xs hover:shadow-xl hover:border-neutral-400 transition-all duration-300 relative overflow-hidden"
+              className="group p-6 md:p-8 rounded-DEFAULT bg-white border border-steel space-y-5 flex flex-col justify-between shadow-xs hover:shadow-lg hover:border-neutral-400 transition-all duration-300 relative overflow-hidden"
             >
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
@@ -191,17 +194,13 @@ export const About: React.FC = () => {
 
       {/* 4. Packaging & Gift Options with Tactile Presence */}
       <motion.section
-        initial={{ opacity: 0, y: 28 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.6, ease: [0.25, 1, 0.5, 1] }}
+        initial={{ opacity: 0, y: 35, scale: 0.96 }}
+        whileInView={{ opacity: 1, y: 0, scale: 1 }}
+        viewport={{ once: false, amount: 0.2 }}
+        transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
         className="rounded-DEFAULT border border-steel bg-blush/30 p-8 md:p-14 space-y-8"
       >
         <div className="max-w-xl space-y-2">
-          <div className="flex items-center gap-2">
-            <Gift className="w-4 h-4 text-neutral-700" />
-            <span className="micro-label text-neutral-600 font-mono">PILIHAN KEMASAN</span>
-          </div>
           <h2 className="text-2xl md:text-4xl font-extrabold text-ink tracking-tight">
             Packaging Elegan untuk <span className="accent-serif font-normal italic">Hadiah.</span>
           </h2>
@@ -212,7 +211,10 @@ export const About: React.FC = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <motion.div
-            whileHover={{ y: -4 }}
+            initial={{ opacity: 0, y: 25, scale: 0.95 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: false, amount: 0.2 }}
+            transition={{ duration: 0.5, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
             className="p-6 rounded-DEFAULT bg-white border border-steel space-y-3 shadow-xs hover:shadow-md transition-all"
           >
             <div className="flex items-center justify-between">
@@ -227,7 +229,10 @@ export const About: React.FC = () => {
           </motion.div>
 
           <motion.div
-            whileHover={{ y: -4 }}
+            initial={{ opacity: 0, y: 25, scale: 0.95 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: false, amount: 0.2 }}
+            transition={{ duration: 0.5, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
             className="p-6 rounded-DEFAULT bg-white border border-neutral-400 space-y-3 shadow-xs hover:shadow-md transition-all"
           >
             <div className="flex items-center justify-between">
@@ -246,22 +251,24 @@ export const About: React.FC = () => {
       {/* 5. Accordion FAQ Section with Smooth Spring Toggle */}
       <section id="faq" className="space-y-8 scroll-mt-28">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           className="max-w-xl space-y-2"
         >
-          <div className="flex items-center gap-2">
-            <HelpCircle className="w-4 h-4 text-neutral-600" />
-            <span className="micro-label text-neutral-500 font-mono">PERTANYAAN UMUM</span>
-          </div>
           <h2 className="text-2xl md:text-4xl font-extrabold text-ink tracking-tight">
             Tanya Jawab <span className="accent-serif font-normal italic">Seputar</span> LINKED!
           </h2>
         </motion.div>
 
-        <div className="border border-steel rounded-DEFAULT bg-white divide-y divide-steel overflow-hidden shadow-xs">
+        <motion.div
+          initial={{ opacity: 0, y: 30, scale: 0.97 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: false, amount: 0.15 }}
+          transition={{ duration: 0.65, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+          className="border border-steel rounded-DEFAULT bg-white divide-y divide-steel overflow-hidden shadow-xs"
+        >
           {(faqData as FAQItem[]).map((item, idx) => {
             const isOpen = openFaqIndex === idx;
             return (
@@ -299,7 +306,7 @@ export const About: React.FC = () => {
               </div>
             );
           })}
-        </div>
+        </motion.div>
       </section>
     </div>
   );

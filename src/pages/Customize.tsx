@@ -20,6 +20,8 @@ import { Button } from '../components/Button';
 import { RotateCcw, Undo2, Redo2, Check, ShoppingBag } from 'lucide-react';
 import { Charm } from '../types';
 import { soundEngine } from '../lib/sound';
+import { useMotionEngine } from '../engine/MotionEngine';
+import { recommendCharmArrangement } from '../services/gemini';
 
 export const Customize: React.FC = () => {
   const {
@@ -39,9 +41,12 @@ export const Customize: React.FC = () => {
   } = useBuilder();
 
   const { addCustomBuildToCart } = useCart();
+  const { triggerHalftone } = useMotionEngine();
   const [activeDragCharm, setActiveDragCharm] = useState<Charm | null>(null);
   const [displayPrice, setDisplayPrice] = useState<number>(priceCalculation.total);
   const [isAddedSuccess, setIsAddedSuccess] = useState<boolean>(false);
+  const [geminiNote, setGeminiNote] = useState<string>('');
+  const [geminiBusy, setGeminiBusy] = useState<boolean>(false);
 
   // Smooth animated count-up over 300ms for price changes
   useEffect(() => {
@@ -117,6 +122,7 @@ export const Customize: React.FC = () => {
       const charm = activeData.charm as Charm;
       const slotIndex = overData.slotIndex as number;
       placeCharm(charm.id, slotIndex);
+      triggerHalftone('charm');
     }
 
     // Dragging and dropping between slots to swap
@@ -149,11 +155,6 @@ export const Customize: React.FC = () => {
           className="flex flex-col md:flex-row items-start md:items-end justify-between gap-6 pb-6 border-b border-steel"
         >
           <div className="space-y-2 max-w-xl">
-            <div className="flex items-center gap-2">
-              <span className="micro-label text-neutral-500 font-mono">03 · INTERACTIVE STUDIO</span>
-              <span className="w-8 h-px bg-steel" />
-              <span className="micro-label text-neutral-500 font-mono">18-SLOT MODULAR BUILDER</span>
-            </div>
             <h1 className="text-3xl md:text-5xl font-extrabold text-ink tracking-tight">
               Pilih Ukuran, <span className="accent-serif font-normal italic">Tempel</span> Charm, Lihat Hasilnya.
             </h1>
@@ -163,8 +164,7 @@ export const Customize: React.FC = () => {
           </div>
 
           {/* Real-time Pricing Summary Widget */}
-          <motion.div
-            whileHover={{ scale: 1.02 }}
+          <div
             className="bg-white p-5 rounded-DEFAULT border border-steel shadow-sm min-w-[240px] flex flex-col justify-between"
           >
             <span className="micro-label text-neutral-500 font-mono">TOTAL HARGA GELANG</span>
@@ -174,7 +174,7 @@ export const Customize: React.FC = () => {
             <div className="text-[11px] text-neutral-500 font-mono mt-1">
               Gelang Dasar ({formatRupiah(priceCalculation.basePrice)}) + Charm ({formatRupiah(priceCalculation.charmsExtra)})
             </div>
-          </motion.div>
+          </div>
         </motion.div>
 
         {/* Toolbar: Undo, Redo, Reset, Keyboard Tips */}
@@ -245,7 +245,36 @@ export const Customize: React.FC = () => {
         />
 
         {/* Charm Library Section */}
-        <CharmLibrary onSelectCharm={(charmId) => placeCharm(charmId)} />
+        <CharmLibrary
+          onSelectCharm={(charmId) => {
+            placeCharm(charmId);
+            triggerHalftone('charm');
+          }}
+        />
+
+        <div className="rounded-DEFAULT border border-steel bg-white p-5 space-y-3">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <p className="text-sm font-semibold text-ink">Gemini arrangement note</p>
+            <Button
+              type="button"
+              variant="secondary"
+              size="sm"
+              disabled={geminiBusy}
+              onClick={async () => {
+                setGeminiBusy(true);
+                triggerHalftone('modal');
+                const note = await recommendCharmArrangement(build);
+                setGeminiNote(note);
+                setGeminiBusy(false);
+              }}
+            >
+              {geminiBusy ? 'Generating…' : 'Recommend layout'}
+            </Button>
+          </div>
+          {geminiNote ? <p className="text-sm leading-relaxed text-neutral-600">{geminiNote}</p> : (
+            <p className="text-xs text-neutral-500">Optional. Uses VITE_GEMINI_API_KEY when set; otherwise a local 316L styling note.</p>
+          )}
+        </div>
 
         {/* Bottom Sticky Action Bar for Easy Checkout (Isolated: No blur filter) */}
         <motion.div

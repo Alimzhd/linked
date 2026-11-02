@@ -47,36 +47,37 @@ export const ScrollShowcase: React.FC = () => {
   // =========================================================================
   // CIRCULAR APERTURE REVEAL PHYSICS (WallpaperEngine & Lusion style)
   // Blank Canvas -> Focal Reticle Point -> Expanding Circle Iris -> Full Box
+  // Stays 100% visible, highlighted, and anchored until the end of scroll
   // =========================================================================
-  const clipRadius = useTransform(smoothProgress, [0.03, 0.32], [0, 140]);
+  const clipRadius = useTransform(smoothProgress, [0.01, 0.16, 1], [0, 150, 150]);
   const cardClipPath = useMotionTemplate`circle(${clipRadius}% at 50% 50%)`;
 
-  // Scale & offset of the video container
-  const cardScale = useTransform(smoothProgress, [0.03, 0.32, 0.78, 1], [0.72, 1, 1, 0.96]);
-  const containerOffsetY = useTransform(smoothProgress, [0.03, 0.32, 0.78, 1], [60, 0, 0, -24]);
-  const cardOpacity = useTransform(smoothProgress, [0.03, 0.12], [0, 1]);
+  // Scale & offset of the video container (stays locked at scale 1 and y 0)
+  const cardScale = useTransform(smoothProgress, [0.01, 0.16, 0.95, 1], [0.85, 1, 1, 1]);
+  const containerOffsetY = useTransform(smoothProgress, [0.01, 0.16, 0.95, 1], [40, 0, 0, 0]);
+  const cardOpacity = useTransform(smoothProgress, [0.01, 0.08, 0.98, 1], [0, 1, 1, 1]);
 
   // Expanding optical aperture ring that pulses outward with the circle reveal
-  const apertureRingRadius = useTransform(smoothProgress, [0.02, 0.30], [20, 560]);
-  const apertureRingOpacity = useTransform(smoothProgress, [0.02, 0.08, 0.24, 0.32], [0, 0.75, 0.25, 0]);
-  const apertureRingScale = useTransform(smoothProgress, [0.02, 0.30], [0.2, 1.25]);
+  const apertureRingRadius = useTransform(smoothProgress, [0.01, 0.18], [20, 560]);
+  const apertureRingOpacity = useTransform(smoothProgress, [0.01, 0.06, 0.16, 0.22], [0, 0.75, 0.25, 0]);
+  const apertureRingScale = useTransform(smoothProgress, [0.01, 0.18], [0.2, 1.25]);
 
   // Staggered internal content transitions
-  const topBarY = useTransform(smoothProgress, [0.10, 0.26], [-20, 0]);
-  const topBarOpacity = useTransform(smoothProgress, [0.10, 0.22], [0, 1]);
+  const topBarY = useTransform(smoothProgress, [0.06, 0.18], [-20, 0]);
+  const topBarOpacity = useTransform(smoothProgress, [0.06, 0.16], [0, 1]);
 
-  const bottomBarY = useTransform(smoothProgress, [0.15, 0.30], [20, 0]);
-  const bottomBarOpacity = useTransform(smoothProgress, [0.15, 0.28], [0, 1]);
+  const bottomBarY = useTransform(smoothProgress, [0.08, 0.20], [20, 0]);
+  const bottomBarOpacity = useTransform(smoothProgress, [0.08, 0.18], [0, 1]);
 
-  const videoScale = useTransform(smoothProgress, [0.06, 0.30], [0.90, 1]);
+  const videoScale = useTransform(smoothProgress, [0.04, 0.18], [0.94, 1]);
 
-  const crossScale = useTransform(smoothProgress, [0.16, 0.32], [0, 1]);
-  const crossRotate = useTransform(smoothProgress, [0.16, 0.32], [-270, 0]);
+  const crossScale = useTransform(smoothProgress, [0.10, 0.22], [0, 1]);
+  const crossRotate = useTransform(smoothProgress, [0.10, 0.22], [-270, 0]);
 
-  const guideScaleX = useTransform(smoothProgress, [0.18, 0.36], [0, 1]);
+  const guideScaleX = useTransform(smoothProgress, [0.12, 0.24], [0, 1]);
 
-  const watchBtnScale = useTransform(smoothProgress, [0.16, 0.34], [0, 1]);
-  const watchBtnOpacity = useTransform(smoothProgress, [0.14, 0.26], [0, 1]);
+  const watchBtnScale = useTransform(smoothProgress, [0.10, 0.22], [0, 1]);
+  const watchBtnOpacity = useTransform(smoothProgress, [0.08, 0.18], [0, 1]);
 
   // Restrained fluid spline wave morphing subtly with scroll
   const splineAmp = useTransform(smoothProgress, [0, 0.5, 1], [20, 60, 30]);
@@ -110,20 +111,20 @@ export const ScrollShowcase: React.FC = () => {
   const cardRotateY = useTransform(mouseTiltX, [-0.5, 0.5], [-8, 8]);
 
   // Dynamic phase label with audio tick feedback
-  const [phaseText, setPhaseText] = useState('PHASE 01 · 9MM MODULE ALIGNMENT');
+  const [phaseText, setPhaseText] = useState('9MM MODULE ALIGNMENT');
   useEffect(() => {
     let lastPhase = 1;
     return smoothProgress.on('change', (v) => {
       let currentPhase = 1;
       if (v < 0.33) {
         currentPhase = 1;
-        setPhaseText('PHASE 01 · 9MM MODULE ALIGNMENT');
+        setPhaseText('9MM MODULE ALIGNMENT');
       } else if (v < 0.66) {
         currentPhase = 2;
-        setPhaseText('PHASE 02 · INTERNAL SPRING SNAP');
+        setPhaseText('INTERNAL SPRING SNAP');
       } else {
         currentPhase = 3;
-        setPhaseText('PHASE 03 · INTERLOCKING MODULAR SYSTEM');
+        setPhaseText('INTERLOCKING MODULAR SYSTEM');
       }
       if (currentPhase !== lastPhase) {
         lastPhase = currentPhase;
@@ -163,9 +164,6 @@ export const ScrollShowcase: React.FC = () => {
         <div id="home-reel-container" className="home-reel-container layout-container flex flex-col items-center text-center space-y-6 max-w-4xl mx-auto">
           <div id="home-reel-container-inner" className="home-reel-container-inner space-y-2">
             <div id="home-reel-content" className="home-reel-content space-y-2">
-              <span className="font-mono text-xs text-neutral-500 uppercase tracking-widest">
-                02 · CRAFTSMANSHIP
-              </span>
               <h4 id="home-reel-title" className="home-reel-title text-3xl md:text-5xl font-extrabold text-ink tracking-tight">
                 <div id="home-reel-title-inner">
                   <div id="home-reel-title-line-1" className="inline-block relative">
@@ -205,7 +203,10 @@ export const ScrollShowcase: React.FC = () => {
       className="section relative w-full h-[240vh] bg-transparent select-none"
     >
       {/* Viewport-Locked Sticky Frame */}
-      <div className="sticky top-0 w-full h-screen flex flex-col items-center justify-center px-4 md:px-6 overflow-hidden z-20">
+      <div
+        id="home-reel-sticky"
+        className="sticky top-0 w-full h-screen flex flex-col items-center justify-center px-4 md:px-6 overflow-hidden z-20"
+      >
 
         {/* Subtle, Calm Background Ambient Geometry */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden z-0 flex items-center justify-center">
@@ -244,16 +245,6 @@ export const ScrollShowcase: React.FC = () => {
 
             {/* Editorial Headline with Word-Level Reveal */}
             <div id="home-reel-content" className="home-reel-content text-center space-y-2 px-4 max-w-lg">
-              <div className="inline-flex items-center gap-2">
-                <span className="font-mono text-[11px] text-neutral-500 uppercase tracking-widest">
-                  02 · CRAFTSMANSHIP
-                </span>
-                <span className="w-4 h-px bg-steel" />
-                <span className="font-mono text-[11px] text-neutral-500 uppercase tracking-wider">
-                  ASSEMBLY REEL
-                </span>
-              </div>
-
               <motion.h4
                 id="home-reel-title"
                 initial="hidden"

@@ -13,7 +13,7 @@ import {
  * Ambient, scroll-driven technical drafting & geometry layer inspired by:
  * - Lusion Studio (interactive geometric lines and fluid rotational parallax)
  * - Autarkeia (precision blueprint coordinates, 9mm link silhouettes, and modular ticks)
- * - Wix Studio Jewelry (seamless borderless transitions with sliding accent elements)
+ * - Wix Studio Jewelry (fluid borderless transitions with sliding accent elements)
  *
  * Rules:
  * - Animate ONLY transform & opacity (GPU 60fps).

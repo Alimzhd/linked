@@ -32,7 +32,7 @@ export const Layout: React.FC = () => {
       <BalancedBackground>
         <a href="#main-content" className="skip-link">Skip to content</a>
         <Header />
-        <AnimatePresence mode="wait" initial={false}>
+        <AnimatePresence initial={false}>
           <PageTransition key={location.pathname}>
             <Outlet />
           </PageTransition>

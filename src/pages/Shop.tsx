@@ -40,26 +40,29 @@ export const Shop: React.FC = () => {
   return (
     <div className="layout-container py-12 md:py-16 space-y-10">
       {/* Page Header with Living Staggered Editorial Entrance */}
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, ease: [0.25, 1, 0.5, 1] }}
-        className="space-y-3 max-w-2xl"
-      >
-        <div className="flex items-center gap-2">
-          <span className="micro-label text-neutral-500 font-mono">02 · SHOP CATALOG</span>
-          <span className="w-8 h-px bg-steel" />
-          <span className="micro-label text-neutral-400 font-mono">STAINLESS STEEL 316L</span>
+      <div className="space-y-3 max-w-2xl">
+        <div className="overflow-hidden">
+          <motion.h1
+            initial={{ y: '100%', opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.7, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+            className="text-3xl md:text-5xl font-extrabold text-ink tracking-tight"
+          >
+            Koleksi Gelang & <span className="accent-serif font-normal italic">Modular</span> Charms
+          </motion.h1>
         </div>
 
-        <h1 className="text-3xl md:text-5xl font-extrabold text-ink tracking-tight">
-          Koleksi Gelang & <span className="accent-serif font-normal italic">Modular</span> Charms
-        </h1>
-
-        <p className="text-sm md:text-base text-neutral-600 leading-relaxed">
-          Temukan starter bracelet siap pakai, paket ekstensi modul, dan charm individual untuk memperkaya rangkaian ceritamu.
-        </p>
-      </motion.div>
+        <div className="overflow-hidden mt-1">
+          <motion.p
+            initial={{ y: '100%', opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.65, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
+            className="text-sm md:text-base text-neutral-600 leading-relaxed"
+          >
+            Temukan starter bracelet siap pakai, paket ekstensi modul, dan charm individual untuk memperkaya rangkaian ceritamu.
+          </motion.p>
+        </div>
+      </div>
 
       {/* Filter and Sort Toolbar */}
       <motion.div
@@ -141,22 +144,22 @@ export const Shop: React.FC = () => {
             </button>
           </motion.div>
         ) : (
-          <motion.div layout className="product-grid">
-            <AnimatePresence mode="popLayout">
+          <div className="product-grid">
+            <AnimatePresence>
               {filteredProducts.map((product, idx) => (
                 <motion.div
                   key={product.id}
-                  layout
-                  initial={{ opacity: 0, y: 24, scale: 0.96 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  initial={{ opacity: 0, y: 25, scale: 0.96 }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  viewport={{ once: false, amount: 0.12 }}
                   exit={{ opacity: 0, scale: 0.92 }}
-                  transition={{ duration: 0.45, delay: Math.min(idx * 0.04, 0.3), ease: [0.16, 1, 0.3, 1] }}
+                  transition={{ duration: 0.45, delay: Math.min(idx * 0.03, 0.2), ease: [0.16, 1, 0.3, 1] }}
                 >
                   <ProductCard product={product} />
                 </motion.div>
               ))}
             </AnimatePresence>
-          </motion.div>
+          </div>
         )}
       </div>
     </div>
