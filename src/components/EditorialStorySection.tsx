@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
 import { Sparkles, ArrowRight, ShieldCheck, Cpu, Sliders, Layers } from 'lucide-react';
 import { Button } from './Button';
@@ -35,7 +35,7 @@ const SpotlightCard: React.FC<SpotlightCardProps> = ({ children, className = '',
       onMouseLeave={handleMouseLeave}
       onMouseEnter={() => soundEngine.playHover()}
       style={style}
-      className={`relative overflow-hidden rounded-DEFAULT border border-steel bg-white p-6 sm:p-7 shadow-xs hover:shadow-lg transition-all duration-300 group ${className}`}
+      className={`relative overflow-hidden rounded-[24px] bg-white p-6 sm:p-7 shadow-md shadow-black/4 hover:shadow-xl hover:shadow-black/8 transition-shadow duration-300 group ${className}`}
     >
       {/* Interactive Radial Spotlight */}
       {mousePos.active && (
@@ -56,14 +56,24 @@ const SpotlightCard: React.FC<SpotlightCardProps> = ({ children, className = '',
 
 export const EditorialStorySection: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement | null>(null);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
   const reduceMotion = useReducedMotion();
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(typeof window !== 'undefined' && window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ['start end', 'end start'],
   });
 
-  // Parallax differential offsets
+  // Parallax differential offsets (active on multi-column desktop)
   const parallaxCol1 = useTransform(scrollYProgress, [0, 1], [25, -25]);
   const parallaxCol2 = useTransform(scrollYProgress, [0, 1], [-15, 20]);
   const headerY = useTransform(scrollYProgress, [0, 0.4], [24, 0]);
@@ -72,58 +82,44 @@ export const EditorialStorySection: React.FC = () => {
     <div ref={sectionRef} className="w-full flex flex-col gap-8 scroll-mt-24">
       {/* Editorial Section Header */}
       <motion.div
-        style={reduceMotion ? undefined : { y: headerY }}
-        className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-4 border-b border-steel"
+        style={reduceMotion || isMobile ? undefined : { y: headerY }}
+        initial={reduceMotion ? false : { opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-2"
       >
         <div>
           <div className="overflow-hidden">
-            <motion.h2
-              initial={reduceMotion ? false : { y: '100%', opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              viewport={{ once: false, amount: 0.2 }}
-              transition={{ duration: 0.7, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
-              className="font-extrabold text-2xl sm:text-4xl text-ink tracking-tight"
-            >
+            <h2 className="font-extrabold text-2xl sm:text-4xl text-ink tracking-tight">
               Materials &amp; <span className="font-serif italic font-normal">Craft</span>
-            </motion.h2>
+            </h2>
           </div>
           <div className="overflow-hidden mt-1">
-            <motion.p
-              initial={reduceMotion ? false : { y: '100%', opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              viewport={{ once: false, amount: 0.2 }}
-              transition={{ duration: 0.65, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
-              className="text-sm text-neutral-600 max-w-xl leading-relaxed"
-            >
+            <p className="text-sm text-neutral-600 max-w-xl leading-relaxed">
               Presisi baja bedah 316L Italia. Dirakit, disesuaikan, dan tahan lama tanpa kehilangan kilau.
-            </motion.p>
+            </p>
           </div>
         </div>
 
-        <motion.div
-          initial={reduceMotion ? false : { opacity: 0, x: 20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: false, amount: 0.2 }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="text-xs text-neutral-500 font-mono sm:text-right"
-        >
+        <div className="text-xs text-neutral-500 font-mono sm:text-right">
           316L Surgical Alloy · 9mm Standard
-        </motion.div>
+        </div>
       </motion.div>
 
       {/* 4-Card Bento Grid with Differential Parallax: Anchored Coordinates */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Card 01: 316L Metallurgy */}
         <motion.div
-          style={reduceMotion ? undefined : { y: parallaxCol1 }}
-          initial={reduceMotion ? false : { opacity: 0, y: 25 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.15 }}
+          style={reduceMotion || isMobile ? undefined : { y: parallaxCol1 }}
+          initial={reduceMotion ? false : { opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, amount: 0.15 }}
           transition={{ duration: 0.5, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
         >
-          <SpotlightCard className="min-h-[200px]">
+          <SpotlightCard className="min-h-[200px] rounded-tl-[38px] rounded-br-[38px] rounded-tr-[16px] rounded-bl-[16px]">
             <div>
-              <div className="w-8 h-8 rounded-md bg-paper border border-steel flex items-center justify-center mb-3 text-ink">
+              <div className="w-9 h-9 rounded-[14px] bg-neutral-100 flex items-center justify-center mb-3 text-ink">
                 <ShieldCheck className="w-4 h-4" />
               </div>
               <h3 className="font-bold text-base text-ink mb-1 group-hover:text-neutral-700 transition-colors">
@@ -133,7 +129,7 @@ export const EditorialStorySection: React.FC = () => {
                 Paduan austenitik anti-korosi. Kebal air garam, keringat, dan tarnish harian.
               </p>
             </div>
-            <div className="pt-3 border-t border-steel text-[10px] text-neutral-500 font-mono mt-3">
+            <div className="pt-3 text-[10px] text-neutral-500 font-mono mt-3">
               Hipoalergenik &amp; Bebas Karat
             </div>
           </SpotlightCard>
@@ -141,15 +137,15 @@ export const EditorialStorySection: React.FC = () => {
 
         {/* Card 02: 9mm Standard */}
         <motion.div
-          style={reduceMotion ? undefined : { y: parallaxCol2 }}
-          initial={reduceMotion ? false : { opacity: 0, y: 25 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.15 }}
+          style={reduceMotion || isMobile ? undefined : { y: parallaxCol2 }}
+          initial={reduceMotion ? false : { opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, amount: 0.15 }}
           transition={{ duration: 0.5, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
         >
-          <SpotlightCard className="min-h-[200px]">
+          <SpotlightCard className="min-h-[200px] rounded-tr-[38px] rounded-bl-[38px] rounded-tl-[16px] rounded-br-[16px]">
             <div>
-              <div className="w-8 h-8 rounded-md bg-paper border border-steel flex items-center justify-center mb-3 text-ink">
+              <div className="w-9 h-9 rounded-tl-[16px] rounded-br-[16px] rounded-tr-[8px] rounded-bl-[8px] bg-neutral-100 flex items-center justify-center mb-3 text-ink">
                 <Layers className="w-4 h-4" />
               </div>
               <h3 className="font-bold text-base text-ink mb-1 group-hover:text-neutral-700 transition-colors">
@@ -159,7 +155,7 @@ export const EditorialStorySection: React.FC = () => {
                 Standar klasik Florence 1987. Mengunci langsung dengan seluruh modul charm.
               </p>
             </div>
-            <div className="pt-3 border-t border-steel text-[10px] text-neutral-500 font-mono mt-3">
+            <div className="pt-3 text-[10px] text-neutral-500 font-mono mt-3">
               Universal Italian Geometry
             </div>
           </SpotlightCard>
@@ -167,15 +163,15 @@ export const EditorialStorySection: React.FC = () => {
 
         {/* Card 03: Internal Spring Tension */}
         <motion.div
-          style={reduceMotion ? undefined : { y: parallaxCol1 }}
-          initial={reduceMotion ? false : { opacity: 0, y: 25 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.15 }}
+          style={reduceMotion || isMobile ? undefined : { y: parallaxCol1 }}
+          initial={reduceMotion ? false : { opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, amount: 0.15 }}
           transition={{ duration: 0.5, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
         >
-          <SpotlightCard className="min-h-[200px]">
+          <SpotlightCard className="min-h-[200px] rounded-t-[38px] rounded-b-[16px]">
             <div>
-              <div className="w-8 h-8 rounded-md bg-paper border border-steel flex items-center justify-center mb-3 text-ink">
+              <div className="w-9 h-9 rounded-t-[16px] rounded-b-[8px] bg-neutral-100 flex items-center justify-center mb-3 text-ink">
                 <Sliders className="w-4 h-4" />
               </div>
               <h3 className="font-bold text-base text-ink mb-1 group-hover:text-neutral-700 transition-colors">
@@ -185,7 +181,7 @@ export const EditorialStorySection: React.FC = () => {
                 Pegas musik internal 304. Regangan fleksibel tanpa perkakas khusus.
               </p>
             </div>
-            <div className="pt-3 border-t border-steel text-[10px] text-neutral-500 font-mono mt-3">
+            <div className="pt-3 text-[10px] text-neutral-500 font-mono mt-3">
               Teruji 50.000+ kali ekspansi
             </div>
           </SpotlightCard>
@@ -193,15 +189,15 @@ export const EditorialStorySection: React.FC = () => {
 
         {/* Card 04: PVD Coating & Enamel */}
         <motion.div
-          style={reduceMotion ? undefined : { y: parallaxCol2 }}
-          initial={reduceMotion ? false : { opacity: 0, y: 25 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.15 }}
+          style={reduceMotion || isMobile ? undefined : { y: parallaxCol2 }}
+          initial={reduceMotion ? false : { opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, amount: 0.15 }}
           transition={{ duration: 0.5, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
         >
-          <SpotlightCard className="min-h-[200px]">
+          <SpotlightCard className="min-h-[200px] rounded-b-[38px] rounded-t-[16px]">
             <div>
-              <div className="w-8 h-8 rounded-md bg-paper border border-steel flex items-center justify-center mb-3 text-ink">
+              <div className="w-9 h-9 rounded-[14px] bg-neutral-100 flex items-center justify-center mb-3 text-ink">
                 <Cpu className="w-4 h-4" />
               </div>
               <h3 className="font-bold text-base text-ink mb-1 group-hover:text-neutral-700 transition-colors">
@@ -211,7 +207,7 @@ export const EditorialStorySection: React.FC = () => {
                 Inlay enamel bakar 800°C dan pelapis titanium PVD. Permukaan rata anti gores.
               </p>
             </div>
-            <div className="pt-3 border-t border-steel text-[10px] text-neutral-500 font-mono mt-3">
+            <div className="pt-3 text-[10px] text-neutral-500 font-mono mt-3">
               Anti Pudar &amp; Scratch Flush
             </div>
           </SpotlightCard>
@@ -220,11 +216,11 @@ export const EditorialStorySection: React.FC = () => {
 
       {/* Editorial Streetwear Manifesto Card */}
       <motion.div
-        initial={reduceMotion ? false : { opacity: 0, y: 25 }}
+        initial={reduceMotion ? false : { opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: false, amount: 0.2 }}
+        viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        className="p-8 sm:p-10 rounded-DEFAULT border border-steel bg-paper flex flex-col md:flex-row items-center justify-between gap-6 shadow-xs"
+        className="p-8 sm:p-10 rounded-tl-[44px] rounded-br-[44px] rounded-tr-[24px] rounded-bl-[24px] bg-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-md shadow-black/4"
       >
         <div className="max-w-2xl space-y-2">
           <div className="inline-flex items-center gap-2 micro-label font-mono text-neutral-500">

@@ -48,13 +48,13 @@ export const Slot: React.FC<SlotProps> = ({
       aria-selected={isSelected}
       onClick={() => onSelect(index)}
       onKeyDown={handleKeyDown}
-      className={`relative w-[44px] h-[44px] sm:w-[56px] sm:h-[56px] shrink-0 rounded-lg select-none transition-all duration-200 group focus:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2 ${
+      className={`relative w-[44px] h-[44px] sm:w-[56px] sm:h-[56px] shrink-0 rounded-xl select-none transition-all duration-200 group focus:outline-none focus-visible:ring-2 focus-visible:ring-ink/20 ${
         isSelected
-          ? 'ring-2 ring-ink ring-offset-2 scale-105 z-20'
+          ? 'shadow-lg shadow-black/15 scale-110 z-20 bg-white'
           : 'hover:scale-[1.03] z-10'
       } ${
         isOver
-          ? 'ring-2 ring-neutral-800 scale-110 z-30 shadow-lg'
+          ? 'shadow-xl shadow-black/25 scale-115 z-30 bg-white'
           : ''
       }`}
     >

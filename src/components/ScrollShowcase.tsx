@@ -45,39 +45,39 @@ export const ScrollShowcase: React.FC = () => {
   const descParallaxY = useTransform(smoothProgress, [0, 1], [14, -14]);
 
   // =========================================================================
-  // CIRCULAR APERTURE REVEAL PHYSICS (WallpaperEngine & Lusion style)
+  // CIRCULAR APERTURE REVEAL PHYSICS (Extended & Balanced Scroll Duration)
   // Blank Canvas -> Focal Reticle Point -> Expanding Circle Iris -> Full Box
-  // Stays 100% visible, highlighted, and anchored until the end of scroll
+  // Stretches smoothly across 0% to ~50% of the section scroll, staying locked in full view
   // =========================================================================
-  const clipRadius = useTransform(smoothProgress, [0.01, 0.16, 1], [0, 150, 150]);
+  const clipRadius = useTransform(smoothProgress, [0.02, 0.48, 1], [0, 150, 150]);
   const cardClipPath = useMotionTemplate`circle(${clipRadius}% at 50% 50%)`;
 
   // Scale & offset of the video container (stays locked at scale 1 and y 0)
-  const cardScale = useTransform(smoothProgress, [0.01, 0.16, 0.95, 1], [0.85, 1, 1, 1]);
-  const containerOffsetY = useTransform(smoothProgress, [0.01, 0.16, 0.95, 1], [40, 0, 0, 0]);
-  const cardOpacity = useTransform(smoothProgress, [0.01, 0.08, 0.98, 1], [0, 1, 1, 1]);
+  const cardScale = useTransform(smoothProgress, [0.02, 0.48, 0.95, 1], [0.82, 1, 1, 1]);
+  const containerOffsetY = useTransform(smoothProgress, [0.02, 0.48, 0.95, 1], [40, 0, 0, 0]);
+  const cardOpacity = useTransform(smoothProgress, [0.02, 0.18, 0.98, 1], [0, 1, 1, 1]);
 
   // Expanding optical aperture ring that pulses outward with the circle reveal
-  const apertureRingRadius = useTransform(smoothProgress, [0.01, 0.18], [20, 560]);
-  const apertureRingOpacity = useTransform(smoothProgress, [0.01, 0.06, 0.16, 0.22], [0, 0.75, 0.25, 0]);
-  const apertureRingScale = useTransform(smoothProgress, [0.01, 0.18], [0.2, 1.25]);
+  const apertureRingRadius = useTransform(smoothProgress, [0.02, 0.50], [20, 680]);
+  const apertureRingOpacity = useTransform(smoothProgress, [0.02, 0.14, 0.42, 0.54], [0, 0.75, 0.25, 0]);
+  const apertureRingScale = useTransform(smoothProgress, [0.02, 0.50], [0.2, 1.35]);
 
-  // Staggered internal content transitions
-  const topBarY = useTransform(smoothProgress, [0.06, 0.18], [-20, 0]);
-  const topBarOpacity = useTransform(smoothProgress, [0.06, 0.16], [0, 1]);
+  // Staggered internal content transitions balanced across the scroll progression
+  const topBarY = useTransform(smoothProgress, [0.18, 0.44], [-20, 0]);
+  const topBarOpacity = useTransform(smoothProgress, [0.18, 0.40], [0, 1]);
 
-  const bottomBarY = useTransform(smoothProgress, [0.08, 0.20], [20, 0]);
-  const bottomBarOpacity = useTransform(smoothProgress, [0.08, 0.18], [0, 1]);
+  const bottomBarY = useTransform(smoothProgress, [0.22, 0.48], [20, 0]);
+  const bottomBarOpacity = useTransform(smoothProgress, [0.22, 0.44], [0, 1]);
 
-  const videoScale = useTransform(smoothProgress, [0.04, 0.18], [0.94, 1]);
+  const videoScale = useTransform(smoothProgress, [0.12, 0.48], [0.92, 1]);
 
-  const crossScale = useTransform(smoothProgress, [0.10, 0.22], [0, 1]);
-  const crossRotate = useTransform(smoothProgress, [0.10, 0.22], [-270, 0]);
+  const crossScale = useTransform(smoothProgress, [0.26, 0.50], [0, 1]);
+  const crossRotate = useTransform(smoothProgress, [0.26, 0.50], [-270, 0]);
 
-  const guideScaleX = useTransform(smoothProgress, [0.12, 0.24], [0, 1]);
+  const guideScaleX = useTransform(smoothProgress, [0.28, 0.52], [0, 1]);
 
-  const watchBtnScale = useTransform(smoothProgress, [0.10, 0.22], [0, 1]);
-  const watchBtnOpacity = useTransform(smoothProgress, [0.08, 0.18], [0, 1]);
+  const watchBtnScale = useTransform(smoothProgress, [0.24, 0.50], [0, 1]);
+  const watchBtnOpacity = useTransform(smoothProgress, [0.20, 0.44], [0, 1]);
 
   // Restrained fluid spline wave morphing subtly with scroll
   const splineAmp = useTransform(smoothProgress, [0, 0.5, 1], [20, 60, 30]);
@@ -110,21 +110,17 @@ export const ScrollShowcase: React.FC = () => {
   const cardRotateX = useTransform(mouseTiltY, [-0.5, 0.5], [6, -6]);
   const cardRotateY = useTransform(mouseTiltX, [-0.5, 0.5], [-8, 8]);
 
-  // Dynamic phase label with audio tick feedback
-  const [phaseText, setPhaseText] = useState('9MM MODULE ALIGNMENT');
+  // Dynamic phase change with audio tick feedback
   useEffect(() => {
     let lastPhase = 1;
     return smoothProgress.on('change', (v) => {
       let currentPhase = 1;
       if (v < 0.33) {
         currentPhase = 1;
-        setPhaseText('9MM MODULE ALIGNMENT');
       } else if (v < 0.66) {
         currentPhase = 2;
-        setPhaseText('INTERNAL SPRING SNAP');
       } else {
         currentPhase = 3;
-        setPhaseText('INTERLOCKING MODULAR SYSTEM');
       }
       if (currentPhase !== lastPhase) {
         lastPhase = currentPhase;
@@ -180,7 +176,7 @@ export const ScrollShowcase: React.FC = () => {
               </p>
             </div>
           </div>
-          <div id="home-reel-video-container" className="home-reel-video-container --is-visible w-full max-w-2xl aspect-video rounded-2xl overflow-hidden border border-steel shadow-xl">
+          <div id="home-reel-video-container" className="home-reel-video-container --is-visible w-full max-w-2xl aspect-video rounded-2xl overflow-hidden shadow-xl">
             <div id="home-reel-video-placeholder" className="home-reel-video-placeholder w-full h-full">
               <video
                 src="/videos/gemini_generated_video_71fc4d88.mp4"
@@ -205,13 +201,13 @@ export const ScrollShowcase: React.FC = () => {
       {/* Viewport-Locked Sticky Frame */}
       <div
         id="home-reel-sticky"
-        className="sticky top-0 w-full h-screen flex flex-col items-center justify-center px-4 md:px-6 overflow-hidden z-20"
+        className="sticky top-0 w-full h-[100dvh] flex flex-col items-center justify-center px-3 sm:px-4 md:px-6 overflow-hidden z-20"
       >
 
         {/* Subtle, Calm Background Ambient Geometry */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden z-0 flex items-center justify-center">
           {/* Ambient Ring */}
-          <div className="absolute w-[560px] h-[560px] md:w-[720px] md:h-[720px] rounded-full border border-neutral-300/40 opacity-40 pointer-events-none" />
+          <div className="absolute w-[340px] h-[340px] sm:w-[560px] sm:h-[560px] md:w-[720px] md:h-[720px] rounded-full border border-neutral-300/40 opacity-40 pointer-events-none" />
 
           {/* Fluid Curved Guide Line */}
           <svg className="absolute inset-0 w-full h-full overflow-visible opacity-30" preserveAspectRatio="none">
@@ -240,17 +236,17 @@ export const ScrollShowcase: React.FC = () => {
         />
 
         {/* Foreground Stage: Editorial Reel Content */}
-        <div id="home-reel-container" className="home-reel-container relative z-10 w-full max-w-3xl flex flex-col items-center gap-5">
+        <div id="home-reel-container" className="home-reel-container relative z-10 w-full max-w-3xl flex flex-col items-center gap-2 sm:gap-5">
           <div id="home-reel-container-inner" className="home-reel-container-inner w-full flex flex-col items-center">
 
             {/* Editorial Headline with Word-Level Reveal */}
-            <div id="home-reel-content" className="home-reel-content text-center space-y-2 px-4 max-w-lg">
+            <div id="home-reel-content" className="home-reel-content text-center space-y-1.5 sm:space-y-2 px-3 sm:px-4 max-w-lg">
               <motion.h4
                 id="home-reel-title"
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.15 }}
-                className="home-reel-title text-3xl sm:text-4xl md:text-5xl font-extrabold text-ink tracking-tight"
+                className="home-reel-title text-2xl sm:text-4xl md:text-5xl font-extrabold text-ink tracking-tight"
               >
                 <motion.div
                   id="home-reel-title-inner"
@@ -305,7 +301,7 @@ export const ScrollShowcase: React.FC = () => {
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.5, delay: 0.15 }}
-                className="home-reel-desc text-xs sm:text-sm text-neutral-600 max-w-sm mx-auto text-center"
+                className="home-reel-desc text-[11px] sm:text-xs md:text-sm text-neutral-600 max-w-sm mx-auto text-center"
               >
                 Presisi modular baja 316L. Pasang dan tukar charm tanpa alat.
               </motion.p>
@@ -331,11 +327,11 @@ export const ScrollShowcase: React.FC = () => {
                 soundEngine.playHover();
               }}
               onMouseLeave={handleCardMouseLeave}
-              className="home-reel-video-container --is-visible w-full bg-white/95 border border-steel rounded-DEFAULT shadow-2xl p-3 sm:p-4 relative group will-change-transform"
+              className="home-reel-video-container --is-visible w-full bg-white/95 rounded-[28px] shadow-2xl p-4 sm:p-5 relative group will-change-transform"
             >
               {/* Specular Steel Light Sheen Gliding with Mouse */}
               <div
-                className="absolute inset-0 pointer-events-none rounded-DEFAULT transition-opacity duration-300 z-30"
+                className="absolute inset-0 pointer-events-none rounded-[28px] transition-opacity duration-300 z-30"
                 style={{
                   opacity: isHovered ? 0.35 : 0,
                   background: `radial-gradient(circle 340px at ${sheenCoords.x}% ${sheenCoords.y}%, rgba(255, 255, 255, 0.85), transparent 70%)`,
@@ -345,15 +341,12 @@ export const ScrollShowcase: React.FC = () => {
               {/* Top Info Bar - Staggered Slide In */}
               <motion.div
                 style={{ y: topBarY, opacity: topBarOpacity }}
-                className="w-full flex items-center justify-between text-[11px] font-mono text-neutral-500 pb-2.5 border-b border-steel/80 relative z-20"
+                className="w-full flex items-center justify-between text-[11px] font-mono text-neutral-500 pb-2 relative z-20"
               >
                 <div className="flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                   <span className="font-semibold text-ink">MODULAR 9MM CHASSIS</span>
                 </div>
-                <span className="text-neutral-500 font-mono text-[10px] uppercase">
-                  {phaseText}
-                </span>
               </motion.div>
 
               {/* Technical Drafting Crosses & Reveal Lines */}
@@ -417,13 +410,8 @@ export const ScrollShowcase: React.FC = () => {
               <motion.div
                 id="home-reel-video-placeholder"
                 style={{ scale: videoScale }}
-                className="home-reel-video-placeholder relative w-full aspect-16/9 rounded-DEFAULT overflow-hidden border border-steel my-2.5 bg-neutral-900 shadow-inner z-10"
+                className="home-reel-video-placeholder relative w-full aspect-16/9 rounded-[20px] overflow-hidden my-2.5 bg-neutral-900 shadow-inner z-10"
               >
-                <div id="home-reel-video-title" className="home-reel-video-title">
-                  <div className="home-reel-video-title-word">LINKED! 316L</div>
-                  <div className="home-reel-video-title-word">{phaseText}</div>
-                </div>
-
                 <video
                   ref={videoRef}
                   src="/videos/gemini_generated_video_71fc4d88.mp4"
@@ -472,7 +460,7 @@ export const ScrollShowcase: React.FC = () => {
               {/* Bottom Bar - Staggered Slide In */}
               <motion.div
                 style={{ y: bottomBarY, opacity: bottomBarOpacity }}
-                className="w-full pt-2.5 border-t border-steel/80 flex items-center justify-between text-xs relative z-20"
+                className="w-full pt-2 flex items-center justify-between text-xs relative z-20"
               >
                 <span className="text-neutral-600 font-medium">
                   Sistem Pegas 9mm · Bebas Karat

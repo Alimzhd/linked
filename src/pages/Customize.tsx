@@ -17,7 +17,7 @@ import { useCart } from '../features/cart/cartContext';
 import { formatRupiah } from '../lib/format-rupiah';
 import { CharmSvg } from '../components/CharmSvg';
 import { Button } from '../components/Button';
-import { RotateCcw, Undo2, Redo2, Check, ShoppingBag } from 'lucide-react';
+import { RotateCcw, Undo2, Redo2, Check, ShoppingBag, Sparkles } from 'lucide-react';
 import { Charm } from '../types';
 import { soundEngine } from '../lib/sound';
 import { useMotionEngine } from '../engine/MotionEngine';
@@ -146,13 +146,13 @@ export const Customize: React.FC = () => {
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
     >
-      <div className="layout-container py-10 md:py-16 space-y-8">
+      <div className="layout-container pt-24 md:pt-28 pb-12 space-y-8">
         {/* Header & Value Line with Living Motion Entrance */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col md:flex-row items-start md:items-end justify-between gap-6 pb-6 border-b border-steel"
+          className="flex flex-col md:flex-row items-start md:items-end justify-between gap-6 pb-2"
         >
           <div className="space-y-2 max-w-xl">
             <h1 className="text-3xl md:text-5xl font-extrabold text-ink tracking-tight">
@@ -165,7 +165,7 @@ export const Customize: React.FC = () => {
 
           {/* Real-time Pricing Summary Widget */}
           <div
-            className="bg-white p-5 rounded-DEFAULT border border-steel shadow-sm min-w-[240px] flex flex-col justify-between"
+            className="bg-white p-5 rounded-[24px] shadow-sm min-w-[240px] flex flex-col justify-between"
           >
             <span className="micro-label text-neutral-500 font-mono">TOTAL HARGA GELANG</span>
             <div className="text-2xl md:text-3xl font-extrabold font-mono text-ink mt-1">
@@ -189,7 +189,7 @@ export const Customize: React.FC = () => {
                 undo();
               }}
               disabled={!canUndo}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-steel bg-white text-ink hover:bg-neutral-50 disabled:opacity-30 disabled:pointer-events-none transition-all shadow-xs"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white text-ink hover:bg-neutral-100 disabled:opacity-30 disabled:pointer-events-none transition-all shadow-2xs"
               title="Urungkan perubahan (Ctrl/Cmd+Z)"
             >
               <Undo2 className="w-3.5 h-3.5" />
@@ -205,7 +205,7 @@ export const Customize: React.FC = () => {
                 redo();
               }}
               disabled={!canRedo}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-steel bg-white text-ink hover:bg-neutral-50 disabled:opacity-30 disabled:pointer-events-none transition-all shadow-xs"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white text-ink hover:bg-neutral-100 disabled:opacity-30 disabled:pointer-events-none transition-all shadow-2xs"
               title="Ulangi perubahan (Ctrl/Cmd+Shift+Z)"
             >
               <Redo2 className="w-3.5 h-3.5" />
@@ -220,7 +220,7 @@ export const Customize: React.FC = () => {
                 soundEngine.playClick();
                 resetBuild();
               }}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-steel bg-white text-neutral-600 hover:text-red-600 hover:bg-red-50 transition-all shadow-xs"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white text-neutral-600 hover:text-red-600 hover:bg-red-50 transition-all shadow-2xs"
               title="Kembalikan semua ke link polos"
             >
               <RotateCcw className="w-3.5 h-3.5" />
@@ -252,36 +252,51 @@ export const Customize: React.FC = () => {
           }}
         />
 
-        <div className="rounded-DEFAULT border border-steel bg-white p-5 space-y-3">
+        {/* Material 3 Expressive Smart Styling Card */}
+        <div className="rounded-[28px] bg-white p-5 sm:p-6 space-y-3 shadow-md shadow-black/5">
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <p className="text-sm font-semibold text-ink">Gemini arrangement note</p>
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-full bg-blush/20 flex items-center justify-center shrink-0">
+                <Sparkles size={16} className="text-ink" />
+              </div>
+              <div>
+                <p className="text-sm font-bold text-ink">Smart Styling Advisor</p>
+                <p className="text-xs text-neutral-500">Kurasi komposisi & estetika modular 316L</p>
+              </div>
+            </div>
             <Button
               type="button"
               variant="secondary"
               size="sm"
-              disabled={geminiBusy}
+              isLoading={geminiBusy}
               onClick={async () => {
                 setGeminiBusy(true);
-                triggerHalftone('modal');
                 const note = await recommendCharmArrangement(build);
                 setGeminiNote(note);
                 setGeminiBusy(false);
               }}
             >
-              {geminiBusy ? 'Generating…' : 'Recommend layout'}
+              <Sparkles size={13} className="text-neutral-600 group-hover:text-ink" />
+              <span>{geminiNote ? 'Perbarui Saran' : 'Kurasi Layout'}</span>
             </Button>
           </div>
-          {geminiNote ? <p className="text-sm leading-relaxed text-neutral-600">{geminiNote}</p> : (
-            <p className="text-xs text-neutral-500">Optional. Uses VITE_GEMINI_API_KEY when set; otherwise a local 316L styling note.</p>
+          {geminiNote ? (
+            <div className="mt-3 p-4 rounded-2xl bg-neutral-50 border-0 text-sm leading-relaxed text-neutral-700 font-normal">
+              <p className="italic text-ink/90">“{geminiNote}”</p>
+            </div>
+          ) : (
+            <p className="text-xs text-neutral-500 leading-relaxed pt-1">
+              Butuh inspirasi penataan? Dapatkan saran penempatan charm yang seimbang dan proporsional sesuai jumlah slot gelang kamu.
+            </p>
           )}
         </div>
 
-        {/* Bottom Sticky Action Bar for Easy Checkout (Isolated: No blur filter) */}
+        {/* Bottom Sticky Action Bar for Easy Checkout (M3 Expressive Pill Bar, Isolated: No blur filter) */}
         <motion.div
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="sticky bottom-4 z-30 p-4 bg-ink text-paper rounded-DEFAULT border border-neutral-700 shadow-2xl flex flex-col sm:flex-row items-center justify-between gap-4"
+          className="sticky bottom-4 z-30 p-4 sm:px-6 bg-ink text-paper rounded-full shadow-2xl flex flex-col sm:flex-row items-center justify-between gap-4"
         >
           <div className="flex items-center gap-4 text-center sm:text-left">
             <div>
@@ -322,7 +337,7 @@ export const Customize: React.FC = () => {
       {/* Floating Drag Overlay */}
       <DragOverlay>
         {activeDragCharm ? (
-          <div className="w-14 h-14 p-1 rounded-lg bg-white border-2 border-ink shadow-2xl scale-110 pointer-events-none opacity-90">
+          <div className="w-14 h-14 p-1 rounded-[16px] bg-white shadow-2xl scale-110 pointer-events-none opacity-90">
             <CharmSvg symbol={activeDragCharm.symbol} name={activeDragCharm.name} />
           </div>
         ) : null}

@@ -49,7 +49,7 @@
   --radius-default: 20px;
   --radius-card: 20px;
 
-  /* Modern easing curves (Lusion standard) */
+  /* Modern easing curves */
   --ease-out: cubic-bezier(0.25, 1, 0.5, 1);
   --ease-inout: cubic-bezier(0.76, 0, 0.24, 1);
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
@@ -59,6 +59,53 @@
   --duration-fast: 160ms;
   --duration-ui: 240ms;
   --duration-page: 320ms;
+
+  /* ─── Google Material 3 Expressive Motion Specs ─── */
+  --m3-ease-emphasized: cubic-bezier(0.2, 0.0, 0.0, 1.0);
+  --m3-ease-emphasized-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1.0);
+  --m3-ease-emphasized-accelerate: cubic-bezier(0.3, 0.0, 0.8, 0.15);
+  --m3-ease-standard: cubic-bezier(0.2, 0.0, 0.0, 1.0);
+  --m3-ease-standard-decelerate: cubic-bezier(0.0, 0.0, 0.0, 1.0);
+  --m3-ease-standard-accelerate: cubic-bezier(0.3, 0.0, 1.0, 1.0);
+
+  /* Material 3 Durations */
+  --m3-duration-short-1: 50ms;
+  --m3-duration-short-2: 100ms;
+  --m3-duration-short-3: 150ms;
+  --m3-duration-short-4: 200ms;
+  --m3-duration-medium-1: 250ms;
+  --m3-duration-medium-2: 300ms;
+  --m3-duration-medium-3: 350ms;
+  --m3-duration-medium-4: 400ms;
+  --m3-duration-long-1: 450ms;
+  --m3-duration-long-2: 500ms;
+  --m3-duration-long-3: 550ms;
+  --m3-duration-long-4: 600ms;
+  --m3-duration-extra-long-1: 700ms;
+  --m3-duration-extra-long-2: 800ms;
+
+  /* ─── Material 3 Expressive Shape Tokens ─── */
+  --m3-shape-none: 0px;
+  --m3-shape-xs: 4px;
+  --m3-shape-sm: 8px;
+  --m3-shape-md: 12px;
+  --m3-shape-lg: 16px;
+  --m3-shape-xl: 28px;
+  --m3-shape-full: 9999px;
+
+  /* ─── Material 3 Expressive Surface Roles (M3 Color Mapping) ─── */
+  --m3-surface: var(--color-paper);
+  --m3-surface-container-lowest: #ffffff;
+  --m3-surface-container-low: color-mix(in oklch, var(--color-paper) 92%, var(--color-steel));
+  --m3-surface-container: color-mix(in oklch, var(--color-paper) 80%, var(--color-steel));
+  --m3-surface-container-high: color-mix(in oklch, var(--color-paper) 68%, var(--color-steel));
+  --m3-surface-container-highest: var(--color-steel);
+  --m3-outline: var(--color-steel);
+  --m3-outline-variant: var(--color-line);
+  --m3-primary: var(--color-ink);
+  --m3-on-primary: var(--color-paper);
+  --m3-secondary-container: var(--color-blush);
+  --m3-on-secondary-container: var(--color-ink);
 
   --z-background: 0;
   --z-content: 10;

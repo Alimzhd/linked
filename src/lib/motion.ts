@@ -4,6 +4,36 @@ export const EASE_MODERN = [0.25, 1, 0.5, 1] as const;
 export const EASE_SNAPPY = [0.25, 1, 0.5, 1] as const;
 export const EASE_EDITORIAL = [0.25, 1, 0.5, 1] as const;
 
+/** ─── Google Material 3 Expressive Easing Curves ─── */
+export const M3_EASE_EMPHASIZED = [0.2, 0.0, 0.0, 1.0] as const;
+export const M3_EASE_EMPHASIZED_DECELERATE = [0.05, 0.7, 0.1, 1.0] as const;
+export const M3_EASE_EMPHASIZED_ACCELERATE = [0.3, 0.0, 0.8, 0.15] as const;
+export const M3_EASE_STANDARD = [0.2, 0.0, 0.0, 1.0] as const;
+export const M3_EASE_STANDARD_DECELERATE = [0.0, 0.0, 0.0, 1.0] as const;
+export const M3_EASE_STANDARD_ACCELERATE = [0.3, 0.0, 1.0, 1.0] as const;
+
+/** ─── Google Material 3 Expressive Spring Physics ─── */
+export const m3SpringExpressive: Transition = {
+  type: 'spring',
+  stiffness: 380,
+  damping: 26,
+  mass: 0.8,
+};
+
+export const m3SpringBouncy: Transition = {
+  type: 'spring',
+  stiffness: 420,
+  damping: 22,
+  mass: 0.6,
+};
+
+export const m3SpringSmooth: Transition = {
+  type: 'spring',
+  stiffness: 260,
+  damping: 28,
+  mass: 1.0,
+};
+
 export const springTactile: Transition = {
   type: 'spring',
   stiffness: 360,

@@ -72,17 +72,14 @@ export const SmoothScroll: React.FC<SmoothScrollProps> = ({ children }) => {
     };
   }, []);
 
-  // Smooth scroll reset to top on route navigation (deferred to eliminate flash/jump during exit)
+  // Instant scroll reset to top on route navigation
   useEffect(() => {
-    const timer = setTimeout(() => {
-      if (lenisRef.current) {
-        lenisRef.current.scrollTo(0, { immediate: true });
-      } else if (typeof window !== 'undefined') {
-        window.scrollTo(0, 0);
-      }
-    }, 60);
-
-    return () => clearTimeout(timer);
+    if (lenisRef.current) {
+      lenisRef.current.scrollTo(0, { immediate: true });
+    }
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' as ScrollBehavior });
+    }
   }, [pathname]);
 
   return (

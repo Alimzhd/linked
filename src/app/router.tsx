@@ -7,17 +7,35 @@ import { ProductDetail } from '../pages/ProductDetail';
 import { About } from '../pages/About';
 import { Checkout } from '../pages/Checkout';
 
+import { M3ShapeLoader, M3PulsingRings } from '../components/ui/M3Progress';
+
 // Lazy load the customizer route as explicitly mandated by performance specs
 const Customize = lazy(() =>
   import('../pages/Customize').then((module) => ({ default: module.Customize }))
 );
 
-const LoadingFallback: React.FC = () => (
-  <div className="layout-container py-32 flex flex-col items-center justify-center space-y-4">
-    <div className="w-8 h-8 rounded-full border-2 border-neutral-300 border-t-ink animate-spin" />
-    <span className="micro-label text-neutral-500 font-mono">MEMUAT 18-SLOT BUILDER...</span>
-  </div>
-);
+const LoadingFallback: React.FC = () => {
+  const [visible, setVisible] = React.useState(false);
+
+  React.useEffect(() => {
+    // Only display if lazy route loading takes longer than 250ms to prevent visual flash
+    const timer = setTimeout(() => setVisible(true), 250);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (!visible) return null;
+
+  return (
+    <div className="layout-container py-36 flex items-center justify-center">
+      <div className="relative flex items-center justify-center">
+        <M3PulsingRings size={130} color="#1E293B" />
+        <div className="absolute inset-0 flex items-center justify-center">
+          <M3ShapeLoader size="lg" color="#1D192B" showDisc={true} />
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export const router = createBrowserRouter([
   {

@@ -87,13 +87,13 @@ export const AccordionPanels: React.FC = () => {
   return (
     <div className="w-full flex flex-col gap-6 scroll-mt-24">
       {/* Section Header */}
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-4 border-b border-steel">
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-2">
         <div>
           <div className="overflow-hidden">
             <motion.h2
-              initial={reduceMotion ? false : { y: '100%', opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              viewport={{ once: false, amount: 0.2 }}
+              initial={reduceMotion ? false : { opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.6, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
               className="font-extrabold text-2xl sm:text-4xl text-ink tracking-tight"
             >
@@ -105,7 +105,7 @@ export const AccordionPanels: React.FC = () => {
         <motion.div
           initial={reduceMotion ? false : { opacity: 0, x: 16 }}
           whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: false, amount: 0.2 }}
+          viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           className="text-xs text-neutral-500 font-mono sm:text-right hidden sm:block"
         >
@@ -124,23 +124,23 @@ export const AccordionPanels: React.FC = () => {
               key={panel.id}
               onClick={() => handleSelect(panel.id)}
               onMouseEnter={() => handleSelect(panel.id)}
-              initial={reduceMotion ? false : { opacity: 0, y: 25 }}
+              initial={reduceMotion ? false : { opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, amount: 0.15 }}
+              viewport={{ once: true, amount: 0.15 }}
               transition={{
                 duration: 0.45,
                 delay: idx * 0.06,
                 ease: [0.16, 1, 0.3, 1],
               }}
-              className={`relative rounded-DEFAULT border p-6 flex flex-col justify-between transition-colors duration-200 cursor-pointer select-none min-h-[360px] ${
+              className={`relative rounded-[24px] p-5 sm:p-6 flex flex-col justify-between transition-all duration-300 cursor-pointer select-none min-h-[300px] sm:min-h-[360px] ${
                 isActive
-                  ? 'bg-white border-ink shadow-md ring-1 ring-ink/10'
-                  : 'bg-paper border-steel hover:border-neutral-400 hover:bg-white'
+                  ? 'bg-white shadow-xl shadow-black/8 scale-[1.01]'
+                  : 'bg-[#F2F4F8] shadow-2xs hover:shadow-md hover:bg-white'
               }`}
             >
               {/* Header inside Card */}
               <div>
-                <div className="flex items-center justify-between pb-4 border-b border-steel/60">
+                <div className="flex items-center justify-between pb-3">
                   <span className="font-mono text-sm font-bold text-ink">
                     {panel.num}
                   </span>
@@ -149,13 +149,13 @@ export const AccordionPanels: React.FC = () => {
                       {panel.tag}
                     </span>
                     {isActive && (
-                      <span className="w-1.5 h-1.5 rounded-full bg-ink" />
+                      <span className="w-2 h-2 rounded-full bg-blush shadow-xs" />
                     )}
                   </div>
                 </div>
 
-                <div className="pt-4 space-y-2">
-                  <div className="w-8 h-8 rounded-md bg-paper border border-steel flex items-center justify-center text-ink">
+                <div className="pt-2 space-y-2">
+                  <div className="w-8 h-8 rounded-full bg-white shadow-2xs flex items-center justify-center text-ink">
                     <Icon className="w-4 h-4" />
                   </div>
                   <h3 className="font-bold text-lg text-ink tracking-tight pt-1">
@@ -171,7 +171,7 @@ export const AccordionPanels: React.FC = () => {
               </div>
 
               {/* Fixed Specs List at Bottom */}
-              <div className="pt-4 border-t border-steel/60 space-y-1.5">
+              <div className="pt-4 space-y-1.5">
                 {panel.details.map((detail, dIdx) => (
                   <div
                     key={dIdx}

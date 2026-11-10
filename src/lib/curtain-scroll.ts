@@ -33,21 +33,23 @@ export function useCurtainParallax() {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) return;
 
+    const isMobile = window.innerWidth < 768;
+
     // Create GSAP ScrollTrigger context for curtain stacking & differential parallax
     const ctx = gsap.context(() => {
-      // #hero: Sinks down and scales down gently as user scrolls away
+      // #hero: Sinks down gently as user scrolls away (no scale transform on mobile to prevent blur)
       const hero = document.getElementById('hero');
       if (hero) {
         gsap.to(hero, {
-          yPercent: -12,
-          scale: 0.95,
+          yPercent: isMobile ? -6 : -12,
+          scale: isMobile ? 1 : 0.95,
           opacity: 0.4,
           ease: 'power4.out',
           scrollTrigger: {
             trigger: hero,
             start: 'top top',
             end: 'bottom top',
-            scrub: 1.2,
+            scrub: isMobile ? 0.8 : 1.2,
             invalidateOnRefresh: true,
           },
         });
@@ -56,7 +58,7 @@ export function useCurtainParallax() {
       // #home-reel: Pin the showcase video so it stays 100% highlighted and centered throughout the scroll
       const homeReel = document.getElementById('home-reel');
       const stickyFrame = document.getElementById('home-reel-sticky');
-      if (homeReel && stickyFrame) {
+      if (homeReel && stickyFrame && !isMobile) {
         ScrollTrigger.create({
           trigger: homeReel,
           start: 'top top',
@@ -67,12 +69,12 @@ export function useCurtainParallax() {
         });
       }
 
-      // #customizer: Soft upward curtain rise as it scrolls into view
+      // #customizer: Soft upward curtain rise as it scrolls into view (no scale on mobile)
       const customizer = document.getElementById('customizer');
       if (customizer) {
         gsap.fromTo(
           customizer,
-          { y: 40, scale: 0.99 },
+          { y: isMobile ? 20 : 40, scale: isMobile ? 1 : 0.99 },
           {
             y: 0,
             scale: 1,
@@ -81,7 +83,7 @@ export function useCurtainParallax() {
               trigger: customizer,
               start: 'top bottom',
               end: 'top top+=100',
-              scrub: 1.1,
+              scrub: isMobile ? 0.8 : 1.1,
               invalidateOnRefresh: true,
             },
           }
@@ -93,7 +95,7 @@ export function useCurtainParallax() {
       if (showcase) {
         gsap.fromTo(
           showcase,
-          { y: 50, scale: 0.99 },
+          { y: isMobile ? 20 : 50, scale: isMobile ? 1 : 0.99 },
           {
             y: 0,
             scale: 1,
@@ -102,7 +104,7 @@ export function useCurtainParallax() {
               trigger: showcase,
               start: 'top bottom',
               end: 'top top+=80',
-              scrub: 1.1,
+              scrub: isMobile ? 0.8 : 1.1,
               invalidateOnRefresh: true,
             },
           }
@@ -114,7 +116,7 @@ export function useCurtainParallax() {
       if (specs) {
         gsap.fromTo(
           specs,
-          { y: 50, scale: 0.99 },
+          { y: isMobile ? 20 : 50, scale: isMobile ? 1 : 0.99 },
           {
             y: 0,
             scale: 1,
@@ -123,7 +125,7 @@ export function useCurtainParallax() {
               trigger: specs,
               start: 'top bottom',
               end: 'top top+=60',
-              scrub: 1.1,
+              scrub: isMobile ? 0.8 : 1.1,
               invalidateOnRefresh: true,
             },
           }

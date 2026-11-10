@@ -9,11 +9,31 @@ import { soundEngine } from '../lib/sound';
 
 interface ProductCardProps {
   product: Product;
+  className?: string;
+  shapeVariant?: 'leaf' | 'arch' | 'squircle' | 'diagonal';
 }
 
-export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+export const ProductCard: React.FC<ProductCardProps> = ({
+  product,
+  className = '',
+  shapeVariant = 'leaf',
+}) => {
   const { addProductToCart } = useCart();
   const [imgError, setImgError] = React.useState(false);
+
+  const shapeClasses = {
+    leaf: 'rounded-tl-[36px] rounded-br-[36px] rounded-tr-[16px] rounded-bl-[16px]',
+    arch: 'rounded-t-[36px] rounded-b-[16px]',
+    diagonal: 'rounded-tr-[36px] rounded-bl-[36px] rounded-tl-[16px] rounded-br-[16px]',
+    squircle: 'rounded-[28px]',
+  };
+
+  const innerShapeClasses = {
+    leaf: 'rounded-tl-[26px] rounded-br-[26px] rounded-tr-[10px] rounded-bl-[10px]',
+    arch: 'rounded-t-[26px] rounded-b-[10px]',
+    diagonal: 'rounded-tr-[26px] rounded-bl-[26px] rounded-tl-[10px] rounded-br-[10px]',
+    squircle: 'rounded-[20px]',
+  };
 
   const handleQuickAdd = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -41,11 +61,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (
     <div
       onMouseEnter={() => soundEngine.playTick()}
-      className="group bg-white rounded-DEFAULT border border-steel p-3 sm:p-4 flex flex-col justify-between transition-all duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] hover:border-neutral-400 hover:shadow-lg hover:-translate-y-1 relative overflow-hidden"
+      className={`group bg-white p-3.5 sm:p-4 flex flex-col justify-between transition-all duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] shadow-sm shadow-black/4 hover:shadow-xl hover:shadow-black/8 hover:-translate-y-1 relative overflow-hidden ${shapeClasses[shapeVariant]} ${className}`}
     >
       {/* Optional Tag badge */}
       {product.tag && (
-        <span className="absolute top-5 left-5 z-20 micro-label bg-white text-ink px-2.5 py-0.5 rounded-full font-bold border border-steel shadow-xs">
+        <span className="absolute top-5 left-5 z-20 micro-label bg-white text-ink px-2.5 py-0.5 rounded-full font-bold shadow-xs">
           {product.tag}
         </span>
       )}
@@ -54,7 +74,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       <Link
         to={`/shop/${product.id}`}
         data-cursor="View"
-        className="block w-full aspect-square rounded-DEFAULT bg-paper border border-steel/60 relative overflow-hidden flex items-center justify-center transition-colors duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:border-neutral-400"
+        className={`block w-full aspect-square bg-neutral-100/70 relative overflow-hidden flex items-center justify-center transition-colors duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] ${innerShapeClasses[shapeVariant]}`}
       >
         {hasValidImage ? (
           <img
@@ -77,14 +97,14 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           </div>
         )}
 
-        {/* Quick Add overlay button on hover */}
+        {/* Quick Add overlay button on hover with M3 Pill style */}
         <button
           type="button"
           onClick={handleQuickAdd}
-          className="absolute bottom-3 right-3 z-20 bg-ink text-paper p-2.5 rounded-DEFAULT shadow-md opacity-90 sm:opacity-0 sm:group-hover:opacity-100 transition-all duration-200 ease-[cubic-bezier(0.25,1,0.5,1)] hover:bg-neutral-800 hover:scale-105 active:scale-95 flex items-center gap-1 text-xs font-medium"
+          className="absolute bottom-3 right-3 z-20 bg-ink text-paper px-3 py-2 rounded-full shadow-md opacity-90 sm:opacity-0 sm:group-hover:opacity-100 transition-all duration-200 ease-[cubic-bezier(0.2,0,0,1)] hover:bg-neutral-800 hover:scale-105 active:scale-95 flex items-center gap-1.5 text-xs font-semibold"
           aria-label={`Tambah ${product.name} ke keranjang`}
         >
-          <Plus className="w-4 h-4" />
+          <Plus className="w-3.5 h-3.5" />
           <span className="hidden sm:inline">Quick Add</span>
         </button>
       </Link>
@@ -103,7 +123,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           <p className="text-xs text-neutral-500 mt-1 line-clamp-1">{product.material}</p>
         </div>
 
-        <div className="mt-3 pt-3 border-t border-steel/60 flex items-center justify-between">
+        <div className="mt-3 pt-3 flex items-center justify-between">
           <span className="text-sm font-bold font-mono text-ink">
             {formatRupiah(product.price)}
           </span>

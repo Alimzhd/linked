@@ -9,7 +9,7 @@ import productsData from '../../data/products.json';
 import charmsData from '../../data/charms.json';
 import { CharmSvg } from '../../components/CharmSvg';
 import { Button } from '../../components/Button';
-import { useMotionEngine } from '../../engine/MotionEngine';
+import { useLenis } from '../../app/SmoothScroll';
 
 export const CartDrawer: React.FC = () => {
   const {
@@ -25,11 +25,7 @@ export const CartDrawer: React.FC = () => {
   } = useCart();
 
   const navigate = useNavigate();
-  const { triggerHalftone } = useMotionEngine();
-
-  useEffect(() => {
-    if (isCartOpen) triggerHalftone('modal');
-  }, [isCartOpen, triggerHalftone]);
+  const { lenis } = useLenis();
 
   // Close on Escape key
   useEffect(() => {
@@ -42,17 +38,20 @@ export const CartDrawer: React.FC = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isCartOpen, closeCart]);
 
-  // Lock background scroll when open
+  // Lock background scroll & stop Lenis background ticker when open for silky 60fps
   useEffect(() => {
     if (isCartOpen) {
+      lenis?.stop();
       document.body.style.overflow = 'hidden';
     } else {
-      document.body.style.overflow = 'unset';
+      lenis?.start();
+      document.body.style.overflow = '';
     }
     return () => {
-      document.body.style.overflow = 'unset';
+      lenis?.start();
+      document.body.style.overflow = '';
     };
-  }, [isCartOpen]);
+  }, [isCartOpen, lenis]);
 
   const handleCheckoutClick = () => {
     closeCart();
@@ -63,28 +62,28 @@ export const CartDrawer: React.FC = () => {
     <AnimatePresence>
       {isCartOpen && (
         <div className="fixed inset-0 z-50 overflow-hidden" role="dialog" aria-modal="true" aria-label="Keranjang Belanja">
-          {/* Backdrop with transitions.dev smooth opacity crossfade and backdrop blur */}
+          {/* Backdrop with smooth opacity crossfade */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.22, ease: 'easeOut' }}
             className="fixed inset-0 bg-ink/60"
             onClick={closeCart}
             aria-hidden="true"
           />
 
-          {/* Slide-over panel with transitions.dev tactile spring physics */}
+          {/* Slide-over panel with GPU-accelerated tactile spring physics */}
           <div className="absolute inset-y-0 right-0 max-w-full flex pl-10 pointer-events-none">
             <motion.div
-              initial={{ x: '100%', opacity: 0.95 }}
-              animate={{ x: 0, opacity: 1 }}
-              exit={{ x: '100%', opacity: 0.95 }}
-              transition={{ type: 'spring', damping: 28, stiffness: 340, mass: 0.75 }}
-              className="w-screen max-w-md bg-paper border-l border-steel flex flex-col shadow-2xl relative z-10 pointer-events-auto"
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'spring', damping: 32, stiffness: 360, mass: 0.65 }}
+              className="w-screen max-w-md bg-paper flex flex-col shadow-2xl relative z-10 pointer-events-auto sm:rounded-l-[28px] overflow-hidden will-change-transform transform-gpu"
             >
           {/* Header */}
-          <div className="p-6 border-b border-steel flex items-center justify-between bg-paper">
+          <div className="p-6 flex items-center justify-between bg-paper">
             <div className="flex items-center gap-2">
               <h2 className="text-lg font-bold tracking-tight text-ink">Keranjang <span className="accent-serif font-normal">Belanja</span></h2>
               <span className="micro-label bg-neutral-200/60 text-ink px-2 py-0.5 rounded-full">
@@ -94,7 +93,7 @@ export const CartDrawer: React.FC = () => {
             <button
               type="button"
               onClick={closeCart}
-              className="p-2 rounded-DEFAULT border border-steel hover:bg-neutral-100 text-ink transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ink"
+              className="p-2 rounded-full bg-neutral-200/50 hover:bg-neutral-200 text-ink transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ink"
               aria-label="Tutup keranjang"
             >
               <X className="w-4 h-4" />
@@ -105,7 +104,7 @@ export const CartDrawer: React.FC = () => {
           <div className="flex-1 overflow-y-auto p-6 space-y-6">
             {state.items.length === 0 ? (
               <div className="h-full flex flex-col items-center justify-center text-center p-6 space-y-4">
-                <div className="w-16 h-16 rounded-full border border-steel flex items-center justify-center bg-white shadow-sm">
+                <div className="w-16 h-16 rounded-full flex items-center justify-center bg-white shadow-sm">
                   <Sparkles className="w-6 h-6 text-neutral-400" />
                 </div>
                 <div>
@@ -127,10 +126,10 @@ export const CartDrawer: React.FC = () => {
                   return (
                     <div
                       key={`prod-${item.productId}-${idx}`}
-                      className="p-4 bg-white rounded-DEFAULT border border-steel flex gap-4 transition-all hover:border-neutral-400 shadow-sm"
+                      className="p-4 bg-white rounded-[20px] flex gap-4 transition-all shadow-sm"
                     >
                       {/* Product Preview Thumbnail */}
-                      <div className="w-16 h-16 rounded-lg bg-paper border border-steel flex items-center justify-center overflow-hidden shrink-0">
+                      <div className="w-16 h-16 rounded-[14px] bg-neutral-100/70 flex items-center justify-center overflow-hidden shrink-0">
                         {product.imageUrl ? (
                           <img
                             src={product.imageUrl}
@@ -164,7 +163,7 @@ export const CartDrawer: React.FC = () => {
                         </div>
 
                         <div className="flex items-center justify-between mt-3">
-                          <div className="flex items-center border border-steel rounded-lg overflow-hidden bg-paper">
+                          <div className="flex items-center rounded-full overflow-hidden bg-neutral-100 shadow-2xs">
                             <button
                               type="button"
                               onClick={() => updateQuantity(idx, item.qty - 1)}
@@ -199,7 +198,7 @@ export const CartDrawer: React.FC = () => {
                 return (
                   <div
                     key={item.customId || `custom-${idx}`}
-                    className="p-4 bg-white rounded-DEFAULT border border-steel flex flex-col gap-3 shadow-sm hover:border-neutral-400 transition-all"
+                    className="p-4 bg-white rounded-[20px] flex flex-col gap-3 shadow-sm transition-all"
                   >
                     <div className="flex justify-between items-start">
                       <div>
@@ -228,13 +227,13 @@ export const CartDrawer: React.FC = () => {
                     </div>
 
                     {/* Mini visual summary of links */}
-                    <div className="flex items-center gap-1 overflow-x-auto py-1 px-2 bg-paper rounded border border-steel">
+                    <div className="flex items-center gap-1 overflow-x-auto py-1.5 px-2 bg-neutral-100/70 rounded-xl">
                       {item.build.slots.map((charmId, slotIndex) => {
                         const charm = charmId ? charmsData.find((c) => c.id === charmId) : null;
                         return (
                           <div
                             key={`thumb-${slotIndex}`}
-                            className="w-5 h-5 shrink-0 rounded border border-steel flex items-center justify-center"
+                            className="w-5 h-5 shrink-0 rounded flex items-center justify-center"
                             title={charm ? charm.name : 'Plain Link'}
                           >
                             <CharmSvg symbol={charm ? charm.symbol : 'plain'} name={charm ? charm.name : 'Link'} />
@@ -244,7 +243,7 @@ export const CartDrawer: React.FC = () => {
                     </div>
 
                     <div className="flex items-center justify-between pt-1">
-                      <div className="flex items-center border border-steel rounded-lg overflow-hidden bg-paper">
+                      <div className="flex items-center rounded-full overflow-hidden bg-neutral-100 shadow-2xs">
                         <button
                           type="button"
                           onClick={() => updateQuantity(idx, item.qty - 1)}
@@ -276,7 +275,7 @@ export const CartDrawer: React.FC = () => {
 
             {/* Packaging Options */}
             {state.items.length > 0 && (
-              <div className="pt-4 border-t border-steel space-y-3">
+              <div className="pt-4 space-y-3">
                 <div className="flex items-center gap-2">
                   <Gift className="w-4 h-4 text-neutral-700" />
                   <span className="text-xs font-semibold uppercase tracking-wider text-ink font-mono">
@@ -288,10 +287,10 @@ export const CartDrawer: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => setPackaging('standard')}
-                    className={`p-3 rounded-DEFAULT border text-left transition-all ${
+                    className={`p-3 rounded-[20px] text-left transition-all ${
                       state.packaging === 'standard'
-                        ? 'border-ink bg-blush/40 shadow-xs'
-                        : 'border-steel bg-white hover:bg-neutral-50'
+                        ? 'bg-blush text-ink shadow-xs'
+                        : 'bg-white text-neutral-700 shadow-2xs hover:bg-neutral-50'
                     }`}
                   >
                     <div className="flex justify-between items-center">
@@ -306,10 +305,10 @@ export const CartDrawer: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => setPackaging('gift')}
-                    className={`p-3 rounded-DEFAULT border text-left transition-all ${
+                    className={`p-3 rounded-[20px] text-left transition-all ${
                       state.packaging === 'gift'
-                        ? 'border-ink bg-blush/40 shadow-xs'
-                        : 'border-steel bg-white hover:bg-neutral-50'
+                        ? 'bg-blush text-ink shadow-xs'
+                        : 'bg-white text-neutral-700 shadow-2xs hover:bg-neutral-50'
                     }`}
                   >
                     <div className="flex justify-between items-center">
@@ -335,7 +334,7 @@ export const CartDrawer: React.FC = () => {
                       value={state.giftNote || ''}
                       onChange={(e) => setGiftNote(e.target.value)}
                       placeholder="Tulis pesan spesialmu di sini..."
-                      className="w-full text-xs p-2.5 rounded-DEFAULT border border-steel bg-white focus:outline-none focus:ring-1 focus:ring-ink"
+                      className="w-full text-xs p-2.5 rounded-[16px] bg-white shadow-2xs focus:outline-none focus:ring-1 focus:ring-ink"
                     />
                   </div>
                 )}
@@ -345,7 +344,7 @@ export const CartDrawer: React.FC = () => {
 
           {/* Footer & Checkout Action */}
           {state.items.length > 0 && (
-            <div className="p-6 border-t border-steel bg-white space-y-4">
+            <div className="p-6 bg-white space-y-4 shadow-lg">
               <div className="space-y-1.5 text-xs">
                 <div className="flex justify-between text-neutral-600">
                   <span>Subtotal Produk</span>
@@ -357,7 +356,7 @@ export const CartDrawer: React.FC = () => {
                     <span className="font-mono">+{formatRupiah(GIFT_BOX_PRICE)}</span>
                   </div>
                 )}
-                <div className="flex justify-between text-base font-bold text-ink pt-2 border-t border-steel">
+                <div className="flex justify-between text-base font-bold text-ink pt-2">
                   <span>Total Perkiraan</span>
                   <span className="font-mono text-lg">{formatRupiah(totalPrice)}</span>
                 </div>

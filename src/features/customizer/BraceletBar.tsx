@@ -3,6 +3,7 @@ import { Build, BraceletSize, BRACELET_SIZES } from '../../types';
 import { Slot } from './Slot';
 import { ChevronLeft, ChevronRight, Trash2, X } from 'lucide-react';
 import charmsData from '../../data/charms.json';
+import { ButtonGroup, ButtonGroupItem } from '../../components/ui/ButtonGroup';
 
 interface BraceletBarProps {
   build: Build;
@@ -25,34 +26,30 @@ export const BraceletBar: React.FC<BraceletBarProps> = ({
   const selectedCharmId = selectedSlotIndex !== null ? build.slots[selectedSlotIndex] : null;
   const selectedCharm = selectedCharmId ? charmsData.find((c) => c.id === selectedCharmId) : null;
 
+  const sizeItems: ButtonGroupItem<BraceletSize>[] = (['S', 'M', 'L'] as BraceletSize[]).map((size) => {
+    const config = BRACELET_SIZES[size];
+    return {
+      value: size,
+      label: size,
+      sublabel: `(${config.slots} Links · ${config.circumference})`,
+    };
+  });
+
   return (
-    <div className="w-full bg-white rounded-DEFAULT border border-steel p-6 md:p-8 space-y-6 shadow-sm">
+    <div className="w-full bg-white rounded-[24px] p-6 md:p-8 space-y-6 shadow-md shadow-black/4">
       {/* Top Bar Info: Size Selector and Micro Status */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
           <span className="micro-label text-neutral-500">PILIH UKURAN GELANG</span>
-          <div className="flex items-center gap-2 mt-1.5">
-            {(['S', 'M', 'L'] as BraceletSize[]).map((size) => {
-              const config = BRACELET_SIZES[size];
-              const isSelected = build.size === size;
-              return (
-                <button
-                  key={size}
-                  type="button"
-                  onClick={() => onSetSize(size)}
-                  className={`text-xs font-semibold px-4 py-2 rounded-lg border transition-all ${
-                    isSelected
-                      ? 'bg-ink text-paper border-ink shadow-sm'
-                      : 'bg-paper text-neutral-700 border-steel hover:bg-blush hover:border-steel'
-                  }`}
-                >
-                  <span className="font-bold">{size}</span>
-                  <span className="text-[10px] ml-1.5 opacity-80 font-mono">
-                    ({config.slots} Links · {config.circumference})
-                  </span>
-                </button>
-              );
-            })}
+          <div className="mt-1.5">
+            <ButtonGroup<BraceletSize>
+              items={sizeItems}
+              value={build.size}
+              onChange={onSetSize}
+              size="sm"
+              showCheckmark={true}
+              ariaLabel="Pilih ukuran gelang"
+            />
           </div>
         </div>
 
@@ -67,7 +64,7 @@ export const BraceletBar: React.FC<BraceletBarProps> = ({
       {/* Bracelet Rail: Interactive Chain with Spring-Snap Slots */}
       <div className="relative pt-4 pb-8">
         <div className="w-full overflow-x-auto pb-4 scrollbar-thin scrollbar-thumb-neutral-300">
-          <div className="inline-flex items-center gap-1.5 md:gap-2 px-2 py-4 bg-paper rounded-xl border border-steel min-w-full justify-start md:justify-center">
+          <div className="inline-flex items-center gap-1.5 md:gap-2 px-3 py-4 bg-neutral-100/70 rounded-2xl min-w-full justify-start md:justify-center shadow-inner">
             {build.slots.map((charmId, index) => (
               <Slot
                 key={`slot-${index}`}
@@ -84,7 +81,7 @@ export const BraceletBar: React.FC<BraceletBarProps> = ({
 
       {/* Mobile & Contextual Quick-Action Floating Bar for Selected Slot */}
       {selectedSlotIndex !== null && (
-        <div className="p-3 bg-blush/60 rounded-DEFAULT border border-steel flex flex-wrap items-center justify-between gap-3 text-xs animate-in fade-in duration-200">
+        <div className="p-3 bg-blush/60 rounded-2xl shadow-xs flex flex-wrap items-center justify-between gap-3 text-xs animate-in fade-in duration-200">
           <div className="flex items-center gap-2">
             <span className="w-6 h-6 rounded-full bg-ink text-paper flex items-center justify-center font-mono font-bold text-[10px]">
               {selectedSlotIndex + 1}
@@ -103,7 +100,7 @@ export const BraceletBar: React.FC<BraceletBarProps> = ({
                 onSwapSlots(selectedSlotIndex, selectedSlotIndex - 1);
                 onSelectSlot(selectedSlotIndex - 1);
               }}
-              className="p-1.5 rounded bg-white border border-steel text-neutral-700 hover:bg-neutral-100 disabled:opacity-30 disabled:pointer-events-none flex items-center gap-1"
+              className="p-1.5 rounded-full bg-white shadow-2xs hover:shadow-xs text-neutral-700 hover:bg-neutral-100 disabled:opacity-30 disabled:pointer-events-none flex items-center gap-1"
               title="Geser ke kiri"
             >
               <ChevronLeft className="w-3.5 h-3.5" />
@@ -118,7 +115,7 @@ export const BraceletBar: React.FC<BraceletBarProps> = ({
                 onSwapSlots(selectedSlotIndex, selectedSlotIndex + 1);
                 onSelectSlot(selectedSlotIndex + 1);
               }}
-              className="p-1.5 rounded bg-white border border-steel text-neutral-700 hover:bg-neutral-100 disabled:opacity-30 disabled:pointer-events-none flex items-center gap-1"
+              className="p-1.5 rounded-full bg-white shadow-2xs hover:shadow-xs text-neutral-700 hover:bg-neutral-100 disabled:opacity-30 disabled:pointer-events-none flex items-center gap-1"
               title="Geser ke kanan"
             >
               <span className="text-[11px] hidden sm:inline">Kanan</span>
@@ -130,7 +127,7 @@ export const BraceletBar: React.FC<BraceletBarProps> = ({
               <button
                 type="button"
                 onClick={() => onRemoveCharm(selectedSlotIndex)}
-                className="p-1.5 rounded bg-white border border-steel text-red-600 hover:bg-red-50 flex items-center gap-1"
+                className="p-1.5 rounded-full bg-white shadow-2xs hover:shadow-xs text-red-600 hover:bg-red-50 flex items-center gap-1"
                 title="Hapus charm"
               >
                 <Trash2 className="w-3.5 h-3.5" />

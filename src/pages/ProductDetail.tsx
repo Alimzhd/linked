@@ -54,7 +54,7 @@ export const ProductDetail: React.FC = () => {
   const hasValidImage = Boolean(product.imageUrl && !imgError);
 
   return (
-    <div className="layout-container py-10 md:py-16">
+    <div className="layout-container pt-24 md:pt-28 pb-12">
       {/* Breadcrumbs */}
       <motion.nav
         aria-label="Breadcrumb"
@@ -82,7 +82,7 @@ export const ProductDetail: React.FC = () => {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.5, ease: EASE_MODERN }}
         >
-          <div className="w-full aspect-square rounded-DEFAULT border border-steel bg-white relative overflow-hidden flex items-center justify-center shadow-sm group">
+          <div className="w-full aspect-square rounded-[24px] bg-white relative overflow-hidden flex items-center justify-center shadow-md shadow-black/4 hover:shadow-xl hover:shadow-black/8 transition-shadow group">
             {hasValidImage ? (
               <img
                 src={product.imageUrl}
@@ -101,7 +101,7 @@ export const ProductDetail: React.FC = () => {
                 <CharmSvg symbol={getProductSymbol(product.id)} name={product.name} />
               </div>
             )}
-            <div className="absolute bottom-4 left-4 micro-label text-neutral-500 font-mono bg-white px-2.5 py-1 rounded-DEFAULT border border-steel shadow-xs">
+            <div className="absolute bottom-4 left-4 micro-label text-neutral-500 font-mono bg-white/90 px-3 py-1 rounded-full shadow-xs">
               {hasValidImage ? 'STUDIO PHOTOGRAPHY · 316L STEEL' : 'PREVIEW · 128x128 METALLIC SVG'}
             </div>
           </div>
@@ -116,7 +116,7 @@ export const ProductDetail: React.FC = () => {
         >
           <div className="space-y-4">
             <div className="flex items-center gap-2">
-              <span className="micro-label bg-blush text-ink px-2.5 py-0.5 rounded-full font-bold border border-steel">
+              <span className="micro-label bg-blush text-ink px-2.5 py-0.5 rounded-full font-bold">
                 {product.category}
               </span>
               <span className="micro-label text-neutral-500">
@@ -137,7 +137,7 @@ export const ProductDetail: React.FC = () => {
             </p>
 
             {/* Specs Table */}
-            <div className="pt-4 pb-2 border-t border-b border-steel space-y-2 text-xs">
+            <div className="pt-4 pb-2 space-y-2 text-xs">
               <div className="flex justify-between py-1">
                 <span className="text-neutral-500">Material</span>
                 <span className="font-medium text-ink">{product.material}</span>
@@ -171,14 +171,14 @@ export const ProductDetail: React.FC = () => {
           {/* Add to Cart Actions */}
           <div className="space-y-4 pt-6">
             <div className="flex items-center gap-4">
-              <div className="flex items-center border border-steel rounded-DEFAULT bg-white">
+              <div className="flex items-center rounded-full bg-neutral-100 overflow-hidden shadow-2xs">
                 <button
                   type="button"
                   onClick={() => {
                     soundEngine.playTick();
                     setQty(Math.max(1, qty - 1));
                   }}
-                  className="p-3 text-neutral-600 hover:bg-neutral-100 transition-colors"
+                  className="p-3 text-neutral-600 hover:bg-neutral-200 transition-colors"
                   aria-label="Kurangi kuantitas"
                 >
                   <Minus className="w-4 h-4" />
@@ -190,7 +190,7 @@ export const ProductDetail: React.FC = () => {
                     soundEngine.playTick();
                     setQty(qty + 1);
                   }}
-                  className="p-3 text-neutral-600 hover:bg-neutral-100 transition-colors"
+                  className="p-3 text-neutral-600 hover:bg-neutral-200 transition-colors"
                   aria-label="Tambah kuantitas"
                 >
                   <Plus className="w-4 h-4" />
@@ -217,7 +217,7 @@ export const ProductDetail: React.FC = () => {
 
             {/* Customizer prompt if looking at bracelets */}
             {isBracelet && (
-              <div className="p-4 rounded-DEFAULT bg-blush/50 border border-steel flex items-center justify-between">
+              <div className="p-4 rounded-[20px] bg-blush/40 flex items-center justify-between shadow-xs">
                 <div>
                   <h4 className="text-xs font-bold text-ink">Ingin merakit charm sendiri?</h4>
                   <p className="text-[11px] text-neutral-600 mt-0.5">
@@ -227,7 +227,7 @@ export const ProductDetail: React.FC = () => {
                 <Link
                   to="/customize"
                   onMouseEnter={() => soundEngine.playTick()}
-                  className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-2 bg-ink text-paper rounded-DEFAULT hover:bg-neutral-800 transition-colors shrink-0 shadow-xs"
+                  className="inline-flex items-center gap-1.5 text-xs font-semibold px-4 py-2 bg-ink text-paper rounded-full hover:bg-neutral-800 transition-colors shrink-0 shadow-xs"
                 >
                   <Sparkles className="w-3.5 h-3.5" />
                   <span>Customizer</span>

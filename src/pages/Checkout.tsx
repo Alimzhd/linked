@@ -25,7 +25,7 @@ export const Checkout: React.FC = () => {
   // If cart is empty, redirect or prompt
   if (state.items.length === 0) {
     return (
-      <div className="layout-container py-24 text-center space-y-4">
+      <div className="layout-container pt-24 md:pt-28 pb-12 text-center space-y-4">
         <h2 className="text-2xl font-bold text-ink">Keranjang <span className="accent-serif font-normal">Belanja</span> Kosong</h2>
         <p className="text-sm text-neutral-500">
           Silakan tambahkan produk atau rakit gelang sebelum melanjutkan ke checkout.
@@ -96,7 +96,7 @@ export const Checkout: React.FC = () => {
   };
 
   return (
-    <div className="layout-container py-10 md:py-16 space-y-10">
+    <div className="layout-container pt-24 md:pt-28 pb-12 space-y-10">
       {/* Breadcrumb Navigation */}
       <motion.div
         initial={{ opacity: 0, x: -10 }}
@@ -135,8 +135,8 @@ export const Checkout: React.FC = () => {
         transition={{ duration: 0.5, delay: 0.08, ease: EASE_MODERN }}
       >
         {/* Left Col: Customer Info Form */}
-        <div className="lg:col-span-7 bg-white p-6 md:p-8 rounded-DEFAULT border border-steel shadow-sm space-y-6">
-          <div className="flex items-center justify-between pb-4 border-b border-steel">
+        <div className="lg:col-span-7 bg-white p-6 md:p-8 rounded-[24px] shadow-md shadow-black/4 space-y-6">
+          <div className="flex items-center justify-between pb-2">
             <h2 className="text-base font-bold text-ink">Informasi <span className="accent-serif font-normal">Pengiriman</span></h2>
             <span className="micro-label text-neutral-500">* Wajib Diisi</span>
           </div>
@@ -153,7 +153,7 @@ export const Checkout: React.FC = () => {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Contoh: Sarah Aulia"
-                className="w-full text-sm p-3 rounded-DEFAULT border border-steel bg-paper focus:outline-none focus:ring-1 focus:ring-ink focus:bg-white transition-colors"
+                className="w-full text-sm p-3.5 rounded-full bg-neutral-100 shadow-2xs focus:outline-none focus:ring-2 focus:ring-ink focus:bg-white transition-colors"
               />
             </div>
 
@@ -168,7 +168,7 @@ export const Checkout: React.FC = () => {
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 placeholder="Contoh: 081234567890"
-                className="w-full text-sm p-3 rounded-DEFAULT border border-steel bg-paper focus:outline-none focus:ring-1 focus:ring-ink focus:bg-white transition-colors"
+                className="w-full text-sm p-3.5 rounded-full bg-neutral-100 shadow-2xs focus:outline-none focus:ring-2 focus:ring-ink focus:bg-white transition-colors"
               />
             </div>
 
@@ -183,7 +183,7 @@ export const Checkout: React.FC = () => {
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
                 placeholder="Jalan, Nomor Rumah, RT/RW, Kelurahan, Kecamatan, Kota/Kabupaten, Kode Pos"
-                className="w-full text-sm p-3 rounded-DEFAULT border border-steel bg-paper focus:outline-none focus:ring-1 focus:ring-ink focus:bg-white transition-colors"
+                className="w-full text-sm p-3.5 rounded-[20px] bg-neutral-100 shadow-2xs focus:outline-none focus:ring-2 focus:ring-ink focus:bg-white transition-colors"
               />
             </div>
 
@@ -197,7 +197,7 @@ export const Checkout: React.FC = () => {
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
                 placeholder="Contoh: Titipkan di pos satpam atau instruksi kurir"
-                className="w-full text-sm p-3 rounded-DEFAULT border border-steel bg-paper focus:outline-none focus:ring-1 focus:ring-ink focus:bg-white transition-colors"
+                className="w-full text-sm p-3.5 rounded-full bg-neutral-100 shadow-2xs focus:outline-none focus:ring-2 focus:ring-ink focus:bg-white transition-colors"
               />
             </div>
 
@@ -206,16 +206,17 @@ export const Checkout: React.FC = () => {
                 type="submit"
                 variant="primary"
                 size="lg"
+                isLoading={isSubmitting}
                 disabled={isSubmitting || !name || !phone || !address}
                 className="w-full justify-center shadow-md font-bold"
               >
-                <MessageSquare className="w-4 h-4 mr-1 text-emerald-400" />
-                <span>Kirim Pesanan ke WhatsApp Official</span>
+                {!isSubmitting && <MessageSquare className="w-4 h-4 mr-1 text-emerald-400" />}
+                <span>{isSubmitting ? 'Memproses Pesanan...' : 'Kirim Pesanan ke WhatsApp Official'}</span>
               </Button>
             </div>
           </form>
 
-          <div className="pt-4 border-t border-steel/60 flex items-center gap-2 text-xs text-neutral-500 font-mono">
+          <div className="pt-4 flex items-center gap-2 text-xs text-neutral-500 font-mono">
             <ShieldCheck className="w-4 h-4 text-neutral-600" />
             <span>Pemesanan aman terhubung langsung ke WhatsApp tim resmi LINKED!.</span>
           </div>
@@ -223,10 +224,10 @@ export const Checkout: React.FC = () => {
 
         {/* Right Col: Order Summary Box */}
         <div className="lg:col-span-5 space-y-6">
-          <div className="bg-white p-6 md:p-8 rounded-DEFAULT border border-steel shadow-sm space-y-6">
-            <div className="flex items-center justify-between pb-4 border-b border-steel">
+          <div className="bg-white p-6 md:p-8 rounded-[24px] shadow-md shadow-black/4 space-y-6">
+            <div className="flex items-center justify-between pb-2">
               <h2 className="text-base font-bold text-ink">Rincian <span className="accent-serif font-normal">Barang</span></h2>
-              <span className="micro-label bg-blush text-ink px-2 py-0.5 rounded font-bold">
+              <span className="micro-label bg-blush text-ink px-2.5 py-0.5 rounded-full font-bold">
                 {state.items.length} Macam
               </span>
             </div>
@@ -237,7 +238,7 @@ export const Checkout: React.FC = () => {
                   const product = productsData.find((p) => p.id === item.productId);
                   if (!product) return null;
                   return (
-                    <div key={`summary-prod-${idx}`} className="flex justify-between items-start text-xs pb-3 border-b border-steel/60">
+                    <div key={`summary-prod-${idx}`} className="flex justify-between items-start text-xs pb-3">
                       <div>
                         <p className="font-semibold text-ink">{product.name}</p>
                         <p className="text-neutral-500 text-[11px] mt-0.5">Kuantitas: {item.qty} pcs</p>
@@ -252,7 +253,7 @@ export const Checkout: React.FC = () => {
                 // Custom bracelet item
                 const summary = getCustomBuildSummary(item.build.slots);
                 return (
-                  <div key={`summary-custom-${idx}`} className="space-y-1 text-xs pb-3 border-b border-steel/60">
+                  <div key={`summary-custom-${idx}`} className="space-y-1 text-xs pb-3">
                     <div className="flex justify-between items-start">
                       <p className="font-bold text-ink">Gelang Custom (Size {item.build.size})</p>
                       <span className="font-mono font-bold text-ink">
@@ -267,7 +268,7 @@ export const Checkout: React.FC = () => {
             </div>
 
             {/* Packaging and Totals */}
-            <div className="space-y-2 pt-2 border-t border-steel text-xs">
+            <div className="space-y-2 pt-2 text-xs">
               <div className="flex justify-between text-neutral-600">
                 <span>Subtotal Produk</span>
                 <span className="font-mono">{formatRupiah(subtotal)}</span>
@@ -281,11 +282,11 @@ export const Checkout: React.FC = () => {
                 </span>
               </div>
               {state.packaging === 'gift' && state.giftNote && (
-                <div className="p-2 bg-paper rounded border border-steel text-[11px] text-neutral-600 italic">
+                <div className="p-3 bg-neutral-100/70 rounded-[14px] text-[11px] text-neutral-600 italic">
                   "{state.giftNote}"
                 </div>
               )}
-              <div className="flex justify-between text-base font-extrabold text-ink pt-3 border-t border-steel">
+              <div className="flex justify-between text-base font-extrabold text-ink pt-3">
                 <span>Total Biaya</span>
                 <span className="font-mono text-xl">{formatRupiah(totalPrice)}</span>
               </div>

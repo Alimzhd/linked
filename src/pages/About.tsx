@@ -37,7 +37,7 @@ export const About: React.FC = () => {
   ];
 
   return (
-    <div className="layout-container py-12 md:py-20 space-y-20 md:space-y-28 overflow-hidden">
+    <div className="layout-container pt-24 md:pt-28 pb-12 space-y-16 md:space-y-24 overflow-hidden">
       {/* 1. Brand Narrative Hero with Living Staggered Editorial Entrance */}
       <div className="space-y-6 max-w-3xl">
         <div className="overflow-hidden">
@@ -72,7 +72,7 @@ export const About: React.FC = () => {
             to="/customize"
             data-cursor="Build"
             onMouseEnter={() => soundEngine.playHover()}
-            className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider bg-ink text-paper px-5 py-3 rounded-DEFAULT hover:bg-neutral-800 transition-all hover:shadow-md"
+            className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider bg-ink text-paper px-6 py-3 rounded-full hover:bg-neutral-800 transition-all hover:shadow-md"
           >
             <Sparkles className="w-3.5 h-3.5" />
             <span>Rakit Gelang Pertamamu</span>
@@ -90,9 +90,9 @@ export const About: React.FC = () => {
       {/* 2. Why Italian Bracelet (Concrete comparison) with Staggered Viewport Entrance */}
       <section className="space-y-8">
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.2 }}
+          viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
           className="max-w-xl space-y-2"
         >
@@ -103,12 +103,12 @@ export const About: React.FC = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <motion.div
-            initial={{ opacity: 0, y: 35, scale: 0.96 }}
+            initial={{ opacity: 0, y: 25, scale: 0.98 }}
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
-            viewport={{ once: false, amount: 0.15 }}
+            viewport={{ once: true, amount: 0.15 }}
             transition={{ duration: 0.55, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
             onMouseEnter={() => soundEngine.playHover()}
-            className="p-8 rounded-DEFAULT bg-white border border-steel space-y-4 shadow-xs hover:shadow-lg hover:border-neutral-400 transition-all duration-300"
+            className="p-8 rounded-tl-[36px] rounded-br-[36px] rounded-tr-[16px] rounded-bl-[16px] bg-white space-y-4 shadow-md shadow-black/4 hover:shadow-xl hover:shadow-black/8 transition-shadow duration-300"
           >
             <div className="flex items-center gap-3">
               <span className="w-8 h-8 rounded-full bg-blush flex items-center justify-center text-ink font-bold font-mono text-xs shadow-xs">
@@ -122,15 +122,15 @@ export const About: React.FC = () => {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 35, scale: 0.96 }}
+            initial={{ opacity: 0, y: 25, scale: 0.98 }}
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
-            viewport={{ once: false, amount: 0.15 }}
+            viewport={{ once: true, amount: 0.15 }}
             transition={{ duration: 0.55, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
             onMouseEnter={() => soundEngine.playHover()}
-            className="p-8 rounded-DEFAULT bg-white border border-steel space-y-4 shadow-xs hover:shadow-lg hover:border-neutral-400 transition-all duration-300"
+            className="p-8 rounded-tr-[36px] rounded-bl-[36px] rounded-tl-[16px] rounded-br-[16px] bg-white space-y-4 shadow-md shadow-black/4 hover:shadow-xl hover:shadow-black/8 transition-shadow duration-300"
           >
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-full bg-paper border border-steel flex items-center justify-center text-ink shadow-xs">
+              <div className="w-8 h-8 rounded-full bg-paper flex items-center justify-center text-ink shadow-xs">
                 <ShieldCheck className="w-4 h-4" />
               </div>
               <h3 className="text-lg font-bold text-ink"><span className="accent-serif font-normal italic">Surgical</span> Grade Stainless Steel 316L</h3>
@@ -145,9 +145,9 @@ export const About: React.FC = () => {
       {/* 3. 3-Step Assembly Guide with Interactive Progression Cards */}
       <section className="space-y-10">
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.2 }}
+          viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
           className="max-w-xl space-y-2"
         >
@@ -160,45 +160,52 @@ export const About: React.FC = () => {
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {assemblySteps.map((step, idx) => (
-            <motion.div
-              key={step.step}
-              initial={{ opacity: 0, y: 35, scale: 0.95 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: false, amount: 0.15 }}
-              transition={{ duration: 0.55, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
-              onMouseEnter={() => soundEngine.playHover()}
-              className="group p-6 md:p-8 rounded-DEFAULT bg-white border border-steel space-y-5 flex flex-col justify-between shadow-xs hover:shadow-lg hover:border-neutral-400 transition-all duration-300 relative overflow-hidden"
-            >
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <span className="text-3xl font-extrabold font-mono text-neutral-300 group-hover:text-ink transition-colors duration-300">
-                    {step.step}
-                  </span>
-                  <div className="w-12 h-12 p-1 rounded-DEFAULT border border-steel bg-paper group-hover:rotate-6 transition-transform duration-300 shadow-xs">
-                    <CharmSvg symbol={step.symbol} />
+          {assemblySteps.map((step, idx) => {
+            const stepShapes = [
+              'rounded-tl-[36px] rounded-br-[36px] rounded-tr-[16px] rounded-bl-[16px]',
+              'rounded-tr-[36px] rounded-bl-[36px] rounded-tl-[16px] rounded-br-[16px]',
+              'rounded-t-[36px] rounded-b-[16px]',
+            ];
+            return (
+              <motion.div
+                key={step.step}
+                initial={{ opacity: 0, y: 25, scale: 0.98 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{ duration: 0.55, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                onMouseEnter={() => soundEngine.playHover()}
+                className={`group p-6 md:p-8 ${stepShapes[idx]} bg-white space-y-5 flex flex-col justify-between shadow-md shadow-black/4 hover:shadow-xl hover:shadow-black/8 transition-shadow duration-300 relative overflow-hidden`}
+              >
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <span className="text-3xl font-extrabold font-mono text-neutral-300 group-hover:text-ink transition-colors duration-300">
+                      {step.step}
+                    </span>
+                    <div className="w-12 h-12 p-1 rounded-[16px] bg-neutral-100 group-hover:rotate-6 transition-transform duration-300 shadow-xs flex items-center justify-center">
+                      <CharmSvg symbol={step.symbol} />
+                    </div>
                   </div>
+                  <h3 className="text-base font-bold text-ink">{step.title}</h3>
+                  <p className="text-xs md:text-sm text-neutral-600 leading-relaxed">{step.desc}</p>
                 </div>
-                <h3 className="text-base font-bold text-ink">{step.title}</h3>
-                <p className="text-xs md:text-sm text-neutral-600 leading-relaxed">{step.desc}</p>
-              </div>
 
-              <div className="pt-2 border-t border-steel/60 micro-label text-neutral-400 font-mono flex items-center justify-between">
-                <span>LANGKAH {step.step}</span>
-                <span className="text-neutral-500">TUTORIAL</span>
-              </div>
-            </motion.div>
-          ))}
+                <div className="pt-2 micro-label text-neutral-400 font-mono flex items-center justify-between">
+                  <span>LANGKAH {step.step}</span>
+                  <span className="text-neutral-500">TUTORIAL</span>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
       </section>
 
       {/* 4. Packaging & Gift Options with Tactile Presence */}
       <motion.section
-        initial={{ opacity: 0, y: 35, scale: 0.96 }}
+        initial={{ opacity: 0, y: 25, scale: 0.98 }}
         whileInView={{ opacity: 1, y: 0, scale: 1 }}
-        viewport={{ once: false, amount: 0.2 }}
+        viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-        className="rounded-DEFAULT border border-steel bg-blush/30 p-8 md:p-14 space-y-8"
+        className="rounded-tl-[44px] rounded-br-[44px] rounded-tr-[24px] rounded-bl-[24px] bg-blush/40 p-8 md:p-14 space-y-8 shadow-sm"
       >
         <div className="max-w-xl space-y-2">
           <h2 className="text-2xl md:text-4xl font-extrabold text-ink tracking-tight">
@@ -211,11 +218,11 @@ export const About: React.FC = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <motion.div
-            initial={{ opacity: 0, y: 25, scale: 0.95 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-            viewport={{ once: false, amount: 0.2 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.5, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
-            className="p-6 rounded-DEFAULT bg-white border border-steel space-y-3 shadow-xs hover:shadow-md transition-all"
+            className="p-6 rounded-tl-[28px] rounded-br-[28px] rounded-tr-[14px] rounded-bl-[14px] bg-white space-y-3 shadow-md shadow-black/4 hover:shadow-xl hover:shadow-black/8 transition-shadow"
           >
             <div className="flex items-center justify-between">
               <h3 className="text-base font-bold text-ink">Standard <span className="accent-serif font-normal italic">Canvas</span> Pouch</h3>
@@ -229,11 +236,11 @@ export const About: React.FC = () => {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 25, scale: 0.95 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-            viewport={{ once: false, amount: 0.2 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.5, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
-            className="p-6 rounded-DEFAULT bg-white border border-neutral-400 space-y-3 shadow-xs hover:shadow-md transition-all"
+            className="p-6 rounded-tr-[28px] rounded-bl-[28px] rounded-tl-[14px] rounded-br-[14px] bg-white space-y-3 shadow-md shadow-black/4 hover:shadow-xl hover:shadow-black/8 transition-shadow"
           >
             <div className="flex items-center justify-between">
               <h3 className="text-base font-bold text-ink">Signature <span className="accent-serif font-normal italic">Gift</span> Box Set</h3>
@@ -251,9 +258,9 @@ export const About: React.FC = () => {
       {/* 5. Accordion FAQ Section with Smooth Spring Toggle */}
       <section id="faq" className="space-y-8 scroll-mt-28">
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.2 }}
+          viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           className="max-w-xl space-y-2"
         >
@@ -263,16 +270,16 @@ export const About: React.FC = () => {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 30, scale: 0.97 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          viewport={{ once: false, amount: 0.15 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.15 }}
           transition={{ duration: 0.65, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
-          className="border border-steel rounded-DEFAULT bg-white divide-y divide-steel overflow-hidden shadow-xs"
+          className="rounded-[24px] bg-white overflow-hidden shadow-md shadow-black/4 space-y-1 p-2"
         >
           {(faqData as FAQItem[]).map((item, idx) => {
             const isOpen = openFaqIndex === idx;
             return (
-              <div key={idx} className="transition-colors">
+              <div key={idx} className="transition-colors rounded-2xl overflow-hidden">
                 <button
                   type="button"
                   onClick={() => toggleFaq(idx)}
@@ -297,7 +304,7 @@ export const About: React.FC = () => {
                       transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                       className="overflow-hidden"
                     >
-                      <div className="px-5 pb-6 md:px-6 md:pb-6 text-xs md:text-sm text-neutral-600 leading-relaxed border-t border-neutral-100/60 pt-2">
+                      <div className="px-5 pb-6 md:px-6 md:pb-6 text-xs md:text-sm text-neutral-600 leading-relaxed pt-1">
                         {item.answer}
                       </div>
                     </motion.div>

@@ -28,7 +28,7 @@ export const MarqueeTicker: React.FC<MarqueeTickerProps> = ({
 
   if (reduceMotion) {
     return (
-      <div className={`w-full overflow-hidden border-y border-steel bg-paper py-3 select-none ${className}`}>
+      <div className={`w-full overflow-hidden bg-neutral-100/70 py-3 select-none ${className}`}>
         <div className="flex flex-wrap items-center justify-center gap-6 px-4">
           {items.slice(0, 4).map((text, idx) => (
             <div key={idx} className="flex items-center gap-3">
@@ -45,7 +45,7 @@ export const MarqueeTicker: React.FC<MarqueeTickerProps> = ({
 
   return (
     <div
-      className={`relative w-full overflow-hidden border-y border-steel bg-paper py-3.5 select-none ${className}`}
+      className={`relative w-full overflow-hidden bg-neutral-100/70 py-3.5 select-none ${className}`}
       aria-hidden="true"
     >
       {/* Side gradient fade masks */}

@@ -6,6 +6,7 @@ import { CharmSvg } from '../../components/CharmSvg';
 import { formatRupiah } from '../../lib/format-rupiah';
 import { Plus } from 'lucide-react';
 import { useMotionEngine } from '../../engine/MotionEngine';
+import { ButtonGroup } from '../../components/ui/ButtonGroup';
 
 interface DraggableCharmCardProps {
   charm: Charm;
@@ -39,10 +40,10 @@ const DraggableCharmCard: React.FC<DraggableCharmCardProps> = ({ charm, onSelect
           onSelect(charm.id);
         }
       }}
-      className={`group relative p-3 rounded-DEFAULT border bg-white flex flex-col items-center justify-between transition-all duration-200 select-none ${
+      className={`group relative p-3 rounded-[20px] bg-[#F4F6FA] flex flex-col items-center justify-between transition-all duration-200 select-none ${
         !charm.inStock
-          ? 'opacity-40 cursor-not-allowed border-steel bg-neutral-100'
-          : 'cursor-grab active:cursor-grabbing border-steel hover:border-neutral-400 hover:shadow-md hover:-translate-y-0.5'
+          ? 'opacity-40 cursor-not-allowed bg-neutral-100'
+          : 'cursor-grab active:cursor-grabbing shadow-2xs hover:shadow-md hover:bg-white hover:-translate-y-0.5'
       }`}
     >
       {/* Out of Stock Label */}
@@ -58,7 +59,7 @@ const DraggableCharmCard: React.FC<DraggableCharmCardProps> = ({ charm, onSelect
       </div>
 
       {/* Charm Info */}
-      <div className="w-full text-center mt-2 pt-2 border-t border-steel/60">
+      <div className="w-full text-center mt-2 pt-2">
         <h4 className="text-xs font-semibold text-ink truncate" title={charm.name}>
           {charm.name}
         </h4>
@@ -104,14 +105,16 @@ export const CharmLibrary: React.FC<CharmLibraryProps> = ({ onSelectCharm }) => 
     { id: 'letter', label: 'Inisial Huruf' },
   ];
 
+  const tabItems = tabs.map((t) => ({ value: t.id, label: t.label }));
+
   const filteredCharms = (charmsData as Charm[]).filter((c) => {
     if (activeTab === 'all') return true;
     return c.category === activeTab;
   });
 
   return (
-    <div className="w-full bg-white rounded-DEFAULT border border-steel p-6 md:p-8 space-y-6 shadow-sm">
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-4 border-b border-steel">
+    <div className="w-full bg-white rounded-[24px] p-6 md:p-8 space-y-6 shadow-md shadow-black/4">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-2">
         <div>
           <h3 className="text-base font-bold text-ink tracking-tight">Koleksi <span className="accent-serif font-normal">Pustaka</span> Charm</h3>
           <p className="text-xs text-neutral-500 mt-0.5">
@@ -119,31 +122,18 @@ export const CharmLibrary: React.FC<CharmLibraryProps> = ({ onSelectCharm }) => 
           </p>
         </div>
 
-        {/* Tab Filters */}
-        <div className="flex flex-wrap items-center gap-1.5" role="tablist">
-          {tabs.map((tab) => {
-            const isSelected = activeTab === tab.id;
-            return (
-              <button
-                key={tab.id}
-                type="button"
-                role="tab"
-                aria-selected={isSelected}
-                onClick={() => {
-                  setActiveTab(tab.id);
-                  triggerHalftone('category');
-                }}
-                className={`text-xs font-semibold px-3 py-1.5 rounded-full border transition-all ${
-                  isSelected
-                    ? 'bg-ink text-paper border-ink shadow-sm'
-                    : 'bg-paper text-neutral-600 border-steel hover:bg-blush hover:border-steel'
-                }`}
-              >
-                {tab.label}
-              </button>
-            );
-          })}
-        </div>
+        {/* Tab Filters using M3 Expressive Segmented Button Group */}
+        <ButtonGroup
+          items={tabItems}
+          value={activeTab}
+          onChange={(id) => {
+            setActiveTab(id);
+            triggerHalftone('category');
+          }}
+          size="sm"
+          showCheckmark={true}
+          ariaLabel="Filter kategori charm"
+        />
       </div>
 
       {/* Grid of Draggable Charms */}

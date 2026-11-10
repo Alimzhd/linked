@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight, Sparkles } from 'lucide-react';
 import { Button } from '../Button';
@@ -24,8 +24,18 @@ export function AsciiHalftoneHero() {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const sampleRef = useRef<HTMLCanvasElement | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
 
-  // Scroll-linked continuous transforms (dynamic outro as user scrolls away)
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(typeof window !== 'undefined' && window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Scroll-linked continuous transforms (dynamic outro as user scrolls away on desktop)
   const { scrollY } = useScroll();
   const textY = useTransform(scrollY, [0, 480], [0, -75]);
   const textOpacity = useTransform(scrollY, [0, 400], [1, 0.15]);
@@ -67,12 +77,38 @@ export function AsciiHalftoneHero() {
       display.fillStyle = '#F9F9FB';
       display.fillRect(0, 0, width, height);
 
+      const isMobileView = width < 768;
+      const cellW = isMobileView ? 9 : CELL_W;
+      const cellH = isMobileView ? 10 : CELL_H;
+
       // Downsample video to kinetic matrix grid
-      const cols = Math.max(16, Math.floor(width / CELL_W));
-      const rows = Math.max(12, Math.floor(height / CELL_H));
+      const cols = Math.max(16, Math.floor(width / cellW));
+      const rows = Math.max(12, Math.floor(height / cellH));
       sampleCanvas.width = cols;
       sampleCanvas.height = rows;
-      sample.drawImage(video, 0, 0, cols, rows);
+
+      // Preserve video aspect ratio (object-fit: cover logic) to prevent stretching on mobile
+      const vWidth = video.videoWidth || 1920;
+      const vHeight = video.videoHeight || 1080;
+      const vRatio = vWidth / vHeight;
+      const canvasRatio = width / height;
+
+      let sx = 0;
+      let sy = 0;
+      let sWidth = vWidth;
+      let sHeight = vHeight;
+
+      if (canvasRatio > vRatio) {
+        // Screen is wider than video (desktop/ultrawide)
+        sHeight = vWidth / canvasRatio;
+        sy = (vHeight - sHeight) / 2;
+      } else {
+        // Screen is taller than video (mobile portrait)
+        sWidth = vHeight * canvasRatio;
+        sx = (vWidth - sWidth) / 2;
+      }
+
+      sample.drawImage(video, sx, sy, sWidth, sHeight, 0, 0, cols, rows);
 
       let pixels: Uint8ClampedArray;
       try {
@@ -86,10 +122,13 @@ export function AsciiHalftoneHero() {
       const currentTime = video.currentTime % 12;
       const mode = Math.floor(currentTime / 4); // 0 | 1 | 2
 
-      // On wide desktop screens, center the bracelet in the right 55% of the viewport
+      // Spatial offsets: on desktop push right, on mobile position slightly below header text
       const centerOffsetX = width >= 1024 ? Math.floor(width * 0.16) : 0;
+      const centerOffsetY = isMobileView ? Math.floor(height * 0.08) : 0;
 
-      display.font = `10px "Geist Mono", ui-monospace, monospace`;
+      display.font = isMobileView
+        ? `11px "Geist Mono", ui-monospace, monospace`
+        : `10px "Geist Mono", ui-monospace, monospace`;
       display.textBaseline = 'middle';
       display.textAlign = 'center';
 
@@ -102,17 +141,17 @@ export function AsciiHalftoneHero() {
           // Skip background threshold (video background is black, so luma < 0.04)
           if (luma < 0.04) continue;
 
-          const posX = x * CELL_W + CELL_W / 2 + centerOffsetX;
-          const posY = y * CELL_H + CELL_H / 2;
+          const posX = x * cellW + cellW / 2 + centerOffsetX;
+          const posY = y * cellH + cellH / 2 + centerOffsetY;
 
-          // Don't draw past screen right edge
-          if (posX > width + CELL_W) continue;
+          // Don't draw past screen boundary
+          if (posX > width + cellW || posY > height + cellH) continue;
 
           const alpha = Math.min(1, 0.22 + luma * 0.82);
 
           if (mode === 0) {
             // Mode 0: Halftone Dots
-            const radius = Math.sqrt(luma) * (CELL_W * 0.5);
+            const radius = Math.sqrt(luma) * (cellW * (isMobileView ? 0.44 : 0.5));
             display.fillStyle = `rgba(18, 18, 18, ${alpha})`;
             display.beginPath();
             display.arc(posX, posY, radius, 0, Math.PI * 2);
@@ -128,7 +167,7 @@ export function AsciiHalftoneHero() {
             }
           } else {
             // Mode 2: Luminous Pixel Squares
-            const size = (0.22 + Math.sqrt(luma) * 0.74) * CELL_W;
+            const size = (0.22 + Math.sqrt(luma) * 0.74) * cellW;
             display.fillStyle = `rgba(18, 18, 18, ${alpha})`;
             display.fillRect(posX - size / 2, posY - size / 2, size, size);
           }
@@ -200,7 +239,7 @@ export function AsciiHalftoneHero() {
   }, [reduceMotion]);
 
   return (
-    <section className="relative isolate min-h-[88vh] w-full overflow-hidden bg-paper text-ink border-b border-steel">
+    <section className="relative isolate min-h-[85dvh] sm:min-h-[88vh] w-full overflow-hidden bg-paper text-ink">
       {/* Offscreen / Hidden source video element providing 24-60 FPS frames */}
       <video
         ref={videoRef}
@@ -221,16 +260,16 @@ export function AsciiHalftoneHero() {
         aria-hidden="true"
       />
 
-      {/* Subtle white/paper gradient overlay protecting typography on left */}
-      <div className="pointer-events-none absolute inset-y-0 left-0 w-full lg:w-3/5 bg-gradient-to-r from-paper via-paper/85 to-transparent z-[5]" />
+      {/* Dynamic paper gradient overlay: vertical on mobile so typography remains 100% legible, horizontal on desktop */}
+      <div className="pointer-events-none absolute inset-0 lg:w-3/5 bg-gradient-to-b from-paper/95 via-paper/85 to-paper/30 lg:bg-gradient-to-r lg:from-paper lg:via-paper/85 lg:to-transparent z-[5]" />
 
-      <div className="relative z-10 mx-auto flex min-h-[88vh] w-full max-w-6xl flex-col justify-center px-6 py-16 md:px-10">
+      <div className="relative z-10 mx-auto flex min-h-[85dvh] sm:min-h-[88vh] w-full max-w-6xl flex-col justify-center px-5 py-12 sm:px-8 md:px-10">
         <motion.div
-          style={reduceMotion ? undefined : { y: textY, opacity: textOpacity, scale: textScale }}
-          className="max-w-xl space-y-6"
+          style={reduceMotion || isMobile ? undefined : { y: textY, opacity: textOpacity, scale: textScale }}
+          className="max-w-xl space-y-4 sm:space-y-6"
         >
           {/* Headline Split-line Mask for dramatic typographic reveal */}
-          <h1 className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-ink">
+          <h1 className="text-3xl sm:text-5xl md:text-7xl font-extrabold tracking-tight text-ink">
             <span className="block overflow-hidden">
               <motion.span
                 className="block"
@@ -241,7 +280,7 @@ export function AsciiHalftoneHero() {
                 LINKED!
               </motion.span>
             </span>
-            <span className="mt-2 block font-serif text-3xl font-normal italic text-neutral-800 sm:text-4xl md:text-5xl overflow-hidden">
+            <span className="mt-1.5 sm:mt-2 block font-serif text-2xl font-normal italic text-neutral-800 sm:text-4xl md:text-5xl overflow-hidden">
               <motion.span
                 className="block"
                 initial={reduceMotion ? false : { y: '100%', opacity: 0 }}
@@ -259,24 +298,24 @@ export function AsciiHalftoneHero() {
               initial={reduceMotion ? false : { y: '100%', opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.7, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
-              className="max-w-md text-sm md:text-base leading-relaxed text-neutral-600"
+              className="max-w-md text-xs sm:text-sm md:text-base leading-relaxed text-neutral-600"
             >
               Presisi modular baja 316L Italia. Pasang dan tukar charm tanpa alat langsung di atas kanvas 18-slot kustommu.
             </motion.p>
           </div>
 
-          {/* Staggered Spring CTA Buttons */}
+          {/* Staggered Spring CTA Buttons: full width on mobile for easy tap targets */}
           <motion.div
             initial={reduceMotion ? false : { opacity: 0, y: 22 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
-            className="flex flex-wrap items-center gap-3 pt-3"
+            className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2 sm:pt-3 w-full sm:w-auto"
           >
             <Button
               type="button"
               variant="primary"
               size="lg"
-              className="shadow-sm hover:shadow-md"
+              className="shadow-sm hover:shadow-md w-full sm:w-auto justify-center"
               onClick={() => {
                 soundEngine.playClick();
                 scrollToId('customizer');
@@ -289,7 +328,7 @@ export function AsciiHalftoneHero() {
               type="button"
               variant="secondary"
               size="lg"
-              className="border-steel bg-white text-ink hover:bg-neutral-50 shadow-xs"
+              className="bg-white text-ink hover:bg-neutral-50 shadow-xs w-full sm:w-auto justify-center"
               onClick={() => {
                 soundEngine.playClick();
                 scrollToId('catalog');
